@@ -40,6 +40,6 @@ public partial class AddEditWorker
         else
             await ServiceManager.WorkerService.UpdateWorker(workerDto);
 
-        DialogService.Close(true);
+        Cancel();
     }
 }

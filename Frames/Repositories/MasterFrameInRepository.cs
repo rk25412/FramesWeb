@@ -9,17 +9,15 @@ public class MasterFrameInRepository(AppDbContext dbContext)
 {
     public async Task<List<MasterFrameIn>> GetMasterFrameIns(int month, int year, bool trackChanges)
         => await FindByCondition(x => x.DateTime.Month == month && x.DateTime.Year == year, trackChanges)
+            .OrderByDescending(x => x.DateTime)
             .ToListAsync();
 
     public async Task<List<MasterFrameIn>> GetMasterFrameIns(DateOnly date, bool trackChanges)
-    {
-        var minDate = new DateTime(date.Year, date.Month, 1).AddDays(-1);
-        var maxDate = new DateTime(date.Year, date.Month, 1).AddMonths(1);
-        return await FindByCondition(x => x.DateTime > minDate && x.DateTime < maxDate, trackChanges).ToListAsync();
-    }
+        => await FindByCondition(x => DateOnly.FromDateTime(x.DateTime) == date, trackChanges)
+            .OrderByDescending(x => x.DateTime).ToListAsync();
 
     public async Task<MasterFrameIn?> GetMasterFrameIn(int id, bool trackChanges)
-     => await FindByCondition(x => x.Id == id, trackChanges).SingleOrDefaultAsync();
+        => await FindByCondition(x => x.Id == id, trackChanges).SingleOrDefaultAsync();
 
     public void CreateMasterFrameIn(MasterFrameIn masterFrameIn) => Create(masterFrameIn);
     public void CreateMultipleMasterFrameIns(List<MasterFrameIn> masterFrameIns) => masterFrameIns.ForEach(Create);

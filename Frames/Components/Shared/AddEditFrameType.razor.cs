@@ -40,6 +40,6 @@ public partial class AddEditFrameType
         else
             await ServiceManager.FrameTypeService.UpdateFrameType(newFrameType);
 
-        DialogService.Close(true);
+        Cancel();
     }
 }

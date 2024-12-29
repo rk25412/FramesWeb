@@ -2,7 +2,9 @@ namespace Frames.Contracts.Services;
 
 public interface IMasterFrameInService
 {
-    Task<List<FrameInDto>> GetMasterFramesIn(int month, int year);
+    Task<List<FrameInDto>> GetMasterFrameIns(int month, int year);
     Task<FrameInDto> GetMasterFrameIn(DateOnly date);
-    Task CreateOrUpdateMasterFrameIn(List<FrameInDto> frameInDtos);
+    Task CreateOrUpdateMasterFrameIn(FrameInDto frameInDto);
+    Task DeleteMasterFrameIn(DateOnly date);
+    Task DeleteMasterFrameIn(List<int> ids);
 }

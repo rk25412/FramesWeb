@@ -45,7 +45,7 @@ public static class Converters
             Date = DateOnly.FromDateTime(frameIn.First().DateTime)
         };
         result.InItems.AddRange(frameIn.Select(x => new FrameInTimeAndCount()
-            { Id = x.Id, Time = TimeOnly.FromDateTime(x.DateTime), Count = x.FrameCount }));
+            { Id = x.Id, Time = TimeOnly.FromDateTime(x.DateTime), Count = x.FrameCount }).OrderBy(x => x.Time));
         return result;
     }
 }

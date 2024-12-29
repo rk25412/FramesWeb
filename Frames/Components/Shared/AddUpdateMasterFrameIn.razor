@@ -1,0 +1,53 @@
+<RadzenTemplateForm TItem="FrameInDto" Data="_frameInDto" Submit="OnSubmit">
+    <RadzenRow Gap="1rem">
+        <RadzenColumn Size="12">
+            <RadzenDatePicker @bind-Value="Date" Max="DateTime.Today" Name="EntryDate" Change="OnDateChange"/>
+            @if (_frameInDto.InItems.Count > 0)
+            {
+                <RadzenButton Text="Add Record" class="float-end" Click="OnAddRecordClick"/>
+            }
+        </RadzenColumn>
+    </RadzenRow>
+    <div class="mt-2">
+        @if (_frameInDto.InItems.Count is 0)
+        {
+            <div class="text-center mt-5">
+                <p class="text-center">No Records Found</p>
+                <RadzenButton Text="Add Record" Click="OnAddRecordClick"/>
+            </div>
+        }
+        else
+        {
+            <RadzenDataGrid @ref="_lineItemsGrid" Data="_frameInDto.InItems" AllowSorting="false"
+                            AllowFiltering="false">
+                <Columns>
+                    <RadzenDataGridColumn Title="Delete">
+                        <Template Context="data">
+                            <RadzenButton ButtonType="ButtonType.Button" Size="ButtonSize.Medium"
+                                          ButtonStyle="ButtonStyle.Danger" Icon="delete"
+                                          Click="() => OnRemoveRecordClick(data)"/>
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn Title="Time" TextAlign="TextAlign.Center">
+                        <Template Context="data">
+                            <RadzenDatePicker @bind-Value="@data.Time" ShowTime="true" TimeOnly="true"
+                                              DateFormat="HH:mm"/>
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn Title="Count" TextAlign="TextAlign.Center">
+                        <Template Context="data">
+                            <RadzenNumeric @bind-Value="data.Count" Min="1"/>
+                        </Template>
+                    </RadzenDataGridColumn>
+                </Columns>
+            </RadzenDataGrid>
+
+            <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" Gap="1rem"
+                         class="rz-mt-8 rz-mb-4">
+                <RadzenButton ButtonType="ButtonType.Submit" Size="ButtonSize.Large" Icon="save" Text="Save"/>
+                <RadzenButton ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Large"
+                              Icon="cancel" Text="Cancel" Click="Cancel"/>
+            </RadzenStack>
+        }
+    </div>
+</RadzenTemplateForm>

@@ -4,6 +4,7 @@ public class FrameInDto
 {
     public DateOnly Date { get; set; }
     public List<FrameInTimeAndCount> InItems { get; set; } = [];
+    public int TotalCount => InItems.Sum(x => x.Count);
     public int ItemsCount => InItems.Count;
 }
 
