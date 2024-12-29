@@ -36,7 +36,7 @@ public partial class AddEditWorker
     private async Task OnSubmit(WorkerDto workerDto)
     {
         if (WorkerId is 0)
-            await ServiceManager.WorkerService.AddWorker(workerDto);
+            await ServiceManager.WorkerService.CreateWorker(workerDto);
         else
             await ServiceManager.WorkerService.UpdateWorker(workerDto);
 

@@ -36,7 +36,7 @@ public partial class AddEditFrameType
     private async Task OnSubmit(FrameTypeDto newFrameType)
     {
         if (FrameTypeId is 0)
-            await ServiceManager.FrameTypeService.AddFrameType(newFrameType);
+            await ServiceManager.FrameTypeService.CreateFrameType(newFrameType);
         else
             await ServiceManager.FrameTypeService.UpdateFrameType(newFrameType);
 

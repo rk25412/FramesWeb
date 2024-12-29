@@ -13,9 +13,9 @@ public class WorkerRepository(AppDbContext dbContext) : RepositoryBase<Worker>(d
         => await FindAll(false).Select(x => x.Name).ToListAsync();
 
     public async Task<Worker?> GetWorkerById(int id, bool trackChanges)
-        => await FindByCondition(x => x.Id == id, trackChanges).FirstOrDefaultAsync();
+        => await FindByCondition(x => x.Id == id, trackChanges).SingleOrDefaultAsync();
 
-    public void AddWorker(Worker worker) => Create(worker);
+    public void CreateWorker(Worker worker) => Create(worker);
 
     public void UpdateWorker(Worker worker) => Update(worker);
 
