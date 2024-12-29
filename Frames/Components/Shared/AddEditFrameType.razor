@@ -1,0 +1,43 @@
+@page "/add-frametype"
+@page "/edit-frametype/{FrameTypeId}"
+
+<RadzenTemplateForm TItem="FrameTypeDto" Data="_newFrameType" Visible="@(_newFrameType is not null)"
+                    Submit="OnSubmit">
+    <RadzenRow Gap="1rem">
+        <RadzenColumn Size="12">
+            <RadzenStack>
+                <RadzenFormField Text="Name" Variant="Variant.Outlined">
+                    <RadzenTextBox @bind-Value="_newFrameType!.Name" Name="FrameTypeName"/>
+                    <RadzenRequiredValidator Component="FrameTypeName" Text="Frame Type name is required" Popup="@true"
+                                             Style="position: relative"/>
+                    <RadzenCustomValidator Component="FrameTypeName" Text="Unique Frame Type name is required"
+                                           Popup="@true"
+                                           Style="position: relative"
+                                           Validator="() => ValidateNewFrameName(_newFrameType!.Name!)"/>
+                </RadzenFormField>
+                <RadzenFormField Text="Master Rate" Variant="Variant.Outlined">
+                    <RadzenNumeric @bind-Value="_newFrameType!.MasterRate" Step="0.5" Name="MasterRate"/>
+                    <RadzenRequiredValidator Component="MasterRate" Text="Master Rate is required" Popup="@true"
+                                             Style="position: relative"/>
+                    <RadzenNumericRangeValidator Component="MasterRate" Min="1m"
+                                                 Text="Rate should be more than 1" Popup="@true"
+                                                 Style="position: relative"/>
+                </RadzenFormField>
+                <RadzenFormField Text="Worker Rate" Variant="Variant.Outlined">
+                    <RadzenNumeric @bind-Value="_newFrameType!.WorkerRate" Step="0.5" Name="WorkerRate"/>
+                    <RadzenRequiredValidator Component="WorkerRate" Text="Worker Rate is required" Popup="@true"
+                                             Style="position: relative"/>
+                    <RadzenNumericRangeValidator Component="WorkerRate" Min="1m"
+                                                 Text="Rate should be more than 1" Popup="@true"
+                                                 Style="position: relative"/>
+                </RadzenFormField>
+            </RadzenStack>
+        </RadzenColumn>
+    </RadzenRow>
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" Gap="1rem"
+                 class="rz-mt-8 rz-mb-4">
+        <RadzenButton ButtonType="ButtonType.Submit" Size="ButtonSize.Large" Icon="save" Text="Save"/>
+        <RadzenButton ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Large" Icon="cancel"
+                      Text="Cancel" Click="@Cancel"/>
+    </RadzenStack>
+</RadzenTemplateForm>

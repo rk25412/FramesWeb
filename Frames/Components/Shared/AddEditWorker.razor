@@ -1,0 +1,27 @@
+@page "/add-worker"
+@page "/edit-worker/{WorkerId}"
+
+<RadzenTemplateForm TItem="WorkerDto" Data="_workerDto" Visible="@(_workerDto is not null)"
+                    Submit="OnSubmit">
+    <RadzenRow Gap="1rem">
+        <RadzenColumn Size="12">
+            <RadzenStack>
+                <RadzenFormField Text="Name" Variant="Variant.Outlined">
+                    <RadzenTextBox @bind-Value="_workerDto!.Name" Name="WorkerName"/>
+                    <RadzenRequiredValidator Component="WorkerName" Text="Worker name is required" Popup="@true"
+                                             Style="position: relative"/>
+                    <RadzenCustomValidator Component="WorkerName" Text="Unique Worker name is required"
+                                           Popup="@true"
+                                           Style="position: relative"
+                                           Validator="() => ValidateNewWorkerName(_workerDto!.Name!)"/>
+                </RadzenFormField>
+            </RadzenStack>
+        </RadzenColumn>
+    </RadzenRow>
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" Gap="1rem"
+                 class="rz-mt-8 rz-mb-4">
+        <RadzenButton ButtonType="ButtonType.Submit" Size="ButtonSize.Large" Icon="save" Text="Save"/>
+        <RadzenButton ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Large" Icon="cancel"
+                      Text="Cancel" Click="@Cancel"/>
+    </RadzenStack>
+</RadzenTemplateForm>

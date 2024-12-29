@@ -1,0 +1,39 @@
+@page "/Workers"
+<PageTitle>Workers</PageTitle>
+
+<h4>
+    Workers
+    @if (_workers.Count > 0)
+    {
+        <RadzenButton Text="Add Frame Type" class="float-end" Click="OnAddWorkerClick"/>
+    }
+</h4>
+
+@if (_workers.Count is 0)
+{
+    <div class="text-center mt-5">
+        <p class="text-center">No Records Found</p>
+        <RadzenButton Text="Add Worker" Click="OnAddWorkerClick"/>
+    </div>
+}
+else
+{
+    <div class="mt-5">
+        <RadzenDataGrid @ref="_workersGrid" AllowFiltering="true" AllowSorting="true" PageSize="10" AllowPaging="true"
+                        PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true" Data="_workers">
+            <Columns>
+                <RadzenDataGridColumn Property="@nameof(WorkerDto.Name)" Title="Name" TextAlign="TextAlign.Center"/>
+                <RadzenDataGridColumn Title="Action" TextAlign="TextAlign.Center" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenButton ButtonType="ButtonType.Button" Size="ButtonSize.Medium"
+                                      ButtonStyle="ButtonStyle.Warning" Icon="edit"
+                                      Click="async () => await OnUpdateWorkerClick(data)"/>
+                        <RadzenButton ButtonType="ButtonType.Button" Size="ButtonSize.Medium"
+                                      ButtonStyle="ButtonStyle.Danger" Icon="delete"
+                                      Click="async() => await OnDeleteWorkerClick(data)"/>
+                    </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+        </RadzenDataGrid>
+    </div>
+}
