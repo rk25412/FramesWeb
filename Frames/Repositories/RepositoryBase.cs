@@ -1,6 +1,4 @@
 using System.Linq.Expressions;
-using Frames.Contracts.Repositories;
-using Frames.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Frames.Repositories;

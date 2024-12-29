@@ -1,6 +1,3 @@
-using Radzen;
-using Radzen.Blazor;
-
 namespace Frames.Components.Pages;
 
 public partial class FrameTypes

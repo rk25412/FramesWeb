@@ -2,9 +2,11 @@ namespace Frames.Contracts.Repositories;
 
 public interface IRepositoryManager
 {
-    public IFrameTypeRepository FrameTypes { get; }
-    public IWorkerRepository Workers { get; }
-    public IMasterFrameInRepository MasterFrameIns { get; }
+    IFrameTypeRepository FrameTypes { get; }
+    IWorkerRepository Workers { get; }
+    IMasterFrameInRepository MasterFrameIns { get; }
+    IMasterFrameOutRepository MasterFrameOuts { get; }
+    IMasterFrameOutTypeRepository MasterFrameOutTypes { get; }
     void Detach();
     Task SaveAsync();
 }

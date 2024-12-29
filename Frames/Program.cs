@@ -1,5 +1,4 @@
 using Frames.Components;
-using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
 

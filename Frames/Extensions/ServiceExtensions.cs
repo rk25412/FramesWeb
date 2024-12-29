@@ -1,6 +1,3 @@
-using Frames.Contracts.Repositories;
-using Frames.Contracts.Services;
-using Frames.Data;
 using Frames.Repositories;
 using Frames.Services;
 
