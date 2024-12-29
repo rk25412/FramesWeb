@@ -1,5 +1,5 @@
-using Frames.Repositories.Contracts;
-using Frames.Services.Contracts;
+using Frames.Contracts.Repositories;
+using Frames.Contracts.Services;
 
 namespace Frames.Services;
 

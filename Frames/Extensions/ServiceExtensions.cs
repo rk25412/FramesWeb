@@ -1,8 +1,8 @@
+using Frames.Contracts.Repositories;
+using Frames.Contracts.Services;
 using Frames.Data;
 using Frames.Repositories;
-using Frames.Repositories.Contracts;
 using Frames.Services;
-using Frames.Services.Contracts;
 
 namespace Frames.Extensions;
 

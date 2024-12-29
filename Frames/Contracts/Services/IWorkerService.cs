@@ -1,4 +1,4 @@
-namespace Frames.Services.Contracts;
+namespace Frames.Contracts.Services;
 
 public interface IWorkerService
 {

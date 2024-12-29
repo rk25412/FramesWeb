@@ -1,5 +1,5 @@
-using Frames.Repositories.Contracts;
-using Frames.Services.Contracts;
+using Frames.Contracts.Repositories;
+using Frames.Contracts.Services;
 
 namespace Frames.Services;
 
@@ -42,7 +42,7 @@ public class FrameTypeService(IRepositoryManager repositoryManager) : IFrameType
 
     public async Task DeleteFrameType(int frameTypeId)
     {
-        repositoryManager.FrameTypes.DeleteFrameType(frameTypeId);
+        repositoryManager.FrameTypes.DeleteFrameType(new() { Id = frameTypeId });
         await repositoryManager.SaveAsync();
         repositoryManager.Detach();
     }

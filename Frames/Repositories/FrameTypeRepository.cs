@@ -1,5 +1,5 @@
+using Frames.Contracts.Repositories;
 using Frames.Data;
-using Frames.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Frames.Repositories;
@@ -13,11 +13,10 @@ public class FrameTypeRepository(AppDbContext dbContext)
     public async Task<List<string>> GetFrameTypeNames()
         => await FindAll(false).Select(x => x.Name).ToListAsync();
 
-    public void AddNewFrameType(FrameType frameType) => Create(frameType);
-
     public async Task<FrameType?> GetFrameTypeById(int id, bool trackChanges)
         => await FindByCondition(x => x.Id == id, trackChanges).FirstOrDefaultAsync();
 
+    public void AddNewFrameType(FrameType frameType) => Create(frameType);
     public void UpdateFrameType(FrameType frameType) => Update(frameType);
-    public void DeleteFrameType(int id) => Delete(new() { Id = id });
+    public void DeleteFrameType(FrameType frameType) => Delete(frameType);
 }

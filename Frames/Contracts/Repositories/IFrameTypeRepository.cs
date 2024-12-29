@@ -1,4 +1,4 @@
-namespace Frames.Repositories.Contracts;
+namespace Frames.Contracts.Repositories;
 
 public interface IFrameTypeRepository
 {
@@ -7,5 +7,5 @@ public interface IFrameTypeRepository
     Task<FrameType?> GetFrameTypeById(int id, bool trackChanges);
     void AddNewFrameType(FrameType frameType);
     void UpdateFrameType(FrameType frameType);
-    void DeleteFrameType(int frameTypeId);
+    void DeleteFrameType(FrameType frameType);
 }

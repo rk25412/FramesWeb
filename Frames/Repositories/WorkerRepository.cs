@@ -1,5 +1,5 @@
+using Frames.Contracts.Repositories;
 using Frames.Data;
-using Frames.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Frames.Repositories;

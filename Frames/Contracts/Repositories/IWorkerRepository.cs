@@ -1,4 +1,4 @@
-namespace Frames.Repositories.Contracts;
+namespace Frames.Contracts.Repositories;
 
 public interface IWorkerRepository
 {
