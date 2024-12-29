@@ -4,4 +4,5 @@ public interface IMasterFrameInService
 {
     Task<List<FrameInDto>> GetMasterFramesIn(int month, int year);
     Task<FrameInDto> GetMasterFrameIn(DateOnly date);
+    Task CreateOrUpdateMasterFrameIn(List<FrameInDto> frameInDtos);
 }

@@ -20,4 +20,22 @@ public class MasterFrameInService(IRepositoryManager repositoryManager) : IMaste
         var dtos = groupedByDateEntities.Select(x => x.ToList().ToDto()).ToList();
         return dtos.First();
     }
+
+    public async Task CreateOrUpdateMasterFrameIn(List<FrameInDto> frameInDtos)
+    {
+        var entities = new List<MasterFrameIn>();
+        frameInDtos.Select(x => x.ToEntity()).ToList().ForEach(x => entities.AddRange(entities));
+        foreach (var item in entities)
+        {
+            if(item.Id is 0)
+                repositoryManager.MasterFrameIns.CreateMasterFrameIn(item);
+            else
+                repositoryManager.MasterFrameIns.UpdateMasterFrameIn(item);
+        }
+
+        await repositoryManager.SaveAsync();
+        repositoryManager.Detach();
+    }
+    
+    
 }
