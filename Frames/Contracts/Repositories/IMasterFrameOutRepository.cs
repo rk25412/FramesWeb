@@ -2,5 +2,5 @@ namespace Frames.Contracts.Repositories;
 
 public interface IMasterFrameOutRepository
 {
-    //Task<MasterFrameOut> FindAll(int month, int year);
+    Task<List<MasterFrameOut>> GetMasterFrameOuts(int month, int year, bool trackChanges);
 }

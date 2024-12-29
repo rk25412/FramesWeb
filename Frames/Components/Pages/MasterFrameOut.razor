@@ -1,6 +1,16 @@
 @page "/MasterFrameOut"
-<h3>MasterFrameOut</h3>
+<PageTitle>Master Frame Out</PageTitle>
 
-@code {
-    
-}
+<h4>
+    Master Frame Out
+    <span class="float-end">
+        <RadzenDropDown @bind-Value="@_selectedMonth" Data="_monthDropdown" TValue="int" TextProperty="Text"
+                        ValueProperty="Value" class="mx-1 mt-2" Change="MonthYearDropdownChanged"/>
+        <RadzenDropDown @bind-Value="@_selectedYear" Data="_yearDropdown" TValue="int" TextProperty="Text"
+                        ValueProperty="Value" class="mx-1 mt-2" Change="MonthYearDropdownChanged"/>
+        @* @if (_frameInlist.Count > 0) *@
+        @* { *@
+        @*     <RadzenButton Text="Add Record" class="float-end mt-2" Click="() => OnAddUpdateMasterInClick()"/> *@
+        @* } *@
+    </span>
+</h4>

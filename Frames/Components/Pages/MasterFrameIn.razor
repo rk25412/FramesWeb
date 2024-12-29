@@ -10,7 +10,7 @@
                         ValueProperty="Value" class="mx-1 mt-2" Change="MonthYearDropdownChanged"/>
         @if (_frameInlist.Count > 0)
         {
-            <RadzenButton Text="Add Frame Type" class="float-end mt-2" Click="() => OnAddUpdateMasterInClick()"/>
+            <RadzenButton Text="Add Record" class="float-end mt-2" Click="() => OnAddUpdateMasterInClick()"/>
         }
     </span>
 </h4>
@@ -19,7 +19,7 @@
 {
     <div class="text-center mt-5">
         <p class="text-center">No Records Found</p>
-        <RadzenButton Text="Add Frame Type" Click="() => OnAddUpdateMasterInClick()"/>
+        <RadzenButton Text="Add Record" Click="() => OnAddUpdateMasterInClick()"/>
     </div>
 }
 else
