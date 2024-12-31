@@ -1,4 +1,4 @@
-@page "/MasterFrameOut"
+@page "/master-frames-out"
 <PageTitle>Master Frame Out</PageTitle>
 
 <h4>
@@ -8,9 +8,66 @@
                         ValueProperty="Value" class="mx-1 mt-2" Change="MonthYearDropdownChanged"/>
         <RadzenDropDown @bind-Value="@_selectedYear" Data="_yearDropdown" TValue="int" TextProperty="Text"
                         ValueProperty="Value" class="mx-1 mt-2" Change="MonthYearDropdownChanged"/>
-        @* @if (_frameInlist.Count > 0) *@
-        @* { *@
-        @*     <RadzenButton Text="Add Record" class="float-end mt-2" Click="() => OnAddUpdateMasterInClick()"/> *@
-        @* } *@
+        @if (_frameOutList.Count > 0)
+        {
+            <RadzenButton Text="Add Record" class="float-end mt-2" Click="() => OnAddUpdateClick(null)"/>
+        }
     </span>
 </h4>
+
+@if (_frameOutList.Count is 0)
+{
+    <div class="text-center mt-5">
+        <p class="text-center">No Records Found</p>
+        <RadzenButton Text="Add Record" Click="() => OnAddUpdateClick(null)"/>
+    </div>
+}
+else
+{
+    <div class="mt-5">
+        <RadzenDataGrid @ref="_grid0" AllowFiltering="false" AllowSorting="true" AllowPaging="false" ColumnWidth="100px"
+                        Data="_frameOutList">
+            <Columns>
+                <RadzenDataGridColumn Title="Action" Frozen="true" Sortable="false" TextAlign="TextAlign.Center">
+                    <Template Context="data">
+                        <RadzenButton ButtonType="ButtonType.Button" Size="ButtonSize.Medium"
+                                      ButtonStyle="ButtonStyle.Warning" Icon="edit" Click="() => OnAddUpdateClick(data)"/>
+                        <RadzenButton ButtonType="ButtonType.Button" Size="ButtonSize.Medium"
+                                      ButtonStyle="ButtonStyle.Danger" Icon="delete"/>
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn Property="@nameof(FrameOutDto.Date)" Title="Date" Sortable="true"
+                                      TextAlign="TextAlign.Center"
+                                      Frozen="true"/>
+                <RadzenDataGridColumn Property="@nameof(FrameOutDto.TotalCount)" Title="Total" Sortable="true"
+                                      TextAlign="TextAlign.Center"
+                                      Frozen="true">
+                    <Template Context="data">
+                        @data.TotalCount
+                    </Template>
+                </RadzenDataGridColumn>
+                @foreach (var item in Enumerable.Range(0, _maxDataColCount))
+                {
+                    <RadzenDataGridColumn Title="@($"Round {item + 1}")" TextAlign="TextAlign.Center">
+                        <Template Context="data">
+                            @if (data is FrameOutDto dto)
+                            {
+                                var lineItem = dto.ItemsCount < item + 1 ? null : dto.FrameOutTimeDtos[item];
+                                @if (lineItem is not null)
+                                {
+                                    <span>@lineItem.Time</span>
+                                    <br/>
+                                    <strong>@lineItem.TotalCount</strong>
+                                }
+                                else
+                                {
+                                    <span>-</span>
+                                }
+                            }
+                        </Template>
+                    </RadzenDataGridColumn>
+                }
+            </Columns>
+        </RadzenDataGrid>
+    </div>
+}

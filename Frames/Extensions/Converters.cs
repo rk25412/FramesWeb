@@ -37,7 +37,7 @@ public static class Converters
             { Id = x.Id, FrameCount = x.Count, DateTime = new DateTime(dto.Date, x.Time) }));
         return result;
     }
-
+    
     public static FrameInDto ToDto(this List<MasterFrameIn> frameIn)
     {
         FrameInDto result = new()
@@ -46,6 +46,61 @@ public static class Converters
         };
         result.InItems.AddRange(frameIn.Select(x => new FrameInTimeAndCount()
             { Id = x.Id, Time = TimeOnly.FromDateTime(x.DateTime), Count = x.FrameCount }).OrderBy(x => x.Time));
+        return result;
+    }
+    
+    public static List<MasterFrameOut> ToEntity(this FrameOutDto dto)
+    {
+        List<MasterFrameOut> result = [];
+
+        foreach (var timeDto in dto.FrameOutTimeDtos)
+        {
+            MasterFrameOut masterFrameOut = new()
+            {
+                Id = timeDto.Id,
+                DateTime = new DateTime(dto.Date, timeDto.Time),
+                MasterFrameOutTypes = []
+            };
+
+            foreach (var typeDto in timeDto.FrameOutTypes)
+            {
+                MasterFrameOutType type = new()
+                {
+                    Id = typeDto.Id,
+                    Count = typeDto.Count,
+                    FrameTypeId = typeDto.FrameTypeId
+                };
+
+                masterFrameOut.MasterFrameOutTypes.Add(type);
+            }
+
+            result.Add(masterFrameOut);
+        }
+
+        return result;
+    }
+
+    public static FrameOutDto ToDto(this List<MasterFrameOut> frameOuts)
+    {
+        FrameOutDto result = new()
+        {
+            Date = DateOnly.FromDateTime(frameOuts.First().DateTime)
+        };
+        foreach (var frameOut in frameOuts)
+        {
+            FrameOutTimeDto timeDto = new()
+            {
+                Id = frameOut.Id,
+                Time = TimeOnly.FromDateTime(frameOut.DateTime)
+            };
+
+            timeDto.FrameOutTypes.AddRange(frameOut.MasterFrameOutTypes
+                .Select(x => new FrameOutTypeDto()
+                    { Id = x.Id, Count = x.Count,FrameTypeId = x.FrameType?.Id ?? 0, FrameName = x.FrameType?.Name ?? "", FrameRate = x.FrameRate }));
+
+            result.FrameOutTimeDtos.Add(timeDto);
+        }
+
         return result;
     }
 }

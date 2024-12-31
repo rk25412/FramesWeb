@@ -1,0 +1,52 @@
+<RadzenTemplateForm TItem="FrameOutDto" Data="_frameOutDto" Submit="OnSubmit">
+    <RadzenRow Gap="1rem">
+        <RadzenColumn Size="12">
+            <RadzenDatePicker @bind-Value="Date" Max="DateTime.Today" Name="EntryDate" Change="OnDateChange"/>
+            @if (_frameOutDto.FrameOutTimeDtos.Count > 0)
+            {
+                <RadzenButton Text="Add Record" class="float-end" Click="OnAddRecordClick"/>
+            }
+        </RadzenColumn>
+    </RadzenRow>
+    <div class="mt-2">
+        @if (_frameOutDto.ItemsCount is 0)
+        {
+            <div class="text-center mt-5">
+                <p class="text-center">No Records Found</p>
+                <RadzenButton Text="Add Record" Click="OnAddRecordClick"/>
+            </div>
+        }
+        else
+        {
+            <RadzenDataGrid @ref="_lineItemsGrid" Data="_frameOutDto.FrameOutTimeDtos" AllowSorting="false"
+                            AllowFiltering="false" ColumnWidth="100px">
+                <Columns>
+                    <RadzenDataGridColumn Title="Delete" TextAlign="TextAlign.Center" Frozen="true" Width="100px">
+                        <Template Context="data">
+                            <RadzenButton ButtonType="ButtonType.Button" Size="ButtonSize.Medium"
+                                          ButtonStyle="ButtonStyle.Danger" Icon="delete"
+                                          Click="() => OnRemoveRecordClick(data)"/>
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn Title="Time" TextAlign="TextAlign.Center" Frozen="true" Width="100px">
+                        <Template Context="data">
+                            <RadzenDatePicker @bind-Value="@data.Time" ShowTime="true" TimeOnly="true"
+                                              DateFormat="HH:mm"/>
+                        </Template>
+                    </RadzenDataGridColumn>
+                    @foreach (var index in Enumerable.Range(0, _frameTypes.Count))
+                    {
+                        <RadzenDataGridColumn Title="@_frameTypes[index].Name" TextAlign="TextAlign.Center">
+                            <Template Context="data">
+                                @if (data is FrameOutTimeDto dto)
+                                {
+                                    <span>Test</span>
+                                }
+                            </Template>
+                        </RadzenDataGridColumn>
+                    }
+                </Columns>
+            </RadzenDataGrid>
+        }
+    </div>
+</RadzenTemplateForm>

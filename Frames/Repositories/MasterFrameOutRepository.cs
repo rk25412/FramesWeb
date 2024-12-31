@@ -8,6 +8,14 @@ public class MasterFrameOutRepository(AppDbContext dbContext)
     public async Task<List<MasterFrameOut>> GetMasterFrameOuts(int month, int year, bool trackChanges)
         => await FindByCondition(x => x.DateTime.Month == month && x.DateTime.Year == year, trackChanges)
             .Include(x => x.MasterFrameOutTypes)
+            .ThenInclude(x => x.FrameType)
+            .OrderByDescending(x => x.DateTime)
+            .ToListAsync();
+
+    public async Task<List<MasterFrameOut>> GetMasterFrameOuts(DateOnly date, bool trackChanges)
+        => await FindByCondition(x => DateOnly.FromDateTime(x.DateTime.Date) == date, trackChanges)
+            .Include(x => x.MasterFrameOutTypes)
+            .ThenInclude(x => x.FrameType)
             .OrderByDescending(x => x.DateTime)
             .ToListAsync();
 }
