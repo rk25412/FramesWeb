@@ -20,6 +20,12 @@ public partial class MasterFrameOut : ComponentBase
         await LoadGridData();
     }
 
+    private async Task OnRemoveClick(FrameOutDto dto)
+    {
+        await ServiceManager.MasterFrameOutService.DeleteFrameOuts(dto.Date);
+        await LoadGridData();
+    }
+
     private async Task MonthYearDropdownChanged() => await LoadGridData();
 
     private async Task LoadGridData()

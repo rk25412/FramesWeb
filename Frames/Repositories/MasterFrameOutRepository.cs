@@ -1,3 +1,4 @@
+using Frames.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Frames.Repositories;
@@ -18,4 +19,7 @@ public class MasterFrameOutRepository(AppDbContext dbContext)
             .ThenInclude(x => x.FrameType)
             .OrderByDescending(x => x.DateTime)
             .ToListAsync();
+
+    public void CreateMasterFrameOuts(List<MasterFrameOut> entities) => entities.ForEach(Create);
+    public void RemoveMasterFramesOut(MasterFrameOut frameOut) => Delete(frameOut);
 }

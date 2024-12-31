@@ -33,7 +33,7 @@ else
                         <RadzenButton ButtonType="ButtonType.Button" Size="ButtonSize.Medium"
                                       ButtonStyle="ButtonStyle.Warning" Icon="edit" Click="() => OnAddUpdateClick(data)"/>
                         <RadzenButton ButtonType="ButtonType.Button" Size="ButtonSize.Medium"
-                                      ButtonStyle="ButtonStyle.Danger" Icon="delete"/>
+                                      ButtonStyle="ButtonStyle.Danger" Icon="delete" Click="() => OnRemoveClick(data)"/>
                     </Template>
                 </RadzenDataGridColumn>
                 <RadzenDataGridColumn Property="@nameof(FrameOutDto.Date)" Title="Date" Sortable="true"
