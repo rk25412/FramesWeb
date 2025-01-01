@@ -35,8 +35,7 @@ public class MasterFrameOutService(IRepositoryManager repositoryManager) : IMast
 
     public async Task DeleteFrameOuts(DateOnly date)
     {
-        var entities = await repositoryManager.MasterFrameOuts.GetMasterFrameOuts(date, false);
-        entities.ForEach(x => repositoryManager.MasterFrameOuts.RemoveMasterFramesOut(x));
+        repositoryManager.MasterFrameOuts.RemoveMasterFrameOutByDate(date);
         await repositoryManager.SaveAsync();
         repositoryManager.Detach();
     }
