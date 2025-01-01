@@ -24,4 +24,5 @@ public class FrameOutTypeDto
     public string? FrameName { get; set; }
     public int Count { get; set; }
     public decimal FrameRate { get; set; }
+    public FrameTypeDto? FrameType { get; set; }
 }

@@ -1,6 +1,6 @@
 namespace Frames.Components.Shared;
 
-public partial class AddUpdateMasterFrameIn : ComponentBase
+public partial class CreateOrUpdateMasterFrameIn : ComponentBase
 {
     [Parameter] public DateOnly? Date { get; set; }
 
@@ -29,10 +29,10 @@ public partial class AddUpdateMasterFrameIn : ComponentBase
     {
         await ServiceManager.MasterFrameInService.CreateOrUpdateMasterFrameIn(frameInDto);
         await ServiceManager.MasterFrameInService.DeleteMasterFrameIn(_itemsToDelete);
-        Cancel();
+        CloseDialog();
     }
 
-    private void Cancel() => DialogService.Close(true);
+    private void CloseDialog() => DialogService.Close(true);
 
     private void OnAddRecordClick()
     {

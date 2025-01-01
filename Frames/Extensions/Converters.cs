@@ -37,7 +37,7 @@ public static class Converters
             { Id = x.Id, FrameCount = x.Count, DateTime = new DateTime(dto.Date, x.Time) }));
         return result;
     }
-    
+
     public static FrameInDto ToDto(this List<MasterFrameIn> frameIn)
     {
         FrameInDto result = new()
@@ -48,7 +48,7 @@ public static class Converters
             { Id = x.Id, Time = TimeOnly.FromDateTime(x.DateTime), Count = x.FrameCount }).OrderBy(x => x.Time));
         return result;
     }
-    
+
     public static List<MasterFrameOut> ToEntity(this FrameOutDto dto)
     {
         List<MasterFrameOut> result = [];
@@ -64,10 +64,14 @@ public static class Converters
 
             foreach (var typeDto in timeDto.FrameOutTypes)
             {
+                if (typeDto.Count <= 0)
+                    continue;
+
                 MasterFrameOutType type = new()
                 {
                     Id = typeDto.Id,
                     Count = typeDto.Count,
+                    FrameRate = typeDto.FrameRate,
                     FrameTypeId = typeDto.FrameTypeId
                 };
 
@@ -96,7 +100,14 @@ public static class Converters
 
             timeDto.FrameOutTypes.AddRange(frameOut.MasterFrameOutTypes
                 .Select(x => new FrameOutTypeDto()
-                    { Id = x.Id, Count = x.Count,FrameTypeId = x.FrameType?.Id ?? 0, FrameName = x.FrameType?.Name ?? "", FrameRate = x.FrameRate }));
+                {
+                    Id = x.Id,
+                    Count = x.Count,
+                    FrameTypeId = x.FrameType?.Id ?? 0,
+                    FrameType = x.FrameType?.ToDto(),
+                    FrameName = x.FrameType?.Name ?? "",
+                    FrameRate = x.FrameRate
+                }));
 
             result.FrameOutTimeDtos.Add(timeDto);
         }

@@ -12,13 +12,6 @@ public class FrameTypeService(IRepositoryManager repositoryManager) : IFrameType
     public async Task<List<string>> GetFrameTypeNames()
         => await repositoryManager.FrameTypes.GetFrameTypeNames();
 
-    public async Task CreateFrameType(FrameTypeDto newFrameType)
-    {
-        repositoryManager.FrameTypes.CreateNewFrameType(newFrameType.ToEntity());
-        await repositoryManager.SaveAsync();
-        repositoryManager.Detach();
-    }
-
     public async Task<FrameTypeDto> GetFrameTypeById(int frameTypeId)
     {
         var frameType = await repositoryManager.FrameTypes.GetFrameTypeById(frameTypeId, false);
@@ -28,6 +21,13 @@ public class FrameTypeService(IRepositoryManager repositoryManager) : IFrameType
         }
 
         return frameType.ToDto();
+    }
+    
+    public async Task CreateFrameType(FrameTypeDto newFrameType)
+    {
+        repositoryManager.FrameTypes.CreateNewFrameType(newFrameType.ToEntity());
+        await repositoryManager.SaveAsync();
+        repositoryManager.Detach();
     }
 
     public async Task UpdateFrameType(FrameTypeDto frameTypeDto)

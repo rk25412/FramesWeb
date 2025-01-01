@@ -21,5 +21,8 @@ public class MasterFrameOutRepository(AppDbContext dbContext)
             .ToListAsync();
 
     public void CreateMasterFrameOuts(List<MasterFrameOut> entities) => entities.ForEach(Create);
+    public void CreateMasterFrameOut(MasterFrameOut masterFrameOut) => Create(masterFrameOut);
+    public void UpdateMasterFrameOut(MasterFrameOut masterFrameOut) => Update(masterFrameOut);
+
     public void RemoveMasterFramesOut(MasterFrameOut frameOut) => Delete(frameOut);
 }

@@ -1,6 +1,6 @@
 namespace Frames.Components.Shared;
 
-public partial class AddEditFrameType
+public partial class CreateOrUpdateFrameType
 {
     [Parameter] public int FrameTypeId { get; set; }
 
@@ -26,7 +26,7 @@ public partial class AddEditFrameType
         _frameNames.AddRange(frameNames);
     }
 
-    private void Cancel() => DialogService.Close(true);
+    private void CloseDialog() => DialogService.Close(true);
 
     private bool ValidateNewFrameName(string name)
         => !_frameNames.Contains(name, StringComparer.InvariantCultureIgnoreCase);
@@ -38,6 +38,6 @@ public partial class AddEditFrameType
         else
             await ServiceManager.FrameTypeService.UpdateFrameType(newFrameType);
 
-        Cancel();
+        CloseDialog();
     }
 }

@@ -18,10 +18,17 @@ public class MasterFrameOutService(IRepositoryManager repositoryManager) : IMast
         return dtos.FirstOrDefault() ?? new FrameOutDto() { Date = date };
     }
 
-    public async Task CreateFrameOuts(FrameOutDto dto)
+    public async Task CreateOrUpdateFrameOuts(FrameOutDto dto)
     {
         var entities = dto.ToEntity();
-        repositoryManager.MasterFrameOuts.CreateMasterFrameOuts(entities);
+        foreach (var entity in entities)
+        {
+            if (entity.Id is 0)
+                repositoryManager.MasterFrameOuts.CreateMasterFrameOut(entity);
+            else
+                repositoryManager.MasterFrameOuts.UpdateMasterFrameOut(entity);
+        }
+
         await repositoryManager.SaveAsync();
         repositoryManager.Detach();
     }
@@ -29,6 +36,8 @@ public class MasterFrameOutService(IRepositoryManager repositoryManager) : IMast
     public async Task DeleteFrameOuts(DateOnly date)
     {
         var entities = await repositoryManager.MasterFrameOuts.GetMasterFrameOuts(date, false);
-        
+        entities.ForEach(x => repositoryManager.MasterFrameOuts.RemoveMasterFramesOut(x));
+        await repositoryManager.SaveAsync();
+        repositoryManager.Detach();
     }
 }

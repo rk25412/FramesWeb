@@ -33,7 +33,7 @@ public partial class MasterFrameIn
 
     private async Task OnAddUpdateMasterInClick(FrameInDto? dto = null)
     {
-            await DialogService.OpenAsync<AddUpdateMasterFrameIn>(
+            await DialogService.OpenAsync<CreateOrUpdateMasterFrameIn>(
                 "Add/Update Master Frame In",
                 new Dictionary<string, object?>()
                 {

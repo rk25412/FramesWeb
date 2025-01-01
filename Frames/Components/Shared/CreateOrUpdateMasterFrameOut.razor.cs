@@ -1,6 +1,6 @@
 namespace Frames.Components.Shared;
 
-public partial class AddUpdateMasterFrameOut : ComponentBase
+public partial class CreateOrUpdateMasterFrameOut : ComponentBase
 {
     [Parameter] public DateOnly? Date { get; set; }
 
@@ -19,18 +19,30 @@ public partial class AddUpdateMasterFrameOut : ComponentBase
     private async Task LoadFrameOutData()
     {
         _frameOutDto = await ServiceManager.MasterFrameOutService.GetFrameOuts(Date!.Value);
+        foreach (var item in _frameOutDto.FrameOutTimeDtos)
+        {
+            var framesNamesIncluded = item.FrameOutTypes.Select(x => x.FrameName);
+            _frameTypes
+                .Where(x => !framesNamesIncluded.Contains(x.Name))?.ToList()
+                .ForEach(x => item.FrameOutTypes.Add(new FrameOutTypeDto
+                {
+                    Id = 0,
+                    Count = 0,
+                    FrameTypeId = x.Id,
+                    FrameType = x,
+                    FrameName = x.Name,
+                    FrameRate = x.MasterRate ?? 0m,
+                }));
+        }
     }
 
     private async Task OnSubmit()
     {
-        await ServiceManager.MasterFrameOutService.CreateFrameOuts(_frameOutDto);
-        Cancel();
+        await ServiceManager.MasterFrameOutService.CreateOrUpdateFrameOuts(_frameOutDto);
+        CloseDialog();
     }
 
-    private async Task OnDateChange()
-    {
-        await LoadFrameOutData();
-    }
+    private async Task OnDateChange() => await LoadFrameOutData();
 
     private void OnAddRecordClick()
     {
@@ -41,6 +53,7 @@ public partial class AddUpdateMasterFrameOut : ComponentBase
             {
                 Count = 0,
                 FrameTypeId = x.Id,
+                FrameType = x,
                 FrameName = x.Name,
                 FrameRate = x.MasterRate ?? 0m
             }).ToList()
@@ -58,5 +71,5 @@ public partial class AddUpdateMasterFrameOut : ComponentBase
         _frameOutDto.FrameOutTimeDtos.Remove(dto);
     }
 
-    private void Cancel() => DialogService.Close(true);
+    private void CloseDialog() => DialogService.Close(true);
 }

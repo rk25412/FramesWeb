@@ -20,7 +20,7 @@ public partial class Workers
 
     private async Task OnAddWorkerClick()
     {
-        await DialogService.OpenAsync<AddEditWorker>(
+        await DialogService.OpenAsync<CreateOrEditWorker>(
             "Add Worker",
             null,
             new DialogOptions()
@@ -34,7 +34,7 @@ public partial class Workers
 
     private async Task OnUpdateWorkerClick(WorkerDto workerDto)
     {
-        await DialogService.OpenAsync<AddEditWorker>(
+        await DialogService.OpenAsync<CreateOrEditWorker>(
             "Edit Worker",
             new Dictionary<string, object>()
             {

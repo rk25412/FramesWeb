@@ -20,14 +20,6 @@ public partial class MasterFrameOut : ComponentBase
         await LoadGridData();
     }
 
-    private async Task OnRemoveClick(FrameOutDto dto)
-    {
-        await ServiceManager.MasterFrameOutService.DeleteFrameOuts(dto.Date);
-        await LoadGridData();
-    }
-
-    private async Task MonthYearDropdownChanged() => await LoadGridData();
-
     private async Task LoadGridData()
     {
         _frameOutList.Clear();
@@ -37,9 +29,11 @@ public partial class MasterFrameOut : ComponentBase
         _grid0?.Reload();
     }
 
+    private async Task MonthYearDropdownChanged() => await LoadGridData();
+
     private async Task OnAddUpdateClick(FrameOutDto? dto = null)
     {
-        await DialogService.OpenAsync<AddUpdateMasterFrameOut>(
+        await DialogService.OpenAsync<CreateOrUpdateMasterFrameOut>(
             "Add/Update Master Frame In",
             new Dictionary<string, object?>()
             {
@@ -50,7 +44,19 @@ public partial class MasterFrameOut : ComponentBase
                 Width = "min(700px, 90%)",
                 Height = "auto"
             });
-        
+
         await LoadGridData();
+    }
+
+    private async Task OnRemoveClick(FrameOutDto dto)
+    {
+        var confirm = await DialogService.Confirm(
+            $"Are you sure?",
+            $"Delete all the records for {dto.Date}?");
+        if (confirm is true)
+        {
+            await ServiceManager.MasterFrameOutService.DeleteFrameOuts(dto.Date);
+            await LoadGridData();
+        }
     }
 }

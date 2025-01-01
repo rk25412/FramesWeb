@@ -18,7 +18,6 @@ public class MasterFrameInRepository(AppDbContext dbContext)
         => await FindByCondition(x => x.Id == id, trackChanges).SingleOrDefaultAsync();
 
     public void CreateMasterFrameIn(MasterFrameIn masterFrameIn) => Create(masterFrameIn);
-    public void CreateMultipleMasterFrameIns(List<MasterFrameIn> masterFrameIns) => masterFrameIns.ForEach(Create);
     public void UpdateMasterFrameIn(MasterFrameIn masterFrameIn) => Update(masterFrameIn);
     public void DeleteMasterFrameIn(MasterFrameIn masterFrameIn) => Delete(masterFrameIn);
 }

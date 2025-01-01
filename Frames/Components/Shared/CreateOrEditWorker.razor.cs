@@ -1,6 +1,6 @@
 namespace Frames.Components.Shared;
 
-public partial class AddEditWorker
+public partial class CreateOrEditWorker
 {
     [Parameter] public int WorkerId { get; set; }
 
@@ -26,7 +26,7 @@ public partial class AddEditWorker
         _workerNames.AddRange(workerNames);
     }
     
-    private void Cancel() => DialogService.Close(true);
+    private void CloseDialog() => DialogService.Close(true);
     
     private bool ValidateNewWorkerName(string newWorkerName)
         => !_workerNames.Contains(newWorkerName, StringComparer.InvariantCultureIgnoreCase);
@@ -38,6 +38,6 @@ public partial class AddEditWorker
         else
             await ServiceManager.WorkerService.UpdateWorker(workerDto);
 
-        Cancel();
+        CloseDialog();
     }
 }

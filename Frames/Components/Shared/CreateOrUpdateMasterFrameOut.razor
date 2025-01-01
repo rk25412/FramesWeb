@@ -28,31 +28,32 @@
                                           Click="() => OnRemoveRecordClick(data)"/>
                         </Template>
                     </RadzenDataGridColumn>
-                    <RadzenDataGridColumn Title="Time" TextAlign="TextAlign.Center" Frozen="true" Width="100px">
+                    <RadzenDataGridColumn Title="Time" TextAlign="TextAlign.Center" Frozen="true" Width="150px">
                         <Template Context="data">
                             <RadzenDatePicker @bind-Value="@data.Time" ShowTime="true" TimeOnly="true"
                                               DateFormat="HH:mm"/>
                         </Template>
                     </RadzenDataGridColumn>
-                    @foreach (var index in Enumerable.Range(0, _frameTypes.Count))
+                    @foreach (var frameType in _frameTypes)
                     {
-                        <RadzenDataGridColumn Title="@_frameTypes[index].Name" TextAlign="TextAlign.Center">
+                        <RadzenDataGridColumn Title="@frameType.Name" TextAlign="TextAlign.Center">
                             <Template Context="data">
                                 @if (data is FrameOutTimeDto dto)
                                 {
-                                    <RadzenNumeric @bind-Value="@dto.FrameOutTypes[index].Count" />
+                                    var frameToShow = @dto.FrameOutTypes.First(x => x.FrameTypeId == frameType.Id);
+                                    <RadzenNumeric @bind-Value="@frameToShow.Count"/>
                                 }
                             </Template>
                         </RadzenDataGridColumn>
                     }
                 </Columns>
             </RadzenDataGrid>
-            
+
             <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" Gap="1rem"
                          class="rz-mt-8 rz-mb-4">
                 <RadzenButton ButtonType="ButtonType.Submit" Size="ButtonSize.Large" Icon="save" Text="Save"/>
                 <RadzenButton ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Large"
-                              Icon="cancel" Text="Cancel" Click="Cancel"/>
+                              Icon="cancel" Text="Cancel" Click="CloseDialog"/>
             </RadzenStack>
         }
     </div>

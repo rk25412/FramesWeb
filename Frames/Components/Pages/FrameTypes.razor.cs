@@ -20,7 +20,7 @@ public partial class FrameTypes
 
     private async Task OnAddFrameTypeClick()
     {
-        await DialogService.OpenAsync<AddEditFrameType>(
+        await DialogService.OpenAsync<CreateOrUpdateFrameType>(
             "Add Frame Type",
             null,
             new DialogOptions()
@@ -34,7 +34,7 @@ public partial class FrameTypes
 
     private async Task OnUpdateFrameTypeClick(FrameTypeDto frameType)
     {
-        await DialogService.OpenAsync<AddEditFrameType>(
+        await DialogService.OpenAsync<CreateOrUpdateFrameType>(
             "Edit Frame Type",
             new Dictionary<string, object>()
             {
