@@ -6,4 +6,5 @@ public interface IServiceManager
     IWorkerService WorkerService { get; }
     IMasterFrameInService MasterFrameInService { get; }
     IMasterFrameOutService MasterFrameOutService { get; }
+    IMasterFrameOutTypeService MasterFrameOutTypeService { get; }
 }

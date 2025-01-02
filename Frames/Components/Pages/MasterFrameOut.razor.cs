@@ -34,7 +34,7 @@ public partial class MasterFrameOut : ComponentBase
     private async Task OnAddUpdateClick(FrameOutDto? dto = null)
     {
         await DialogService.OpenAsync<CreateOrUpdateMasterFrameOut>(
-            "Add/Update Master Frame In",
+            "Add/Update Master Frame Out",
             new Dictionary<string, object?>()
             {
                 ["Date"] = dto?.Date ?? null,
@@ -55,7 +55,7 @@ public partial class MasterFrameOut : ComponentBase
             $"Delete all the records for {dto.Date}?");
         if (confirm is true)
         {
-            await ServiceManager.MasterFrameOutService.DeleteFrameOuts(dto.Date);
+            await ServiceManager.MasterFrameOutService.RemoveFrameOuts(dto.Date);
             await LoadGridData();
         }
     }

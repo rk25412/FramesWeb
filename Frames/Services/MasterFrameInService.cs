@@ -33,17 +33,17 @@ public class MasterFrameInService(IRepositoryManager repositoryManager) : IMaste
         repositoryManager.Detach();
     }
 
-    public async Task DeleteMasterFrameIn(DateOnly date)
+    public async Task RemoveMasterFrameIn(DateOnly date)
     {
         var itemsToDelete = await repositoryManager.MasterFrameIns.GetMasterFrameIns(date, false);
-        itemsToDelete.ForEach(x => repositoryManager.MasterFrameIns.DeleteMasterFrameIn(x));
+        itemsToDelete.ForEach(x => repositoryManager.MasterFrameIns.RemoveMasterFrameIn(x));
         await repositoryManager.SaveAsync();
         repositoryManager.Detach();
     }
 
-    public async Task DeleteMasterFrameIn(List<int> ids)
+    public async Task RemoveMasterFrameIn(List<int> ids)
     {
-        ids.ForEach(x => repositoryManager.MasterFrameIns.DeleteMasterFrameIn(new() { Id = x }));
+        ids.ForEach(x => repositoryManager.MasterFrameIns.RemoveMasterFrameIn(new() { Id = x }));
         await repositoryManager.SaveAsync();
         repositoryManager.Detach();
     }

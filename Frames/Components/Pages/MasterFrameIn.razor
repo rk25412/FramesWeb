@@ -50,7 +50,7 @@ else
                 </RadzenDataGridColumn>
                 @foreach (var item in Enumerable.Range(0, _maxDataColCount))
                 {
-                    <RadzenDataGridColumn Title="@($"Round {item + 1}")" TextAlign="TextAlign.Center">
+                    <RadzenDataGridColumn Title="@($"Round {item + 1}")" TextAlign="TextAlign.Center" Sortable="true">
                         <Template Context="data">
                             @if (data is FrameInDto dto)
                             {

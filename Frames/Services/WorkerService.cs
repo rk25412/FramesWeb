@@ -38,9 +38,9 @@ public class WorkerService(IRepositoryManager repoManager) : IWorkerService
         repoManager.Detach();
     }
 
-    public async Task DeleteWorker(int workerId)
+    public async Task RemoveWorker(int workerId)
     {
-        repoManager.Workers.DeleteWorker(new Worker { Id = workerId });
+        repoManager.Workers.RemoveWorker(new Worker { Id = workerId });
         await repoManager.SaveAsync();
         repoManager.Detach();
     }

@@ -17,5 +17,5 @@ public class WorkerRepository(AppDbContext dbContext) : RepositoryBase<Worker>(d
 
     public void UpdateWorker(Worker worker) => Update(worker);
 
-    public void DeleteWorker(Worker worker) => Delete(worker);
+    public void RemoveWorker(Worker worker) => Delete(worker);
 }
