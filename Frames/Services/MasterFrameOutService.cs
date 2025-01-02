@@ -23,20 +23,34 @@ public class MasterFrameOutService(IRepositoryManager repositoryManager) : IMast
         var entities = dto.ToEntity();
         foreach (var entity in entities)
         {
-            if (entity.Id is 0)
-                repositoryManager.MasterFrameOuts.CreateMasterFrameOut(entity);
-            else
-                repositoryManager.MasterFrameOuts.UpdateMasterFrameOut(entity);
+            switch (entity.Id)
+            {
+                case 0 when entity.MasterFrameOutTypes.Any(x => x.Count > 0):
+                    repositoryManager.MasterFrameOuts.CreateMasterFrameOut(entity);
+                    break;
+                case > 0 when entity.MasterFrameOutTypes.Any(x => x.Count > 0):
+                    repositoryManager.MasterFrameOuts.UpdateMasterFrameOut(entity);
+                    break;
+                case > 0:
+                    repositoryManager.MasterFrameOuts.RemoveMasterFramesOut(entity);
+                    break;
+            }
         }
 
         await repositoryManager.SaveAsync();
         repositoryManager.Detach();
     }
 
-    public async Task DeleteFrameOuts(DateOnly date)
+    public async Task RemoveFrameOuts(DateOnly date)
     {
-        var entities = await repositoryManager.MasterFrameOuts.GetMasterFrameOuts(date, false);
-        entities.ForEach(x => repositoryManager.MasterFrameOuts.RemoveMasterFramesOut(x));
+        repositoryManager.MasterFrameOuts.RemoveMasterFrameOutByDate(date);
+        await repositoryManager.SaveAsync();
+        repositoryManager.Detach();
+    }
+
+    public async Task RemoveFrameOuts(List<int> ids)
+    {
+        ids.ForEach(id => repositoryManager.MasterFrameOuts.RemoveMasterFramesOut(new() { Id = id }));
         await repositoryManager.SaveAsync();
         repositoryManager.Detach();
     }

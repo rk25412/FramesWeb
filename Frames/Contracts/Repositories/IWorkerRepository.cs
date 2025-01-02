@@ -7,5 +7,5 @@ public interface IWorkerRepository
     Task<Worker?> GetWorkerById(int id, bool trackChanges);
     void CreateWorker(Worker worker);
     void UpdateWorker(Worker worker);
-    void DeleteWorker(Worker worker);
+    void RemoveWorker(Worker worker);
 }

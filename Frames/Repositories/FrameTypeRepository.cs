@@ -16,5 +16,5 @@ public class FrameTypeRepository(AppDbContext dbContext)
 
     public void CreateNewFrameType(FrameType frameType) => Create(frameType);
     public void UpdateFrameType(FrameType frameType) => Update(frameType);
-    public void DeleteFrameType(FrameType frameType) => Delete(frameType);
+    public void RemoveFrameType(FrameType frameType) => Delete(frameType);
 }

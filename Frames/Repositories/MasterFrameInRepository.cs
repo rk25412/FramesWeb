@@ -19,5 +19,5 @@ public class MasterFrameInRepository(AppDbContext dbContext)
 
     public void CreateMasterFrameIn(MasterFrameIn masterFrameIn) => Create(masterFrameIn);
     public void UpdateMasterFrameIn(MasterFrameIn masterFrameIn) => Update(masterFrameIn);
-    public void DeleteMasterFrameIn(MasterFrameIn masterFrameIn) => Delete(masterFrameIn);
+    public void RemoveMasterFrameIn(MasterFrameIn masterFrameIn) => Delete(masterFrameIn);
 }

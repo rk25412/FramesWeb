@@ -54,7 +54,7 @@ public partial class MasterFrameIn
             $"Delete {dto.Date}");
         if (confirm is true)
         {
-            await ServiceManager.MasterFrameInService.DeleteMasterFrameIn(dto.Date);
+            await ServiceManager.MasterFrameInService.RemoveMasterFrameIn(dto.Date);
             await LoadGridData();
         }
     }

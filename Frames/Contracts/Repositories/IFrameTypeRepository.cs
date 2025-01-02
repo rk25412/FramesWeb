@@ -7,5 +7,5 @@ public interface IFrameTypeRepository
     Task<FrameType?> GetFrameTypeById(int id, bool trackChanges);
     void CreateNewFrameType(FrameType frameType);
     void UpdateFrameType(FrameType frameType);
-    void DeleteFrameType(FrameType frameType);
+    void RemoveFrameType(FrameType frameType);
 }

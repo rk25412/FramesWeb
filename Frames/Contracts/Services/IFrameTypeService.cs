@@ -7,5 +7,5 @@ public interface IFrameTypeService
     Task<FrameTypeDto> GetFrameTypeById(int frameTypeId);
     Task CreateFrameType(FrameTypeDto newFrameType);
     Task UpdateFrameType(FrameTypeDto frameType);
-    Task DeleteFrameType(int frameTypeId);
+    Task RemoveFrameType(int frameTypeId);
 }

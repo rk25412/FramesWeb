@@ -31,7 +31,8 @@ else
                 <RadzenDataGridColumn Title="Action" Frozen="true" Sortable="false" TextAlign="TextAlign.Center">
                     <Template Context="data">
                         <RadzenButton ButtonType="ButtonType.Button" Size="ButtonSize.Medium"
-                                      ButtonStyle="ButtonStyle.Warning" Icon="edit" Click="() => OnAddUpdateClick(data)"/>
+                                      ButtonStyle="ButtonStyle.Warning" Icon="edit"
+                                      Click="() => OnAddUpdateClick(data)"/>
                         <RadzenButton ButtonType="ButtonType.Button" Size="ButtonSize.Medium"
                                       ButtonStyle="ButtonStyle.Danger" Icon="delete" Click="() => OnRemoveClick(data)"/>
                     </Template>
@@ -48,7 +49,7 @@ else
                 </RadzenDataGridColumn>
                 @foreach (var item in Enumerable.Range(0, _maxDataColCount))
                 {
-                    <RadzenDataGridColumn Title="@($"Round {item + 1}")" TextAlign="TextAlign.Center">
+                    <RadzenDataGridColumn Title="@($"Round {item + 1}")" TextAlign="TextAlign.Center" Sortable="true">
                         <Template Context="data">
                             @if (data is FrameOutDto dto)
                             {

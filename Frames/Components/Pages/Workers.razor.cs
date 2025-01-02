@@ -55,7 +55,7 @@ public partial class Workers
             $"Delete {workerDto.Name}");
         if (confirm is true)
         {
-            await ServiceManager.WorkerService.DeleteWorker(workerDto.Id);
+            await ServiceManager.WorkerService.RemoveWorker(workerDto.Id);
             await LoadWorkers();
         }
     }

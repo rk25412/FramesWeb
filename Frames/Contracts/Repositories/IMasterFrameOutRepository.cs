@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+
 namespace Frames.Contracts.Repositories;
 
 public interface IMasterFrameOutRepository
@@ -8,4 +10,5 @@ public interface IMasterFrameOutRepository
     void CreateMasterFrameOut(MasterFrameOut masterFrameOut);
     void UpdateMasterFrameOut(MasterFrameOut masterFrameOut);
     void RemoveMasterFramesOut(MasterFrameOut frameOut);
+    void RemoveMasterFrameOutByDate(DateOnly date);
 }

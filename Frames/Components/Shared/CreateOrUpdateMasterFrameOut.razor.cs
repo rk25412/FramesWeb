@@ -23,7 +23,7 @@ public partial class CreateOrUpdateMasterFrameOut : ComponentBase
         {
             var framesNamesIncluded = item.FrameOutTypes.Select(x => x.FrameName);
             _frameTypes
-                .Where(x => !framesNamesIncluded.Contains(x.Name))?.ToList()
+                .Where(x => !framesNamesIncluded.Contains(x.Name)).ToList()
                 .ForEach(x => item.FrameOutTypes.Add(new FrameOutTypeDto
                 {
                     Id = 0,
@@ -38,6 +38,7 @@ public partial class CreateOrUpdateMasterFrameOut : ComponentBase
 
     private async Task OnSubmit()
     {
+        await ServiceManager.MasterFrameOutService.RemoveFrameOuts(_itemsToDelete);
         await ServiceManager.MasterFrameOutService.CreateOrUpdateFrameOuts(_frameOutDto);
         CloseDialog();
     }
@@ -69,6 +70,7 @@ public partial class CreateOrUpdateMasterFrameOut : ComponentBase
         }
 
         _frameOutDto.FrameOutTimeDtos.Remove(dto);
+        _lineItemsGrid?.Reload();
     }
 
     private void CloseDialog() => DialogService.Close(true);

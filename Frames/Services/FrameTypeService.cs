@@ -37,9 +37,9 @@ public class FrameTypeService(IRepositoryManager repositoryManager) : IFrameType
         repositoryManager.Detach();
     }
 
-    public async Task DeleteFrameType(int frameTypeId)
+    public async Task RemoveFrameType(int frameTypeId)
     {
-        repositoryManager.FrameTypes.DeleteFrameType(new() { Id = frameTypeId });
+        repositoryManager.FrameTypes.RemoveFrameType(new() { Id = frameTypeId });
         await repositoryManager.SaveAsync();
         repositoryManager.Detach();
     }

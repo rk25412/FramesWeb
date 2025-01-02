@@ -64,7 +64,7 @@ public static class Converters
 
             foreach (var typeDto in timeDto.FrameOutTypes)
             {
-                if (typeDto.Count <= 0)
+                if (typeDto is { Count: <= 0, Id: 0 })
                     continue;
 
                 MasterFrameOutType type = new()
@@ -90,7 +90,7 @@ public static class Converters
         {
             Date = DateOnly.FromDateTime(frameOuts.First().DateTime)
         };
-        foreach (var frameOut in frameOuts)
+        foreach (var frameOut in frameOuts.OrderBy(x => x.DateTime))
         {
             FrameOutTimeDto timeDto = new()
             {

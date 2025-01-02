@@ -7,5 +7,5 @@ public interface IMasterFrameInRepository
     Task<MasterFrameIn?> GetMasterFrameIn(int id, bool trackChanges);
     void CreateMasterFrameIn(MasterFrameIn masterFrameIn);
     void UpdateMasterFrameIn(MasterFrameIn masterFrameIn);
-    void DeleteMasterFrameIn(MasterFrameIn masterFrameIn);
+    void RemoveMasterFrameIn(MasterFrameIn masterFrameIn);
 }

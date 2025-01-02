@@ -14,8 +14,12 @@ public class ServiceManager(IRepositoryManager repositoryManager) : IServiceMana
     private readonly Lazy<IMasterFrameOutService> _masterFrameOutService =
         new(() => new MasterFrameOutService(repositoryManager));
 
+    private readonly Lazy<IMasterFrameOutTypeService> _masterFrameOutTypeService =
+        new(() => new MasterFrameOutTypeService(repositoryManager));
+
     public IFrameTypeService FrameTypeService => _frameTypeService.Value;
     public IWorkerService WorkerService => _workerService.Value;
     public IMasterFrameInService MasterFrameInService => _masterFrameInService.Value;
     public IMasterFrameOutService MasterFrameOutService => _masterFrameOutService.Value;
+    public IMasterFrameOutTypeService MasterFrameOutTypeService => _masterFrameOutTypeService.Value;
 }

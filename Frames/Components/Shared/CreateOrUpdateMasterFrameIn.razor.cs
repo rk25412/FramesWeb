@@ -28,7 +28,7 @@ public partial class CreateOrUpdateMasterFrameIn : ComponentBase
     private async Task OnSubmit(FrameInDto frameInDto)
     {
         await ServiceManager.MasterFrameInService.CreateOrUpdateMasterFrameIn(frameInDto);
-        await ServiceManager.MasterFrameInService.DeleteMasterFrameIn(_itemsToDelete);
+        await ServiceManager.MasterFrameInService.RemoveMasterFrameIn(_itemsToDelete);
         CloseDialog();
     }
 

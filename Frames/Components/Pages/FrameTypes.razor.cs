@@ -55,7 +55,7 @@ public partial class FrameTypes
             $"Delete {frameType.Name}");
         if (confirm is true)
         {
-            await ServiceManager.FrameTypeService.DeleteFrameType(frameType.Id);
+            await ServiceManager.FrameTypeService.RemoveFrameType(frameType.Id);
             await LoadFrameTypes();
         }
     }
