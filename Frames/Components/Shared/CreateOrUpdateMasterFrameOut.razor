@@ -41,7 +41,7 @@
                                 @if (data is FrameOutTimeDto dto)
                                 {
                                     var frameToShow = @dto.FrameOutTypes.First(x => x.FrameTypeId == frameType.Id);
-                                    <RadzenNumeric @bind-Value="@frameToShow.Count"/>
+                                    <RadzenNumeric @bind-Value="@frameToShow.Count" Min="1"/>
                                 }
                             </Template>
                         </RadzenDataGridColumn>
