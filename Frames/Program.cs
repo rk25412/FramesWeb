@@ -9,6 +9,7 @@ builder.Services.AddRazorComponents()
 builder.Services.ConfigureDbContext(builder.Configuration);
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
+builder.Services.ConfigureUtilityService();
 builder.Services.AddRadzenComponents();
 
 var app = builder.Build();

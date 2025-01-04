@@ -5,17 +5,20 @@ public partial class FrameTypes
     private readonly List<FrameTypeDto> _frameTypesList = [];
     private RadzenDataGrid<FrameTypeDto>? _frameTypeGrid;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        InvokeAsync(async () => { await LoadFrameTypes(); });
+        await LoadFrameTypes();
     }
 
     private async Task LoadFrameTypes()
     {
+        UtilityService.ToggleLoader();
+        await Task.Delay(1);
         _frameTypesList.Clear();
         var framesList = await ServiceManager.FrameTypeService.GetFrameTypes();
         _frameTypesList.AddRange(framesList);
         _frameTypeGrid?.Reload();
+        UtilityService.ToggleLoader();
     }
 
     private async Task OnAddFrameTypeClick()

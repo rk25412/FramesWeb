@@ -9,6 +9,7 @@ public partial class CreateOrUpdateFrameType
 
     protected override async Task OnInitializedAsync()
     {
+        UtilityService.ToggleLoader();
         var frameNames = await ServiceManager.FrameTypeService.GetFrameTypeNames();
         if (FrameTypeId == 0)
         {
@@ -24,6 +25,7 @@ public partial class CreateOrUpdateFrameType
         }
 
         _frameNames.AddRange(frameNames);
+        UtilityService.ToggleLoader();
     }
 
     private void CloseDialog() => DialogService.Close(true);
