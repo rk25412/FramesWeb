@@ -10,14 +10,16 @@ public partial class MasterFrameIn
     private RadzenDataGrid<FrameInDto>? _grid0;
     private int _maxDataColCount;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        _monthDropdown.AddRange(Utilities.GetDdlDataForMonths());
-        _yearDropdown.AddRange(Utilities.GetDdlDataForYears());
-        _selectedMonth = DateTime.Now.Month;
-        _selectedYear = DateTime.Now.Year;
-
-        await LoadGridData();
+        InvokeAsync(async () =>
+        {
+            _monthDropdown.AddRange(Utilities.GetDdlDataForMonths());
+            _yearDropdown.AddRange(Utilities.GetDdlDataForYears());
+            _selectedMonth = DateTime.Now.Month;
+            _selectedYear = DateTime.Now.Year;
+            await LoadGridData();
+        });
     }
 
     private async Task MonthYearDropdownChanged() => await LoadGridData();
@@ -33,17 +35,17 @@ public partial class MasterFrameIn
 
     private async Task OnAddUpdateMasterInClick(FrameInDto? dto = null)
     {
-            await DialogService.OpenAsync<CreateOrUpdateMasterFrameIn>(
-                "Add/Update Master Frame In",
-                new Dictionary<string, object?>()
-                {
-                    ["Date"] = dto?.Date ?? null,
-                },
-                new DialogOptions()
-                {
-                    Width = "min(700px, 90%)",
-                    Height = "auto"
-                });
+        await DialogService.OpenAsync<CreateOrUpdateMasterFrameIn>(
+            "Add/Update Master Frame In",
+            new Dictionary<string, object?>()
+            {
+                ["Date"] = dto?.Date ?? null,
+            },
+            new DialogOptions()
+            {
+                Width = "min(700px, 90%)",
+                Height = "auto"
+            });
 
         await LoadGridData();
     }

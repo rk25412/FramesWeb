@@ -10,14 +10,17 @@ public partial class MasterFrameOut : ComponentBase
     private RadzenDataGrid<FrameOutDto>? _grid0;
     private int _maxDataColCount;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        _monthDropdown.AddRange(Utilities.GetDdlDataForMonths());
-        _yearDropdown.AddRange(Utilities.GetDdlDataForYears());
-        _selectedMonth = DateTime.Now.Month;
-        _selectedYear = DateTime.Now.Year;
+        InvokeAsync(async () =>
+        {
+            _monthDropdown.AddRange(Utilities.GetDdlDataForMonths());
+            _yearDropdown.AddRange(Utilities.GetDdlDataForYears());
+            _selectedMonth = DateTime.Now.Month;
+            _selectedYear = DateTime.Now.Year;
 
-        await LoadGridData();
+            await LoadGridData();
+        });
     }
 
     private async Task LoadGridData()

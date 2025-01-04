@@ -5,9 +5,9 @@ public partial class FrameTypes
     private readonly List<FrameTypeDto> _frameTypesList = [];
     private RadzenDataGrid<FrameTypeDto>? _frameTypeGrid;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await LoadFrameTypes();
+        InvokeAsync(async () => { await LoadFrameTypes(); });
     }
 
     private async Task LoadFrameTypes()
@@ -48,7 +48,7 @@ public partial class FrameTypes
 
         await LoadFrameTypes();
     }
-    
+
     private async Task OnDeleteClick(FrameTypeDto frameType)
     {
         var confirm = await DialogService.Confirm("Are you sure you want to delete this frame type?",
