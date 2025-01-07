@@ -9,6 +9,8 @@ public partial class CreateOrEditWorker
 
     protected override async Task OnInitializedAsync()
     {
+        UtilityService.ToggleLoader();
+        await Task.Delay(1);
         var workerNames = await ServiceManager.WorkerService.GetWorkerNames();
         if (WorkerId is 0)
         {
@@ -24,6 +26,7 @@ public partial class CreateOrEditWorker
         }
 
         _workerNames.AddRange(workerNames);
+        UtilityService.ToggleLoader();
     }
     
     private void CloseDialog() => DialogService.Close(true);
@@ -33,11 +36,14 @@ public partial class CreateOrEditWorker
 
     private async Task OnSubmit(WorkerDto workerDto)
     {
+        UtilityService.ToggleLoader();
+        await Task.Delay(1);
         if (WorkerId is 0)
             await ServiceManager.WorkerService.CreateWorker(workerDto);
         else
             await ServiceManager.WorkerService.UpdateWorker(workerDto);
 
+        UtilityService.ToggleLoader();
         CloseDialog();
     }
 }
