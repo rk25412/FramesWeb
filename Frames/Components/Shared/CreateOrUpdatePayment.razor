@@ -1,0 +1,29 @@
+<RadzenTemplateForm TItem="PaymentDto" Data="_payment" Visible="@(_payment is not null)"
+                    Submit="OnSubmit">
+    <RadzenRow Gap="1rem">
+        <RadzenColumn Size="12" SizeMD="6">
+            <RadzenStack>
+                <RadzenFormField Text="Date" Variant="Variant.Outlined">
+                    <RadzenDatePicker @bind-Value="Date" Name="PaymentDate" Max="DateTime.Now"/>
+                    <RadzenRequiredValidator Component="PaymentDate" Text="Payment Date is required" Popup="@true"
+                                             Style="position: relative"/>
+                </RadzenFormField>
+            </RadzenStack>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6">
+            <RadzenStack>
+                <RadzenFormField Text="Amount" Variant="Variant.Outlined">
+                    <RadzenNumeric @bind-Value="_payment!.Amount" Name="PaymentAmt" Min="1000"/>
+                    <RadzenRequiredValidator Component="PaymentAmt" Text="Payment amount is required" Popup="@true"
+                                             Style="position: relative"/>
+                </RadzenFormField>
+            </RadzenStack>
+        </RadzenColumn>
+    </RadzenRow>
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" Gap="1rem"
+                 class="rz-mt-8 rz-mb-4">
+        <RadzenButton ButtonType="ButtonType.Submit" Size="ButtonSize.Large" Icon="save" Text="Save"/>
+        <RadzenButton ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Large" Icon="cancel"
+                      Text="Cancel" Click="@CloseDialog"/>
+    </RadzenStack>
+</RadzenTemplateForm>
