@@ -114,4 +114,20 @@ public static class Converters
 
         return result;
     }
+
+    public static PaymentDto ToDto(this Payments payment)
+        => new PaymentDto()
+        {
+            Id = payment.Id,
+            Amount = payment.Amount,
+            Date = payment.Date,
+        };
+
+    public static Payments ToEntity(this PaymentDto dto)
+        => new Payments()
+        {
+            Id = dto.Id,
+            Amount = dto.Amount,
+            Date = dto.Date
+        };
 }
