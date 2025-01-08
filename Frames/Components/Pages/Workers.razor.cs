@@ -5,17 +5,20 @@ public partial class Workers
     private readonly List<WorkerDto> _workers = [];
     private RadzenDataGrid<WorkerDto>? _workersGrid;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await LoadWorkers();
+        InvokeAsync(async () => { await LoadWorkers(); });
     }
 
     private async Task LoadWorkers()
     {
+        UtilityService.ToggleLoader();
+        await Task.Delay(1);
         _workers.Clear();
         var workers = await ServiceManager.WorkerService.GetWorkers();
         _workers.AddRange(workers);
         _workersGrid?.Reload();
+        UtilityService.ToggleLoader();
     }
 
     private async Task OnAddWorkerClick()

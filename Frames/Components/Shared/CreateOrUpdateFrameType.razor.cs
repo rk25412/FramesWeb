@@ -9,6 +9,8 @@ public partial class CreateOrUpdateFrameType
 
     protected override async Task OnInitializedAsync()
     {
+        UtilityService.ToggleLoader();
+        await Task.Delay(1);
         var frameNames = await ServiceManager.FrameTypeService.GetFrameTypeNames();
         if (FrameTypeId == 0)
         {
@@ -24,6 +26,7 @@ public partial class CreateOrUpdateFrameType
         }
 
         _frameNames.AddRange(frameNames);
+        UtilityService.ToggleLoader();
     }
 
     private void CloseDialog() => DialogService.Close(true);
@@ -33,11 +36,14 @@ public partial class CreateOrUpdateFrameType
 
     private async Task OnSubmit(FrameTypeDto newFrameType)
     {
+        UtilityService.ToggleLoader();
+        await Task.Delay(1);
         if (FrameTypeId is 0)
             await ServiceManager.FrameTypeService.CreateFrameType(newFrameType);
         else
             await ServiceManager.FrameTypeService.UpdateFrameType(newFrameType);
 
+        UtilityService.ToggleLoader();
         CloseDialog();
     }
 }

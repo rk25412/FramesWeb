@@ -18,6 +18,8 @@ public partial class CreateOrUpdateMasterFrameOut : ComponentBase
 
     private async Task LoadFrameOutData()
     {
+        UtilityService.ToggleLoader();
+        await Task.Delay(1);
         _frameOutDto = await ServiceManager.MasterFrameOutService.GetFrameOuts(Date!.Value);
         foreach (var item in _frameOutDto.FrameOutTimeDtos)
         {
@@ -34,12 +36,16 @@ public partial class CreateOrUpdateMasterFrameOut : ComponentBase
                     FrameRate = x.MasterRate ?? 0m,
                 }));
         }
+        UtilityService.ToggleLoader();
     }
 
     private async Task OnSubmit()
     {
+        UtilityService.ToggleLoader();
+        await Task.Delay(1);
         await ServiceManager.MasterFrameOutService.RemoveFrameOuts(_itemsToDelete);
         await ServiceManager.MasterFrameOutService.CreateOrUpdateFrameOuts(_frameOutDto);
+        UtilityService.ToggleLoader();
         CloseDialog();
     }
 

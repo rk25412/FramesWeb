@@ -13,16 +13,15 @@ public class RepositoryManager(AppDbContext context) : IRepositoryManager
 
     private readonly Lazy<IMasterFrameOutRepository> _masterFrameOutRepository =
         new(() => new MasterFrameOutRepository(context));
-    
-    private readonly Lazy<IMasterFrameOutTypeRepository> _masterFrameOutTypeRepository =
-        new(() => new MasterFrameOutTypeRepository(context));
 
+    private readonly Lazy<IPaymentsRepository> _paymentsRepository =
+        new(() => new PaymentsRepository(context));
+    
     public IFrameTypeRepository FrameTypes => _frameTypeRepository.Value;
     public IWorkerRepository Workers => _workerRepository.Value;
     public IMasterFrameInRepository MasterFrameIns => _masterFrameInRepository.Value;
     public IMasterFrameOutRepository MasterFrameOuts => _masterFrameOutRepository.Value;
-    public IMasterFrameOutTypeRepository MasterFrameOutTypes => _masterFrameOutTypeRepository.Value;
-
+    public IPaymentsRepository Payments => _paymentsRepository.Value;
     public void Detach() => context.ChangeTracker.Clear();
     public async Task SaveAsync() => await context.SaveChangesAsync();
 }

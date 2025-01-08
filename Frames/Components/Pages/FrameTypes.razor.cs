@@ -12,10 +12,13 @@ public partial class FrameTypes
 
     private async Task LoadFrameTypes()
     {
+        UtilityService.ToggleLoader();
+        await Task.Delay(1);
         _frameTypesList.Clear();
         var framesList = await ServiceManager.FrameTypeService.GetFrameTypes();
         _frameTypesList.AddRange(framesList);
         _frameTypeGrid?.Reload();
+        UtilityService.ToggleLoader();
     }
 
     private async Task OnAddFrameTypeClick()
@@ -48,7 +51,7 @@ public partial class FrameTypes
 
         await LoadFrameTypes();
     }
-    
+
     private async Task OnDeleteClick(FrameTypeDto frameType)
     {
         var confirm = await DialogService.Confirm("Are you sure you want to delete this frame type?",

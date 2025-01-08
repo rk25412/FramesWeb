@@ -1,6 +1,30 @@
 ﻿<Router AppAssembly="typeof(Program).Assembly">
     <Found Context="routeData">
+        @if (_isLoading)
+        {
+            <Loader/>
+        }
         <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)"/>
-        <FocusOnNavigate RouteData="routeData" Selector="h1"/>
     </Found>
 </Router>
+
+@code {
+
+    private bool _isLoading = false;
+
+    protected override void OnInitialized()
+    {
+        UtilityService.ToggleLoaderAction = ToggleLoader;
+        UtilityService.StateChangeAction = TriggerStateChange;
+        
+        base.OnInitialized();
+    }
+
+    private void ToggleLoader()
+    {
+        _isLoading = !_isLoading;
+    }
+
+    public void TriggerStateChange() => InvokeAsync(StateHasChanged);
+
+}

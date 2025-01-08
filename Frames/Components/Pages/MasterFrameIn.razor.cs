@@ -16,7 +16,6 @@ public partial class MasterFrameIn
         _yearDropdown.AddRange(Utilities.GetDdlDataForYears());
         _selectedMonth = DateTime.Now.Month;
         _selectedYear = DateTime.Now.Year;
-
         await LoadGridData();
     }
 
@@ -24,26 +23,29 @@ public partial class MasterFrameIn
 
     private async Task LoadGridData()
     {
+        UtilityService.ToggleLoader();
+        await Task.Delay(1);
         _frameInlist.Clear();
         var data = await ServiceManager.MasterFrameInService.GetMasterFrameIns(_selectedMonth, _selectedYear);
         _frameInlist.AddRange(data);
         _maxDataColCount = _frameInlist.Count > 0 ? _frameInlist.Max(x => x.ItemsCount) : 0;
         _grid0?.Reload();
+        UtilityService.ToggleLoader();
     }
 
     private async Task OnAddUpdateMasterInClick(FrameInDto? dto = null)
     {
-            await DialogService.OpenAsync<CreateOrUpdateMasterFrameIn>(
-                "Add/Update Master Frame In",
-                new Dictionary<string, object?>()
-                {
-                    ["Date"] = dto?.Date ?? null,
-                },
-                new DialogOptions()
-                {
-                    Width = "min(700px, 90%)",
-                    Height = "auto"
-                });
+        await DialogService.OpenAsync<CreateOrUpdateMasterFrameIn>(
+            "Add/Update Master Frame In",
+            new Dictionary<string, object?>()
+            {
+                ["Date"] = dto?.Date ?? null,
+            },
+            new DialogOptions()
+            {
+                Width = "min(700px, 90%)",
+                Height = "auto"
+            });
 
         await LoadGridData();
     }

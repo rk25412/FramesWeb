@@ -22,11 +22,14 @@ public partial class MasterFrameOut : ComponentBase
 
     private async Task LoadGridData()
     {
+        UtilityService.ToggleLoader();
+        await Task.Delay(1);
         _frameOutList.Clear();
         var frameOutData = await ServiceManager.MasterFrameOutService.GetFrameOuts(_selectedMonth, _selectedYear);
         _frameOutList.AddRange(frameOutData);
         _maxDataColCount = _frameOutList.Count > 0 ? _frameOutList.Max(x => x.ItemsCount) : 0;
         _grid0?.Reload();
+        UtilityService.ToggleLoader();
     }
 
     private async Task MonthYearDropdownChanged() => await LoadGridData();

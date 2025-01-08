@@ -21,14 +21,20 @@ public partial class CreateOrUpdateMasterFrameIn : ComponentBase
 
     private async Task LoadFrameInData()
     {
+        UtilityService.ToggleLoader();
+        await Task.Delay(1);
         _frameInDto = await ServiceManager.MasterFrameInService.GetMasterFrameIn(Date!.Value);
         _lineItemsGrid?.Reload();
+        UtilityService.ToggleLoader();
     }
 
     private async Task OnSubmit(FrameInDto frameInDto)
     {
+        UtilityService.ToggleLoader();
+        await Task.Delay(1);
         await ServiceManager.MasterFrameInService.CreateOrUpdateMasterFrameIn(frameInDto);
         await ServiceManager.MasterFrameInService.RemoveMasterFrameIn(_itemsToDelete);
+        UtilityService.ToggleLoader();
         CloseDialog();
     }
 
