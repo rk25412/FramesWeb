@@ -26,7 +26,8 @@
 else
 {
     <div class="mt-5">
-        <RadzenDataGrid @ref="_grid0" AllowFiltering="false" AllowSorting="true" AllowPaging="false" ColumnWidth="100px"
+        <RadzenDataGrid @ref="_grid0" AllowFiltering="false" AllowSorting="true" AllowPaging="true" PageSize="10"
+                        ColumnWidth="100px"
                         Data="_payments">
             <Columns>
                 <RadzenDataGridColumn Title="Action" Frozen="true" Sortable="false" TextAlign="TextAlign.Center">
