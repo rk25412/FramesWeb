@@ -7,4 +7,5 @@ public interface IServiceManager
     IMasterFrameInService MasterFrameInService { get; }
     IMasterFrameOutService MasterFrameOutService { get; }
     IPaymentsService PaymentsService { get; }
+    IBillingService BillingService { get; }
 }

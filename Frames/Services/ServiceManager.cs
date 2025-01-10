@@ -17,9 +17,13 @@ public class ServiceManager(IRepositoryManager repositoryManager) : IServiceMana
     private readonly Lazy<IPaymentsService> _paymentsService =
         new(() => new PaymentsService(repositoryManager));
 
+    private readonly Lazy<IBillingService> _billingService =
+        new(() => new BillingService(repositoryManager));
+
     public IFrameTypeService FrameTypeService => _frameTypeService.Value;
     public IWorkerService WorkerService => _workerService.Value;
     public IMasterFrameInService MasterFrameInService => _masterFrameInService.Value;
     public IMasterFrameOutService MasterFrameOutService => _masterFrameOutService.Value;
     public IPaymentsService PaymentsService => _paymentsService.Value;
+    public IBillingService BillingService => _billingService.Value;
 }
