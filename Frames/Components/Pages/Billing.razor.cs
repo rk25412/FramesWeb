@@ -34,7 +34,7 @@ public partial class Billing : ComponentBase
         UtilityService.ToggleLoader();
         await Task.Delay(1);
         
-        await ServiceManager.BillingService. CalculateBilling(_selectedMonth, _selectedYear);
+        await ServiceManager.BillingService.CalculateBilling(_selectedMonth, _selectedYear);
         UtilityService.ToggleLoader();
     }
 
