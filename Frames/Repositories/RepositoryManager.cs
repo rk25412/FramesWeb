@@ -17,11 +17,15 @@ public class RepositoryManager(AppDbContext context) : IRepositoryManager
     private readonly Lazy<IPaymentsRepository> _paymentsRepository =
         new(() => new PaymentsRepository(context));
     
+    private readonly Lazy<IBillingRepository> _billingRepository =
+        new(() => new BillingRepository(context));
+    
     public IFrameTypeRepository FrameTypes => _frameTypeRepository.Value;
     public IWorkerRepository Workers => _workerRepository.Value;
     public IMasterFrameInRepository MasterFrameIns => _masterFrameInRepository.Value;
     public IMasterFrameOutRepository MasterFrameOuts => _masterFrameOutRepository.Value;
     public IPaymentsRepository Payments => _paymentsRepository.Value;
+    public IBillingRepository Billing => _billingRepository.Value;
     public void Detach() => context.ChangeTracker.Clear();
     public async Task SaveAsync() => await context.SaveChangesAsync();
 }

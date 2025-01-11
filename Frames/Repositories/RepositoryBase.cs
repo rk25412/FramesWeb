@@ -18,6 +18,6 @@ public class RepositoryBase<T>(AppDbContext dbContext) : IRepositoryBase<T> wher
     public void Create(T entity) => dbContext.Set<T>().Add(entity);
     public void Update(T entity) => dbContext.Set<T>().Update(entity);
     public void Delete(T entity) => dbContext.Set<T>().Remove(entity);
-    public void DeleteByCodition(Expression<Func<T, bool>> expression) =>
+    public void DeleteByCondition(Expression<Func<T, bool>> expression) =>
         dbContext.Set<T>().Where(expression).ExecuteDelete();
 }

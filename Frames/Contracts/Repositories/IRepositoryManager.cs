@@ -7,6 +7,7 @@ public interface IRepositoryManager
     IMasterFrameInRepository MasterFrameIns { get; }
     IMasterFrameOutRepository MasterFrameOuts { get; }
     IPaymentsRepository Payments { get; }
+    IBillingRepository Billing { get; }
     void Detach();
     Task SaveAsync();
 }

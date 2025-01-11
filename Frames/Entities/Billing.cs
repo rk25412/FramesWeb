@@ -7,4 +7,5 @@ public class Billing : EntityBase
 
     public List<BillingItem> BillingItems { get; set; } = [];
     public List<Paid> Paid { get; set; } = [];
+    public BillingSummary? Summary { get; set; }
 }

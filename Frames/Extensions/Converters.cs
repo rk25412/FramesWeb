@@ -130,4 +130,19 @@ public static class Converters
             Amount = dto.Amount,
             Date = dto.Date
         };
+
+    public static BillingSummaryDto ToBillingSummaryDto(this Billing entity)
+    {
+        return new BillingSummaryDto()
+        {
+            Id = entity.Id,
+            Month = entity.Month,
+            Year = entity.Year,
+            Total = entity.Summary?.Total ?? 0m,
+            LastMonth = entity.Summary?.LastMonth ?? 0m,
+            TotalPaid = entity.Summary?.TotalPaid ?? 0m,
+            Items = entity.BillingItems.ToDictionary(x => x.ItemName!,
+                x => (x.Rate, x.BillingItemDetails.Sum(y => y.Count)))
+        };
+    }
 }
