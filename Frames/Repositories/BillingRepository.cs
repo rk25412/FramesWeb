@@ -6,12 +6,12 @@ public class BillingRepository(AppDbContext dbContext)
     : RepositoryBase<Billing>(dbContext), IBillingRepository
 {
     public async Task<Billing?> GetBillingSummary(int month, int year)
-    {
-        var summary = await FindByCondition(x => x.Month == month && x.Year == year, false)
+        => await FindByCondition(x => x.Month == month && x.Year == year, false)
             .Include(x => x.Summary)
+            .Include(x => x.Paid)
+            .Include(x => x.BillingItems)
+            .ThenInclude(x => x.BillingItemDetails)
             .SingleOrDefaultAsync();
-        return summary;
-    }
 
     public void CreateBilling(Billing billing) => Create(billing);
 }

@@ -1,0 +1,84 @@
+@page "/billing"
+
+<h4>
+    Billing
+    <span class="float-end">
+        <RadzenDropDown @bind-Value="@_selectedMonth" Data="_monthDropdown" TValue="int" TextProperty="Text"
+                        ValueProperty="Value" class="mx-1 mt-2" Change="MonthYearDropdownChanged"/>
+        <RadzenDropDown @bind-Value="@_selectedYear" Data="_yearDropdown" TValue="int" TextProperty="Text"
+                        ValueProperty="Value" class="mx-1 mt-2" Change="MonthYearDropdownChanged"/>
+    </span>
+</h4>
+
+@if (_billingSummaryDto is null)
+{
+    <div class="text-center mt-5">
+        <h3 class="text-center">Bill Not Calculated</h3>
+        <RadzenButton Text="Calculate" class="mt-3" Click="CalculateBilling"/>
+    </div>
+}
+else
+{
+    <div class="card p-2 mt-5">
+        <div class="card-body">
+            <RadzenStack>
+                <h3>@($"{new DateTime(_billingSummaryDto.Year, _billingSummaryDto.Month, 1):MMMM}")</h3>
+            </RadzenStack>
+            <RadzenStack class="mt-2">
+                <div class="row">
+                    <div class="col-md-6 col-12 mt-2">
+                        <table class="table table-bordered border-1">
+                            <tr>
+                                <th class="text-center">Item</th>
+                                <th class="text-center">Count</th>
+                                <th class="text-center">Rate</th>
+                                <th class="text-end">Total</th>
+                            </tr>
+                            @foreach (var item in _billingSummaryDto.Items)
+                            {
+                                <tr>
+                                    <td class="text-center">@item.Key</td>
+                                    <td class="text-center">@item.Value.Item2</td>
+                                    <td class="text-center">@item.Value.Item1</td>
+                                    <th class="text-end">@(item.Value.Item1 * item.Value.Item2)</th>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                    <div class="col-md-6 col-12 mt-2">
+                        <div class="row">
+                            <div
+                                class="col-6">@($"{new DateTime(_billingSummaryDto.Year, _billingSummaryDto.Month, 1).AddMonths(-1):MMM}")</div>
+                            <div class="col-6 text-end">@_billingSummaryDto.LastMonth</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">Paid</div>
+                            <div class="col-6 text-end">@_billingSummaryDto.TotalPaid</div>
+                        </div>
+                        <hr class="m-0"/>
+                        <div class="row">
+                            <div class="col-6">Left</div>
+                            <div
+                                class="col-6 text-end">@(_billingSummaryDto.LastMonth - _billingSummaryDto.TotalPaid)</div>
+                        </div>
+                        <div class="row">
+                            <div
+                                class="col-6">@($"{new DateTime(_billingSummaryDto.Year, _billingSummaryDto.Month, 1):MMM}")</div>
+                            <div class="col-6 text-end">@_billingSummaryDto.Total</div>
+                        </div>
+                        <hr class="m-0"/>
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>@($"{new DateTime(_billingSummaryDto.Year, _billingSummaryDto.Month, 1):MMM}") Total</strong>
+                            </div>
+                            <div class="col-6 text-end"><strong>@_billingSummaryDto.Total</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" class="mt-3" JustifyContent="JustifyContent.End">
+                <RadzenButton Text="Open Bill" Click="OpenBill"/>
+            </RadzenStack>
+        </div>
+    </div>
+}

@@ -25,5 +25,5 @@ public class MasterFrameOutRepository(AppDbContext dbContext)
     public void RemoveMasterFramesOut(MasterFrameOut frameOut) => Delete(frameOut);
 
     public void RemoveMasterFrameOutByDate(DateOnly date) =>
-        DeleteByCodition(x => DateOnly.FromDateTime(x.DateTime) == date);
+        DeleteByCondition(x => DateOnly.FromDateTime(x.DateTime) == date);
 }

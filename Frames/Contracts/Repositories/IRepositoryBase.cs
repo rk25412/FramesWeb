@@ -9,5 +9,5 @@ public interface IRepositoryBase<T>
     void Create(T entity);
     void Update(T entity);
     void Delete(T entity);
-    void DeleteByCodition(Expression<Func<T, bool>> expression);
+    void DeleteByCondition(Expression<Func<T, bool>> expression);
 }

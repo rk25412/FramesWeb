@@ -1,6 +1,6 @@
 namespace Frames.Components.Pages;
 
-public partial class Billing : ComponentBase
+public partial class BillingPage : ComponentBase
 {
     private readonly List<DropdownDto<int>> _monthDropdown = [];
     private readonly List<DropdownDto<int>> _yearDropdown = [];
@@ -39,4 +39,9 @@ public partial class Billing : ComponentBase
     }
 
     private async Task MonthYearDropdownChanged() => await GetBillingSummary();
+
+    private async Task OpenBill()
+    {
+        
+    }
 }
