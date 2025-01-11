@@ -40,5 +40,21 @@ public class BillingService(IRepositoryManager repositoryManager) : IBillingServ
                 });
             }
         }
+
+        var payments = await repositoryManager.Payments.GetPayments(month, year);
+
+        billing.Paid.AddRange(payments.Select(payment => new Paid()
+            { Date = payment.Date, Amount = payment.Amount, PaymentId = payment.Id }));
+
+        billing.Summary = new BillingSummary
+        {
+            Total = billing.BillingItems.Select(x => x.BillingItemDetails.Sum(y => y.Count) * x.Rate).Sum(),
+            TotalPaid = billing.Paid.Sum(x => x.Amount),
+            LastMonth = 0
+        };
+
+        repositoryManager.Billing.CreateBilling(billing);
+        await repositoryManager.SaveAsync();
+        repositoryManager.Detach();
     }
 }

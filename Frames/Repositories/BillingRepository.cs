@@ -12,4 +12,6 @@ public class BillingRepository(AppDbContext dbContext)
             .SingleOrDefaultAsync();
         return summary;
     }
+
+    public void CreateBilling(Billing billing) => Create(billing);
 }
