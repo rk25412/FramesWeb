@@ -5,6 +5,12 @@ public class BillingService(IRepositoryManager repositoryManager) : IBillingServ
     public async Task<BillingSummaryDto?> GetBillingSummary(int month, int year)
     {
         var billing = await repositoryManager.Billing.GetBillingSummary(month, year);
-        return billing.ToDto();
+        return billing?.Summary?.ToBillingSummaryDto(month, year);
+    }
+
+    public async Task CalculateBilling(int month, int year)
+    {
+        var frameOuts = await repositoryManager.MasterFrameOuts.GetMasterFrameOuts(month, year, false);
+        
     }
 }

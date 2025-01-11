@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Components;
-
 namespace Frames.Components.Pages;
 
 public partial class Billing : ComponentBase
@@ -8,6 +6,8 @@ public partial class Billing : ComponentBase
     private readonly List<DropdownDto<int>> _yearDropdown = [];
     private int _selectedMonth;
     private int _selectedYear;
+    
+    private BillingSummaryDto? _billingSummaryDto;
 
     protected override async Task OnInitializedAsync()
     {
@@ -24,6 +24,7 @@ public partial class Billing : ComponentBase
         UtilityService.ToggleLoader();
         await Task.Delay(1);
 
+        _billingSummaryDto = await ServiceManager.BillingService.GetBillingSummary(_selectedMonth, _selectedYear);
 
         UtilityService.ToggleLoader();
     }
@@ -33,7 +34,7 @@ public partial class Billing : ComponentBase
         UtilityService.ToggleLoader();
         await Task.Delay(1);
         
-        
+        await ServiceManager.BillingService. CalculateBilling(_selectedMonth, _selectedYear);
         UtilityService.ToggleLoader();
     }
 

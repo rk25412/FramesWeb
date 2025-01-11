@@ -131,19 +131,16 @@ public static class Converters
             Date = dto.Date
         };
 
-    public static BillingSummaryDto? ToDto(this Billing? entity)
+    public static BillingSummaryDto ToBillingSummaryDto(this BillingSummary entity, int month, int year)
     {
-        if (entity?.Summary is null)
-            return null;
-
         return new BillingSummaryDto()
         {
-            Id = entity.Id,
-            Month = entity.Month,
-            Year = entity.Year,
-            Total = entity.Summary?.Total ?? 0m,
-            LastMonth = entity.Summary?.LastMonth ?? 0m,
-            TotalPaid = entity.Summary?.TotalPaid ?? 0m,
+            Id = entity.BillingId,
+            Month = month,
+            Year = year,
+            Total = entity.Total,
+            LastMonth = entity.LastMonth,
+            TotalPaid = entity.TotalPaid
         };
     }
 }

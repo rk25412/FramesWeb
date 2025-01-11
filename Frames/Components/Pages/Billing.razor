@@ -1,4 +1,4 @@
-@page "/Billing"
+@page "/billing"
 
 <h4>
     Billing
@@ -10,7 +10,14 @@
     </span>
 </h4>
 
-<div class="text-center mt-5">
-    <h3 class="text-center">Bill Not Calculated</h3>
-    <RadzenButton Text="Calculate" class="mt-3" Click="CalculateBilling"/>
-</div>
+@if (_billingSummaryDto is null)
+{
+    <div class="text-center mt-5">
+        <h3 class="text-center">Bill Not Calculated</h3>
+        <RadzenButton Text="Calculate" class="mt-3" Click="CalculateBilling"/>
+    </div>
+}
+else
+{
+    
+}
