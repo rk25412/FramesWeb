@@ -1,7 +1,19 @@
 <HeadContent>
     <style>
-        .billing-data > * {
+        h2, th, tr, td {
             text-align: center;
+        }
+
+        table {
+            width: 250px;
+        }
+
+        tr td:first-child, tr th:first-child {
+            width: 150px !important;
+        }
+
+        tr td, tr th {
+            width: 100px;
         }
 
         .border-2px {
@@ -17,7 +29,7 @@
         <div style="margin-top: 3rem;display: flex; justify-content: center; align-items: flex-start; gap: 100px;">
             @foreach (var item in _mainItems)
             {
-                <table width="250px">
+                <table>
                     @if (_billingData!.BillingItems.FirstOrDefault(x => x.Name.Equals(item, StringComparison.InvariantCultureIgnoreCase)) is { } billingItemDto)
                     {
                         <thead class="border-2px">
@@ -31,8 +43,8 @@
                         @foreach (var date in Enumerable.Range(0, _noOfDays).Select(i => new DateOnly(_billingData.Year, _billingData.Month, i + 1)))
                         {
                             <tr>
-                                <td width="150px">@($"{date:dd-MMM-yyyy}")</td>
-                                <td width="100px">
+                                <td>@($"{date:dd-MMM-yyyy}")</td>
+                                <td>
                                     @if (billingItemDto.BillingItemDictionary.ContainsKey(date))
                                     {
                                         <span>@billingItemDto.BillingItemDictionary[date]</span>
@@ -63,11 +75,339 @@
             }
         </div>
 
-        @foreach (var item in _itemsOtherThanMain)
-        {
-            <div style="margin-top: 5rem; display: flex; justify-content: center; align-items: flex-start; gap: 100px;">
-                
-            </div>
-        }
+        <div style="margin-top: 10rem">
+            @if (_itemsOtherThanMain.Count is 1)
+            {
+                <div
+                    style="margin-top: 5rem; display: flex; justify-content: center; align-items: flex-start; gap: 100px;">
+                    <div>
+                        <table>
+                            <thead class="border-2px">
+                            <tr style="padding: 3px">
+                                <td colspan="2">
+                                    <strong>@_itemsOtherThanMain[0].Name</strong>
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in _itemsOtherThanMain[0].BillingItemDictionary)
+                            {
+                                <tr>
+                                    <td>@($"{item.Key:dd-MMM-yyyy}")</td>
+                                    <td>@item.Value</td>
+                                </tr>
+                            }
+                            </tbody>
+                            <tfoot class="border-2px">
+                            <tr>
+                                <td>Total</td>
+                                <td>@_itemsOtherThanMain[0].TotalCount</td>
+                            </tr>
+                            <tr>
+                                <td>Rate</td>
+                                <td>@_itemsOtherThanMain[0].Rate</td>
+                            </tr>
+                            <tr class="border-2px">
+                                <td colspan="2"><strong>@_itemsOtherThanMain[0].TotalAmt</strong></td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div style="width: 250px"></div>
+                </div>
+            }
+            else if (_itemsOtherThanMain.Count is 2)
+            {
+                <div
+                    style="margin-top: 5rem; display: flex; justify-content: center; align-items: flex-start; gap: 100px;">
+                    @foreach (var otherItem in _itemsOtherThanMain)
+                    {
+                        <div>
+                            <table>
+                                <thead class="border-2px">
+                                <tr style="padding: 3px">
+                                    <td colspan="2">
+                                        <strong>@otherItem.Name</strong>
+                                    </td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var item in otherItem.BillingItemDictionary)
+                                {
+                                    <tr>
+                                        <td>@($"{item.Key:dd-MMM-yyyy}")</td>
+                                        <td>@item.Value</td>
+                                    </tr>
+                                }
+                                </tbody>
+                                <tfoot class="border-2px">
+                                <tr>
+                                    <td>Total</td>
+                                    <td>@otherItem.TotalCount</td>
+                                </tr>
+                                <tr>
+                                    <td>Rate</td>
+                                    <td>@otherItem.Rate</td>
+                                </tr>
+                                <tr class="border-2px">
+                                    <td colspan="2"><strong>@otherItem.TotalAmt</strong></td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    }
+                </div>
+            }
+            else if (_itemsOtherThanMain.Count > 2)
+            {
+                <div
+                    style="margin-top: 5rem; display: flex; justify-content: center; align-items: flex-start; gap: 100px;">
+                    <div>
+                        <table>
+                            <thead class="border-2px">
+                            <tr style="padding: 3px">
+                                <td colspan="2">
+                                    <strong>@_itemsOtherThanMain[0].Name</strong>
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in _itemsOtherThanMain[0].BillingItemDictionary)
+                            {
+                                <tr>
+                                    <td>@($"{item.Key:dd-MMM-yyyy}")</td>
+                                    <td>@item.Value</td>
+                                </tr>
+                            }
+                            </tbody>
+                            <tfoot class="border-2px">
+                            <tr>
+                                <td>Total</td>
+                                <td>@_itemsOtherThanMain[0].TotalCount</td>
+                            </tr>
+                            <tr>
+                                <td>Rate</td>
+                                <td>@_itemsOtherThanMain[0].Rate</td>
+                            </tr>
+                            <tr class="border-2px">
+                                <td colspan="2"><strong>@_itemsOtherThanMain[0].TotalAmt</strong></td>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+                        @if (_itemsOtherThanMain.Count > 3 && _itemsOtherThanMain[1].BillingItems.Count + _itemsOtherThanMain[2].BillingItems.Count + 6 > _itemsOtherThanMain[3].BillingItems.Count)
+                        {
+                            <table style="margin-top: 2rem">
+                                <thead class="border-2px">
+                                <tr style="padding: 3px">
+                                    <td colspan="2">
+                                        <strong>@_itemsOtherThanMain[3].Name</strong>
+                                    </td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var item in _itemsOtherThanMain[3].BillingItemDictionary)
+                                {
+                                    <tr>
+                                        <td>@($"{item.Key:dd-MMM-yyyy}")</td>
+                                        <td>@item.Value</td>
+                                    </tr>
+                                }
+                                </tbody>
+                                <tfoot class="border-2px">
+                                <tr>
+                                    <td>Total</td>
+                                    <td>@_itemsOtherThanMain[3].TotalCount</td>
+                                </tr>
+                                <tr>
+                                    <td>Rate</td>
+                                    <td>@_itemsOtherThanMain[3].Rate</td>
+                                </tr>
+                                <tr class="border-2px">
+                                    <td colspan="2"><strong>@_itemsOtherThanMain[3].TotalAmt</strong></td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        }
+                    </div>
+                    <div>
+                        <table>
+                            <thead class="border-2px">
+                            <tr style="padding: 3px">
+                                <td colspan="2">
+                                    <strong>@_itemsOtherThanMain[1].Name</strong>
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in _itemsOtherThanMain[1].BillingItemDictionary)
+                            {
+                                <tr>
+                                    <td>@($"{item.Key:dd-MMM-yyyy}")</td>
+                                    <td>@item.Value</td>
+                                </tr>
+                            }
+                            </tbody>
+                            <tfoot class="border-2px">
+                            <tr>
+                                <td>Total</td>
+                                <td>@_itemsOtherThanMain[1].TotalCount</td>
+                            </tr>
+                            <tr>
+                                <td>Rate</td>
+                                <td>@_itemsOtherThanMain[1].Rate</td>
+                            </tr>
+                            <tr class="border-2px">
+                                <td colspan="2"><strong>@_itemsOtherThanMain[1].TotalAmt</strong></td>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+                        <table style="margin-top: 2rem">
+                            <thead class="border-2px">
+                            <tr style="padding: 3px">
+                                <td colspan="2">
+                                    <strong>@_itemsOtherThanMain[2].Name</strong>
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in _itemsOtherThanMain[2].BillingItemDictionary)
+                            {
+                                <tr>
+                                    <td>@($"{item.Key:dd-MMM-yyyy}")</td>
+                                    <td>@item.Value</td>
+                                </tr>
+                            }
+                            </tbody>
+                            <tfoot class="border-2px">
+                            <tr>
+                                <td>Total</td>
+                                <td>@_itemsOtherThanMain[2].TotalCount</td>
+                            </tr>
+                            <tr>
+                                <td>Rate</td>
+                                <td>@_itemsOtherThanMain[2].Rate</td>
+                            </tr>
+                            <tr class="border-2px">
+                                <td colspan="2"><strong>@_itemsOtherThanMain[2].TotalAmt</strong></td>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+                        @if (_itemsOtherThanMain.Count > 3 && _itemsOtherThanMain[1].BillingItems.Count + _itemsOtherThanMain[2].BillingItems.Count + 6 < _itemsOtherThanMain[3].BillingItems.Count)
+                        {
+                            <table style="margin-top: 2rem">
+                                <thead class="border-2px">
+                                <tr style="padding: 3px">
+                                    <td colspan="2">
+                                        <strong>@_itemsOtherThanMain[3].Name</strong>
+                                    </td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var item in _itemsOtherThanMain[3].BillingItemDictionary)
+                                {
+                                    <tr>
+                                        <td>@($"{item.Key:dd-MMM-yyyy}")</td>
+                                        <td>@item.Value</td>
+                                    </tr>
+                                }
+                                </tbody>
+                                <tfoot class="border-2px">
+                                <tr>
+                                    <td>Total</td>
+                                    <td>@_itemsOtherThanMain[3].TotalCount</td>
+                                </tr>
+                                <tr>
+                                    <td>Rate</td>
+                                    <td>@_itemsOtherThanMain[3].Rate</td>
+                                </tr>
+                                <tr class="border-2px">
+                                    <td colspan="2"><strong>@_itemsOtherThanMain[3].TotalAmt</strong></td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <div style="margin-top: 2rem; display: flex; justify-content: center; align-items: flex-end; gap: 100px;">
+            <table>
+                @foreach (var item in _billingData.BillingItems)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.TotalAmt</td>
+                    </tr>
+                }
+                <tr class="border-2px">
+                    <th>Total</th>
+                    <th>@_billingData.TotalAmt</th>
+                </tr>
+            </table>
+
+            <table>
+                <thead class="border-2px">
+                <tr>
+                    <td colspan="2"><strong></strong>Paid</td>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in _billingData.Paid)
+                {
+                    <tr>
+                        <td>@($"{item.Date:dd-MMM-yyyy}")</td>
+                        <td>@item.Amount</td>
+                    </tr>
+                }
+                </tbody>
+                <tfoot class="border-2px">
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong>@_billingData.TotalPaid</strong></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div style="margin-top: 2rem; display: flex; justify-content: center; align-items: flex-end; gap: 100px;">
+            <table>
+                <tr>
+                    <td>@($"{_billMonth.AddMonths(-1):MMM}")</td>
+                    <td>@_billingData.LastMonth</td>
+                </tr>
+                <tr>
+                    <td>Paid</td>
+                    <td>@_billingData.TotalPaid</td>
+                </tr>
+                <tr class="border-2px">
+                    <td><strong>Left</strong></td>
+                    <td><strong>@_billingData.LeftFromLastMonth</strong></td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>@($"{_billMonth:MMM}")</td>
+                    <td>@_billingData.TotalAmt</td>
+                </tr>
+                <tr>
+                    <td>Left</td>
+                    <td>@_billingData.LeftFromLastMonth</td>
+                </tr>
+                <tr class="border-2px">
+                    <td><strong>@($"{_billMonth:MMM}") Total</strong></td>
+                    <td><strong>@_billingData.GrandTotal</strong></td>
+                </tr>
+            </table>
+        </div>
+    }
+    @if (BillingDto is null)
+    {
+        <div style="margin-top: 5rem; text-align: center">
+            <RadzenButton Text="Download PDF" Click="DownloadPdf"/>
+        </div>
     }
 </div>
+
