@@ -1,6 +1,33 @@
-<h2 class="text-center">@($"{BillMonth:MMMM yyyy}")</h2>
+@if (_billingData is not null)
+{
+    <h2 style="text-align: center">@($"{_billMonth:MMMM yyyy}")</h2>
 
-<div class="mt-5 d-flex justify-content-between">
-    
-</div>
-
+    <div style="margin-top: 3rem;display: flex; justify-content: center; gap: 100px;">
+        @foreach (var item in _mainItems)
+        {
+            <table width="250px">
+                <thead style="border: 2px solid black">
+                <tr style="border-bottom: 2px solid black; padding: 3px; text-align: center">
+                    <td colspan="2">
+                        <strong>@item</strong>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var itemList in _billingData!.BillingItems.FirstOrDefault(x => x.Name.Equals(item, StringComparison.InvariantCultureIgnoreCase))!.BillingItems)
+                {
+                    <tr>
+                        <td width="150px" style="text-align: center">@($"{itemList.Date:dd-MMM-yyyy}")</td>
+                        <td width="100px" style="text-align: center">@itemList.Count</td>
+                    </tr>
+                }
+                </tbody>
+                <tfoot>
+                <tr>
+                    
+                </tr>
+                </tfoot>
+            </table>
+        }
+    </div>
+}

@@ -151,10 +151,10 @@ public static class Converters
             Month = entity.Month,
             Year = entity.Year,
             LastMonth = entity.Summary!.LastMonth,
-            Paid = entity.Paid.Select(x => new BillingPaidDto(x.Date, x.Amount)).ToList(),
+            Paid = entity.Paid.OrderBy(x => x.Date).Select(x => new BillingPaidDto(x.Date, x.Amount)).ToList(),
             BillingItems = entity.BillingItems.Select(x =>
                 new BillingItemDto(x.ItemName!, x.Rate,
-                    x.BillingItemDetails.Select(y =>
+                    x.BillingItemDetails.OrderBy(y => y.Date).Select(y =>
                         new BillingItemDetailDto(y.Date, y.Count)).ToList())).ToList()
         };
 }
