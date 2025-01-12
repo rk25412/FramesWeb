@@ -42,6 +42,16 @@ public partial class BillingPage : ComponentBase
 
     private async Task OpenBill()
     {
-        
+        await DialogService.OpenAsync<ShowBill>("Billing",
+            new Dictionary<string, object>()
+            {
+                ["Month"] = _billingSummaryDto!.Month,
+                ["Year"] = _billingSummaryDto!.Year,
+            },
+            new DialogOptions()
+            {
+                Width = "min(800px, 90%)",
+                Height = "auto"
+            });
     }
 }
