@@ -41,7 +41,7 @@ public partial class Workers
             "Edit Worker",
             new Dictionary<string, object>()
             {
-                { "WorkerId", workerDto.Id }
+                ["WorkerId"] = workerDto.Id
             },
             new DialogOptions()
             {
