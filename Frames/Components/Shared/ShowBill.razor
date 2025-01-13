@@ -1,40 +1,17 @@
-<HeadContent>
-    <style>
-        h2, th, tr, td {
-            text-align: center;
-        }
-
-        table {
-            width: 250px;
-        }
-
-        tr td:first-child, tr th:first-child {
-            width: 150px !important;
-        }
-
-        tr td, tr th {
-            width: 100px;
-        }
-
-        .border-2px {
-            border: 2px solid black;
-        }
-    </style>
-</HeadContent>
 <div class="billing-data">
     @if (_billingData is not null)
     {
-        <h2>@($"{_billMonth:MMMM yyyy}")</h2>
+        <h2 style="text-align: center;">@($"{_billMonth:MMMM yyyy}")</h2>
 
         <div style="margin-top: 3rem;display: flex; justify-content: center; align-items: flex-start; gap: 100px;">
             @foreach (var item in _mainItems)
             {
-                <table>
+                <table style="width: 250px;">
                     @if (_billingData!.BillingItems.FirstOrDefault(x => x.Name.Equals(item, StringComparison.InvariantCultureIgnoreCase)) is { } billingItemDto)
                     {
-                        <thead class="border-2px">
-                        <tr style="padding: 3px">
-                            <td colspan="2">
+                        <thead style="text-align: center;border: 2px solid black;">
+                        <tr style="padding: 3px;text-align: center;">
+                            <td colspan="2" style="text-align: center;">
                                 <strong>@item</strong>
                             </td>
                         </tr>
@@ -42,9 +19,9 @@
                         <tbody>
                         @foreach (var date in Enumerable.Range(0, _noOfDays).Select(i => new DateOnly(_billingData.Year, _billingData.Month, i + 1)))
                         {
-                            <tr>
-                                <td>@($"{date:dd-MMM-yyyy}")</td>
-                                <td>
+                            <tr style="text-align: center;">
+                                <td style="text-align: center;width: 150px;">@($"{date:dd-MMM-yyyy}")</td>
+                                <td style="text-align: center;width: 100px;">
                                     @if (billingItemDto.BillingItemDictionary.ContainsKey(date))
                                     {
                                         <span>@billingItemDto.BillingItemDictionary[date]</span>
@@ -57,17 +34,17 @@
                             </tr>
                         }
                         </tbody>
-                        <tfoot class="border-2px">
-                        <tr>
-                            <td>Total</td>
-                            <td>@billingItemDto.TotalCount</td>
+                        <tfoot style="border: 2px solid black;">
+                        <tr style="text-align: center;">
+                            <td style="text-align: center;width: 150px;">Total</td>
+                            <td style="text-align: center;width: 100px;">@billingItemDto.TotalCount</td>
                         </tr>
-                        <tr>
-                            <td>Rate</td>
-                            <td>@billingItemDto.Rate</td>
+                        <tr style="text-align: center;">
+                            <td style="text-align: center;width: 150px;">Rate</td>
+                            <td style="text-align: center;width: 100px;">@billingItemDto.Rate</td>
                         </tr>
-                        <tr class="border-2px">
-                            <td colspan="2"><strong>@billingItemDto.TotalAmt</strong></td>
+                        <tr style="text-align: center;border: 2px solid black;">
+                            <td colspan="2" style="text-align: center;"><strong>@billingItemDto.TotalAmt</strong></td>
                         </tr>
                         </tfoot>
                     }
@@ -81,10 +58,10 @@
                 <div
                     style="margin-top: 5rem; display: flex; justify-content: center; align-items: flex-start; gap: 100px;">
                     <div>
-                        <table>
-                            <thead class="border-2px">
-                            <tr style="padding: 3px">
-                                <td colspan="2">
+                        <table style="width: 250px;">
+                            <thead style="text-align: center;border: 2px solid black;">
+                            <tr style="padding: 3px;text-align: center;">
+                                <td colspan="2" style="text-align: center;">
                                     <strong>@_itemsOtherThanMain[0].Name</strong>
                                 </td>
                             </tr>
@@ -92,23 +69,23 @@
                             <tbody>
                             @foreach (var item in _itemsOtherThanMain[0].BillingItemDictionary)
                             {
-                                <tr>
-                                    <td>@($"{item.Key:dd-MMM-yyyy}")</td>
-                                    <td>@item.Value</td>
+                                <tr style="text-align: center;">
+                                    <td style="text-align: center;width: 150px;">@($"{item.Key:dd-MMM-yyyy}")</td>
+                                    <td style="text-align: center;width: 100px;">@item.Value</td>
                                 </tr>
                             }
                             </tbody>
-                            <tfoot class="border-2px">
-                            <tr>
-                                <td>Total</td>
-                                <td>@_itemsOtherThanMain[0].TotalCount</td>
+                            <tfoot style="border: 2px solid black;">
+                            <tr style="text-align: center;">
+                                <td style="text-align: center;width: 150px;">Total</td>
+                                <td style="text-align: center;width: 100px;">@_itemsOtherThanMain[0].TotalCount</td>
                             </tr>
-                            <tr>
-                                <td>Rate</td>
-                                <td>@_itemsOtherThanMain[0].Rate</td>
+                            <tr style="text-align: center;">
+                                <td style="text-align: center;width: 150px;">Rate</td>
+                                <td style="text-align: center;width: 100px;">@_itemsOtherThanMain[0].Rate</td>
                             </tr>
-                            <tr class="border-2px">
-                                <td colspan="2"><strong>@_itemsOtherThanMain[0].TotalAmt</strong></td>
+                            <tr style="text-align: center;border: 2px solid black;">
+                                <td colspan="2" style="text-align: center;"><strong>@_itemsOtherThanMain[0].TotalAmt</strong></td>
                             </tr>
                             </tfoot>
                         </table>
@@ -123,10 +100,10 @@
                     @foreach (var otherItem in _itemsOtherThanMain)
                     {
                         <div>
-                            <table>
-                                <thead class="border-2px">
-                                <tr style="padding: 3px">
-                                    <td colspan="2">
+                            <table style="width: 250px;">
+                                <thead style="text-align: center;border: 2px solid black;">
+                                <tr style="padding: 3px;text-align: center;">
+                                    <td colspan="2" style="text-align: center;">
                                         <strong>@otherItem.Name</strong>
                                     </td>
                                 </tr>
@@ -134,23 +111,23 @@
                                 <tbody>
                                 @foreach (var item in otherItem.BillingItemDictionary)
                                 {
-                                    <tr>
-                                        <td>@($"{item.Key:dd-MMM-yyyy}")</td>
-                                        <td>@item.Value</td>
+                                    <tr style="text-align: center;">
+                                        <td style="text-align: center;width: 150px;">@($"{item.Key:dd-MMM-yyyy}")</td>
+                                        <td style="text-align: center;width: 100px;">@item.Value</td>
                                     </tr>
                                 }
                                 </tbody>
-                                <tfoot class="border-2px">
-                                <tr>
-                                    <td>Total</td>
-                                    <td>@otherItem.TotalCount</td>
+                                <tfoot style="border: 2px solid black;">
+                                <tr style="text-align: center;">
+                                    <td style="text-align: center;width: 150px;">Total</td>
+                                    <td style="text-align: center;width: 100px;">@otherItem.TotalCount</td>
                                 </tr>
-                                <tr>
-                                    <td>Rate</td>
-                                    <td>@otherItem.Rate</td>
+                                <tr style="text-align: center;">
+                                    <td style="text-align: center;width: 150px;">Rate</td>
+                                    <td style="text-align: center;width: 100px;">@otherItem.Rate</td>
                                 </tr>
-                                <tr class="border-2px">
-                                    <td colspan="2"><strong>@otherItem.TotalAmt</strong></td>
+                                <tr style="text-align: center;border: 2px solid black;">
+                                    <td colspan="2" style="text-align: center;"><strong>@otherItem.TotalAmt</strong></td>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -163,10 +140,10 @@
                 <div
                     style="margin-top: 5rem; display: flex; justify-content: center; align-items: flex-start; gap: 100px;">
                     <div>
-                        <table>
-                            <thead class="border-2px">
-                            <tr style="padding: 3px">
-                                <td colspan="2">
+                        <table style="width: 250px;">
+                            <thead style="text-align: center;border: 2px solid black;">
+                            <tr style="padding: 3px;text-align: center;">
+                                <td colspan="2" style="text-align: center;">
                                     <strong>@_itemsOtherThanMain[0].Name</strong>
                                 </td>
                             </tr>
@@ -174,33 +151,33 @@
                             <tbody>
                             @foreach (var item in _itemsOtherThanMain[0].BillingItemDictionary)
                             {
-                                <tr>
-                                    <td>@($"{item.Key:dd-MMM-yyyy}")</td>
-                                    <td>@item.Value</td>
+                                <tr style="text-align: center;">
+                                    <td style="text-align: center;width: 150px;">@($"{item.Key:dd-MMM-yyyy}")</td>
+                                    <td style="text-align: center;width: 100px;">@item.Value</td>
                                 </tr>
                             }
                             </tbody>
-                            <tfoot class="border-2px">
-                            <tr>
-                                <td>Total</td>
-                                <td>@_itemsOtherThanMain[0].TotalCount</td>
+                            <tfoot style="border: 2px solid black;">
+                            <tr style="text-align: center;">
+                                <td style="text-align: center;width: 150px;">Total</td>
+                                <td style="text-align: center;width: 100px;">@_itemsOtherThanMain[0].TotalCount</td>
                             </tr>
-                            <tr>
-                                <td>Rate</td>
-                                <td>@_itemsOtherThanMain[0].Rate</td>
+                            <tr style="text-align: center;">
+                                <td style="text-align: center;width: 150px;">Rate</td>
+                                <td style="text-align: center;width: 100px;">@_itemsOtherThanMain[0].Rate</td>
                             </tr>
-                            <tr class="border-2px">
-                                <td colspan="2"><strong>@_itemsOtherThanMain[0].TotalAmt</strong></td>
+                            <tr style="text-align: center;border: 2px solid black;">
+                                <td colspan="2" style="text-align: center;"><strong>@_itemsOtherThanMain[0].TotalAmt</strong></td>
                             </tr>
                             </tfoot>
                         </table>
 
                         @if (_itemsOtherThanMain.Count > 3 && _itemsOtherThanMain[1].BillingItems.Count + _itemsOtherThanMain[2].BillingItems.Count + 6 > _itemsOtherThanMain[3].BillingItems.Count)
                         {
-                            <table style="margin-top: 2rem">
-                                <thead class="border-2px">
-                                <tr style="padding: 3px">
-                                    <td colspan="2">
+                            <table style="margin-top: 2rem;width: 250px;">
+                                <thead style="text-align: center;border: 2px solid black;">
+                                <tr style="padding: 3px;text-align: center;">
+                                    <td colspan="2" style="text-align: center;">
                                         <strong>@_itemsOtherThanMain[3].Name</strong>
                                     </td>
                                 </tr>
@@ -208,33 +185,33 @@
                                 <tbody>
                                 @foreach (var item in _itemsOtherThanMain[3].BillingItemDictionary)
                                 {
-                                    <tr>
-                                        <td>@($"{item.Key:dd-MMM-yyyy}")</td>
-                                        <td>@item.Value</td>
+                                    <tr style="text-align: center;">
+                                        <td style="text-align: center;width: 150px;">@($"{item.Key:dd-MMM-yyyy}")</td>
+                                        <td style="text-align: center;width: 100px;">@item.Value</td>
                                     </tr>
                                 }
                                 </tbody>
-                                <tfoot class="border-2px">
-                                <tr>
-                                    <td>Total</td>
-                                    <td>@_itemsOtherThanMain[3].TotalCount</td>
+                                <tfoot style="border: 2px solid black;">
+                                <tr style="text-align: center;">
+                                    <td style="text-align: center;width: 150px;">Total</td>
+                                    <td style="text-align: center;width: 100px;">@_itemsOtherThanMain[3].TotalCount</td>
                                 </tr>
-                                <tr>
-                                    <td>Rate</td>
-                                    <td>@_itemsOtherThanMain[3].Rate</td>
+                                <tr style="text-align: center;">
+                                    <td style="text-align: center;width: 150px;">Rate</td>
+                                    <td style="text-align: center;width: 100px;">@_itemsOtherThanMain[3].Rate</td>
                                 </tr>
-                                <tr class="border-2px">
-                                    <td colspan="2"><strong>@_itemsOtherThanMain[3].TotalAmt</strong></td>
+                                <tr style="text-align: center;border: 2px solid black;">
+                                    <td colspan="2" style="text-align: center;"><strong>@_itemsOtherThanMain[3].TotalAmt</strong></td>
                                 </tr>
                                 </tfoot>
                             </table>
                         }
                     </div>
                     <div>
-                        <table>
-                            <thead class="border-2px">
-                            <tr style="padding: 3px">
-                                <td colspan="2">
+                        <table style="width: 250px;">
+                            <thead style="text-align: center;border: 2px solid black;">
+                            <tr style="padding: 3px;text-align: center;">
+                                <td colspan="2" style="text-align: center;">
                                     <strong>@_itemsOtherThanMain[1].Name</strong>
                                 </td>
                             </tr>
@@ -242,31 +219,31 @@
                             <tbody>
                             @foreach (var item in _itemsOtherThanMain[1].BillingItemDictionary)
                             {
-                                <tr>
-                                    <td>@($"{item.Key:dd-MMM-yyyy}")</td>
-                                    <td>@item.Value</td>
+                                <tr style="text-align: center;">
+                                    <td style="text-align: center;width: 150px;">@($"{item.Key:dd-MMM-yyyy}")</td>
+                                    <td style="text-align: center;width: 100px;">@item.Value</td>
                                 </tr>
                             }
                             </tbody>
-                            <tfoot class="border-2px">
-                            <tr>
-                                <td>Total</td>
-                                <td>@_itemsOtherThanMain[1].TotalCount</td>
+                            <tfoot style="border: 2px solid black;">
+                            <tr style="text-align: center;">
+                                <td style="text-align: center;width: 150px;">Total</td>
+                                <td style="text-align: center;width: 100px;">@_itemsOtherThanMain[1].TotalCount</td>
                             </tr>
-                            <tr>
-                                <td>Rate</td>
-                                <td>@_itemsOtherThanMain[1].Rate</td>
+                            <tr style="text-align: center;">
+                                <td style="text-align: center;width: 150px;">Rate</td>
+                                <td style="text-align: center;width: 100px;">@_itemsOtherThanMain[1].Rate</td>
                             </tr>
-                            <tr class="border-2px">
-                                <td colspan="2"><strong>@_itemsOtherThanMain[1].TotalAmt</strong></td>
+                            <tr style="text-align: center;border: 2px solid black;">
+                                <td colspan="2" style="text-align: center;"><strong>@_itemsOtherThanMain[1].TotalAmt</strong></td>
                             </tr>
                             </tfoot>
                         </table>
 
-                        <table style="margin-top: 2rem">
-                            <thead class="border-2px">
-                            <tr style="padding: 3px">
-                                <td colspan="2">
+                        <table style="margin-top: 2rem;width: 250px;">
+                            <thead style="text-align: center;border: 2px solid black;">
+                            <tr style="padding: 3px;text-align: center;">
+                                <td colspan="2" style="text-align: center;">
                                     <strong>@_itemsOtherThanMain[2].Name</strong>
                                 </td>
                             </tr>
@@ -274,33 +251,33 @@
                             <tbody>
                             @foreach (var item in _itemsOtherThanMain[2].BillingItemDictionary)
                             {
-                                <tr>
-                                    <td>@($"{item.Key:dd-MMM-yyyy}")</td>
-                                    <td>@item.Value</td>
+                                <tr style="text-align: center;">
+                                    <td style="text-align: center;width: 150px;">@($"{item.Key:dd-MMM-yyyy}")</td>
+                                    <td style="text-align: center;width: 100px;">@item.Value</td>
                                 </tr>
                             }
                             </tbody>
-                            <tfoot class="border-2px">
-                            <tr>
-                                <td>Total</td>
-                                <td>@_itemsOtherThanMain[2].TotalCount</td>
+                            <tfoot style="border: 2px solid black;">
+                            <tr style="text-align: center;">
+                                <td style="text-align: center;width: 150px;">Total</td>
+                                <td style="text-align: center;width: 100px;">@_itemsOtherThanMain[2].TotalCount</td>
                             </tr>
-                            <tr>
-                                <td>Rate</td>
-                                <td>@_itemsOtherThanMain[2].Rate</td>
+                            <tr style="text-align: center;">
+                                <td style="text-align: center;width: 150px;">Rate</td>
+                                <td style="text-align: center;width: 100px;">@_itemsOtherThanMain[2].Rate</td>
                             </tr>
-                            <tr class="border-2px">
-                                <td colspan="2"><strong>@_itemsOtherThanMain[2].TotalAmt</strong></td>
+                            <tr style="text-align: center;border: 2px solid black;">
+                                <td colspan="2" style="text-align: center;"><strong>@_itemsOtherThanMain[2].TotalAmt</strong></td>
                             </tr>
                             </tfoot>
                         </table>
 
                         @if (_itemsOtherThanMain.Count > 3 && _itemsOtherThanMain[1].BillingItems.Count + _itemsOtherThanMain[2].BillingItems.Count + 6 < _itemsOtherThanMain[3].BillingItems.Count)
                         {
-                            <table style="margin-top: 2rem">
-                                <thead class="border-2px">
-                                <tr style="padding: 3px">
-                                    <td colspan="2">
+                            <table style="margin-top: 2rem;width: 250px;">
+                                <thead style="text-align: center;border: 2px solid black;">
+                                <tr style="padding: 3px;text-align: center;">
+                                    <td colspan="2" style="text-align: center;">
                                         <strong>@_itemsOtherThanMain[3].Name</strong>
                                     </td>
                                 </tr>
@@ -308,23 +285,23 @@
                                 <tbody>
                                 @foreach (var item in _itemsOtherThanMain[3].BillingItemDictionary)
                                 {
-                                    <tr>
-                                        <td>@($"{item.Key:dd-MMM-yyyy}")</td>
-                                        <td>@item.Value</td>
+                                    <tr style="text-align: center;">
+                                        <td style="text-align: center;width: 150px;">@($"{item.Key:dd-MMM-yyyy}")</td>
+                                        <td style="text-align: center;width: 100px;">@item.Value</td>
                                     </tr>
                                 }
                                 </tbody>
-                                <tfoot class="border-2px">
-                                <tr>
-                                    <td>Total</td>
-                                    <td>@_itemsOtherThanMain[3].TotalCount</td>
+                                <tfoot style="border: 2px solid black;">
+                                <tr style="text-align: center;">
+                                    <td style="text-align: center;width: 150px;">Total</td>
+                                    <td style="text-align: center;width: 100px;">@_itemsOtherThanMain[3].TotalCount</td>
                                 </tr>
-                                <tr>
-                                    <td>Rate</td>
-                                    <td>@_itemsOtherThanMain[3].Rate</td>
+                                <tr style="text-align: center;">
+                                    <td style="text-align: center;width: 150px;">Rate</td>
+                                    <td style="text-align: center;width: 100px;">@_itemsOtherThanMain[3].Rate</td>
                                 </tr>
-                                <tr class="border-2px">
-                                    <td colspan="2"><strong>@_itemsOtherThanMain[3].TotalAmt</strong></td>
+                                <tr style="text-align: center;border: 2px solid black;">
+                                    <td colspan="2" style="text-align: center;"><strong>@_itemsOtherThanMain[3].TotalAmt</strong></td>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -334,71 +311,71 @@
             }
         </div>
         <div style="margin-top: 2rem; display: flex; justify-content: center; align-items: flex-end; gap: 100px;">
-            <table>
+            <table style="width: 250px;">
                 @foreach (var item in _billingData.BillingItems)
                 {
-                    <tr>
-                        <td>@item.Name</td>
-                        <td>@item.TotalAmt</td>
+                    <tr style="text-align: center;">
+                        <td style="text-align: center;width: 150px;">@item.Name</td>
+                        <td style="text-align: center;width: 100px;">@item.TotalAmt</td>
                     </tr>
                 }
-                <tr class="border-2px">
-                    <th>Total</th>
-                    <th>@_billingData.TotalAmt</th>
+                <tr style="text-align: center;border: 2px solid black;">
+                    <th style="text-align: center;width: 150px;">Total</th>
+                    <th style="text-align: center;width: 100px;">@_billingData.TotalAmt</th>
                 </tr>
             </table>
 
-            <table>
-                <thead class="border-2px">
-                <tr>
-                    <td colspan="2"><strong></strong>Paid</td>
+            <table style="width: 250px;">
+                <thead style="border: 2px solid black;">
+                <tr style="text-align: center;">
+                    <td style="text-align: center;" colspan="2"><strong></strong>Paid</td>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach (var item in _billingData.Paid)
                 {
-                    <tr>
-                        <td>@($"{item.Date:dd-MMM-yyyy}")</td>
-                        <td>@item.Amount</td>
+                    <tr style="text-align: center;">
+                        <td style="text-align: center;width: 150px;">@($"{item.Date:dd-MMM-yyyy}")</td>
+                        <td style="text-align: center;width: 100px;">@item.Amount</td>
                     </tr>
                 }
                 </tbody>
-                <tfoot class="border-2px">
-                <tr>
-                    <td><strong>Total</strong></td>
-                    <td><strong>@_billingData.TotalPaid</strong></td>
+                <tfoot style="border: 2px solid black;">
+                <tr style="text-align: center;">
+                    <td style="text-align: center;width: 150px;"><strong>Total</strong></td>
+                    <td style="text-align: center;width: 100px;"><strong>@_billingData.TotalPaid</strong></td>
                 </tr>
                 </tfoot>
             </table>
         </div>
 
         <div style="margin-top: 2rem; display: flex; justify-content: center; align-items: flex-end; gap: 100px;">
-            <table>
-                <tr>
-                    <td>@($"{_billMonth.AddMonths(-1):MMM}")</td>
-                    <td>@_billingData.LastMonth</td>
+            <table style="width: 250px;">
+                <tr style="text-align: center;">
+                    <td style="text-align: center;width: 150px;">@($"{_billMonth.AddMonths(-1):MMM}")</td>
+                    <td style="text-align: center;width: 100px;">@_billingData.LastMonth</td>
                 </tr>
-                <tr>
-                    <td>Paid</td>
-                    <td>@_billingData.TotalPaid</td>
+                <tr style="text-align: center;">
+                    <td style="text-align: center;width: 150px;">Paid</td>
+                    <td style="text-align: center;width: 100px;">@_billingData.TotalPaid</td>
                 </tr>
-                <tr class="border-2px">
-                    <td><strong>Left</strong></td>
-                    <td><strong>@_billingData.LeftFromLastMonth</strong></td>
+                <tr style="text-align: center;border: 2px solid black;">
+                    <td style="text-align: center;width: 150px;"><strong>Left</strong></td>
+                    <td style="text-align: center;width: 100px;"><strong>@_billingData.LeftFromLastMonth</strong></td>
                 </tr>
             </table>
-            <table>
-                <tr>
-                    <td>@($"{_billMonth:MMM}")</td>
-                    <td>@_billingData.TotalAmt</td>
+            <table style="width: 250px;">
+                <tr style="text-align: center;">
+                    <td style="text-align: center;width: 150px;">@($"{_billMonth:MMM}")</td>
+                    <td style="text-align: center;width: 100px;">@_billingData.TotalAmt</td>
                 </tr>
-                <tr>
-                    <td>Left</td>
-                    <td>@_billingData.LeftFromLastMonth</td>
+                <tr style="text-align: center;">
+                    <td style="text-align: center;width: 150px;">Left</td>
+                    <td style="text-align: center;width: 100px;">@_billingData.LeftFromLastMonth</td>
                 </tr>
-                <tr class="border-2px">
-                    <td><strong>@($"{_billMonth:MMM}") Total</strong></td>
-                    <td><strong>@_billingData.GrandTotal</strong></td>
+                <tr style="text-align: center;border: 2px solid black;">
+                    <td style="text-align: center;width: 150px;"><strong>@($"{_billMonth:MMM}") Total</strong></td>
+                    <td style="text-align: center;width: 100px;"><strong>@_billingData.GrandTotal</strong></td>
                 </tr>
             </table>
         </div>

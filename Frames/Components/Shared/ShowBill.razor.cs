@@ -2,6 +2,7 @@ using iText.Html2pdf;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using Microsoft.JSInterop;
+using Path = System.IO.Path;
 
 namespace Frames.Components.Shared;
 
@@ -73,7 +74,9 @@ public partial class ShowBill : ComponentBase
         using var document = new PdfDocument(pdfWriter);
         document.SetDefaultPageSize(PageSize.A4);
         HtmlConverter.ConvertToPdf(html, document, new ConverterProperties());
-        using var streamRef = new DotNetStreamReference(stream: memoryStream);
-        await Js.InvokeVoidAsync("downloadFile", $"{_billMonth:yyyy-MM}.pdf", streamRef);
+        // using var streamRef = new DotNetStreamReference(stream: memoryStream);
+        // await Js.InvokeVoidAsync("downloadFile", $"{_billMonth:yyyy-MM}.pdf", streamRef);
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "billing.pdf");
+        await File.WriteAllBytesAsync(filePath, memoryStream.ToArray());
     }
 }
