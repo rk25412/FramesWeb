@@ -1,3 +1,7 @@
+@layout EmptyLayout
+@page "/show-bill/{Month:int}/{Year:int}"
+<PageTitle>@($"{Year}-{Month}")</PageTitle>
+
 <div class="billing-data">
     @if (_billingData is not null)
     {
@@ -22,9 +26,9 @@
                             <tr style="text-align: center;">
                                 <td style="text-align: center;width: 150px;">@($"{date:dd-MMM-yyyy}")</td>
                                 <td style="text-align: center;width: 100px;">
-                                    @if (billingItemDto.BillingItemDictionary.ContainsKey(date))
+                                    @if (billingItemDto.BillingItemDictionary.TryGetValue(date, out var value))
                                     {
-                                        <span>@billingItemDto.BillingItemDictionary[date]</span>
+                                        <span>@value</span>
                                     }
                                     else
                                     {
@@ -52,11 +56,11 @@
             }
         </div>
 
-        <div style="margin-top: 10rem">
+        <div>
             @if (_itemsOtherThanMain.Count is 1)
             {
                 <div
-                    style="margin-top: 5rem; display: flex; justify-content: center; align-items: flex-start; gap: 100px;">
+                    style="margin-top: 2.5rem; display: flex; justify-content: center; align-items: flex-start; gap: 100px;">
                     <div>
                         <table style="width: 250px;">
                             <thead style="text-align: center;border: 2px solid black;">
@@ -380,11 +384,4 @@
             </table>
         </div>
     }
-    @if (BillingDto is null)
-    {
-        <div style="margin-top: 5rem; text-align: center">
-            <RadzenButton Text="Download PDF" Click="DownloadPdf"/>
-        </div>
-    }
 </div>
-

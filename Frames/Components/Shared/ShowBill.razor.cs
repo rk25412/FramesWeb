@@ -1,16 +1,11 @@
-using iText.Html2pdf;
-using iText.Kernel.Geom;
-using iText.Kernel.Pdf;
 using Microsoft.JSInterop;
-using Path = System.IO.Path;
 
 namespace Frames.Components.Shared;
 
 public partial class ShowBill : ComponentBase
 {
-    [Parameter] public int? Month { get; set; }
-    [Parameter] public int? Year { get; set; }
-    [Parameter] public BillingDto? BillingDto { get; set; }
+    [Parameter] public int Month { get; set; }
+    [Parameter] public int Year { get; set; }
     [Inject] public required IJSRuntime Js { get; set; } = null!;
     [Inject] public required IConfiguration Configuration { get; set; }
     [Inject] public required IServiceProvider ServiceProvider { get; set; }
@@ -24,32 +19,19 @@ public partial class ShowBill : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        if (BillingDto == null)
-        {
-            _billMonth = new DateTime(Year!.Value, Month!.Value, 1);
-            _noOfDays = DateTime.DaysInMonth(Year!.Value, Month!.Value);
-            _mainItems.AddRange(Configuration["MainItems"]!.Split(','));
-            await LodBillingData();
-        }
-        else
-        {
-            _billingData = BillingDto;
-            Year = _billingData.Year;
-            Month = _billingData.Month;
-            _mainItems.AddRange(Configuration["MainItems"]!.Split(','));
-            _billMonth = new DateTime(_billingData.Year, _billingData.Month, 1);
-            _noOfDays = DateTime.DaysInMonth(Year.Value, Month.Value);
-        }
+        _billMonth = new DateTime(Year, Month, 1);
+        _noOfDays = DateTime.DaysInMonth(Year, Month);
+        _mainItems.AddRange(Configuration["MainItems"]!.Split(','));
+        await LodBillingData();
     }
 
     private async Task LodBillingData()
     {
         UtilityService.ToggleLoader();
         await Task.Delay(1);
-        _billingData = await ServiceManager.BillingService.GetBillingData(Month!.Value, Year!.Value);
+        _billingData = await ServiceManager.BillingService.GetBillingData(Month, Year);
         _itemsOtherThanMain.AddRange(_billingData.BillingItems.Where(x => !_mainItems.Contains(x.Name))
             .OrderByDescending(x => x.TotalCount));
-        _itemsOtherThanMain.Add(_itemsOtherThanMain[^1]);
         UtilityService.ToggleLoader();
     }
 
@@ -69,14 +51,6 @@ public partial class ShowBill : ComponentBase
             return output.ToHtmlString();
         });
 
-        using var memoryStream = new MemoryStream();
-        await using var pdfWriter = new PdfWriter(memoryStream);
-        using var document = new PdfDocument(pdfWriter);
-        document.SetDefaultPageSize(PageSize.A4);
-        HtmlConverter.ConvertToPdf(html, document, new ConverterProperties());
-        // using var streamRef = new DotNetStreamReference(stream: memoryStream);
-        // await Js.InvokeVoidAsync("downloadFile", $"{_billMonth:yyyy-MM}.pdf", streamRef);
-        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "billing.pdf");
-        await File.WriteAllBytesAsync(filePath, memoryStream.ToArray());
+        await Js.InvokeVoidAsync("createPdf", html);
     }
 }
