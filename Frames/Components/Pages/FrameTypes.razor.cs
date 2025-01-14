@@ -41,7 +41,7 @@ public partial class FrameTypes
             "Edit Frame Type",
             new Dictionary<string, object>()
             {
-                { "FrameTypeId", frameType.Id }
+                ["FrameTypeId"] = frameType.Id
             },
             new DialogOptions()
             {

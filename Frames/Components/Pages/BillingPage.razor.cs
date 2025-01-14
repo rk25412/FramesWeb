@@ -40,8 +40,21 @@ public partial class BillingPage : ComponentBase
 
     private async Task MonthYearDropdownChanged() => await GetBillingSummary();
 
-    private async Task OpenBill()
+    private void OpenBill()
     {
-        
+        NavigationManager.NavigateTo($"/show-bill/{_billingSummaryDto!.Month}/{_billingSummaryDto!.Year}");
+        //
+        //
+        // await DialogService.OpenAsync<ShowBill>("Billing",
+        //     new Dictionary<string, object>()
+        //     {
+        //         ["Month"] = _billingSummaryDto!.Month,
+        //         ["Year"] = _billingSummaryDto!.Year,
+        //     },
+        //     new DialogOptions()
+        //     {
+        //         Width = "min(800px, 90%)",
+        //         Height = "auto"
+        //     });
     }
 }

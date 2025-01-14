@@ -132,8 +132,7 @@ public static class Converters
         };
 
     public static BillingSummaryDto ToBillingSummaryDto(this Billing entity)
-    {
-        return new BillingSummaryDto()
+        => new BillingSummaryDto()
         {
             Id = entity.Id,
             Month = entity.Month,
@@ -144,5 +143,18 @@ public static class Converters
             Items = entity.BillingItems.ToDictionary(x => x.ItemName!,
                 x => (x.Rate, x.BillingItemDetails.Sum(y => y.Count)))
         };
-    }
+
+    public static BillingDto ToDto(this Billing entity)
+        => new BillingDto()
+        {
+            Id = entity.Id,
+            Month = entity.Month,
+            Year = entity.Year,
+            LastMonth = entity.Summary!.LastMonth,
+            Paid = entity.Paid.OrderBy(x => x.Date).Select(x => new BillingPaidDto(x.Date, x.Amount)).ToList(),
+            BillingItems = entity.BillingItems.Select(x =>
+                new BillingItemDto(x.ItemName!, x.Rate,
+                    x.BillingItemDetails.OrderBy(y => y.Date).Select(y =>
+                        new BillingItemDetailDto(y.Date, y.Count)).ToList())).ToList()
+        };
 }

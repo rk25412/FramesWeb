@@ -4,8 +4,18 @@ public class BillingService(IRepositoryManager repositoryManager) : IBillingServ
 {
     public async Task<BillingSummaryDto?> GetBillingSummary(int month, int year)
     {
-        var billing = await repositoryManager.Billing.GetBillingSummary(month, year);
+        var billing = await repositoryManager.Billing.GetBillingData(month, year);
         return billing?.ToBillingSummaryDto();
+    }
+
+    public async Task<BillingDto> GetBillingData(int month, int year)
+    {
+        var billing = await repositoryManager.Billing.GetBillingData(month, year);
+        if (billing is null)
+        {
+            throw new Exception("Billing Data not found");
+        }
+        return billing.ToDto();
     }
 
     public async Task CalculateBilling(int month, int year)
