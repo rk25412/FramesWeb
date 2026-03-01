@@ -39,7 +39,7 @@ public partial class FrameTypes
     {
         await DialogService.OpenAsync<CreateOrUpdateFrameType>(
             "Edit Frame Type",
-            new Dictionary<string, object>()
+            new Dictionary<string, object?>()
             {
                 ["FrameTypeId"] = frameType.Id
             },

@@ -14,10 +14,10 @@
                 </RadzenFormField>
                 <RadzenFormField Text="Master Rate" Variant="Variant.Outlined">
                     <RadzenNumeric @bind-Value="_newFrameType!.MasterRate" Step="0.5" Name="MasterRate"/>
-                    <RadzenRequiredValidator Component="MasterRate" Text="Master Rate is required" Popup="@true"
+                    <RadzenRequiredValidator Component="MasterRate" Text="Master Rate is required" Popup="@false"
                                              Style="position: relative"/>
                     <RadzenNumericRangeValidator Component="MasterRate" Min="1m"
-                                                 Text="Rate should be more than 1" Popup="@true"
+                                                 Text="Rate should be more than 1" Popup="@false"
                                                  Style="position: relative"/>
                 </RadzenFormField>
                 <RadzenFormField Text="Worker Rate" Variant="Variant.Outlined">
