@@ -24,9 +24,14 @@ public class MasterFrameInService(IRepositoryManager repositoryManager) : IMaste
         foreach (var item in entities)
         {
             if (item.Id is 0)
+            {
                 repositoryManager.MasterFrameIns.CreateMasterFrameIn(item);
+            }
             else
+            {
+                item.ModifiedDate = DateTime.Now;
                 repositoryManager.MasterFrameIns.UpdateMasterFrameIn(item);
+            }
         }
 
         await repositoryManager.SaveAsync();

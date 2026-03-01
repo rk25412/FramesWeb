@@ -39,7 +39,7 @@ public partial class Workers
     {
         await DialogService.OpenAsync<CreateOrEditWorker>(
             "Edit Worker",
-            new Dictionary<string, object>()
+            new Dictionary<string, object?>()
             {
                 ["WorkerId"] = workerDto.Id
             },

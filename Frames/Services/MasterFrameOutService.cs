@@ -29,6 +29,7 @@ public class MasterFrameOutService(IRepositoryManager repositoryManager) : IMast
                     repositoryManager.MasterFrameOuts.CreateMasterFrameOut(entity);
                     break;
                 case > 0 when entity.MasterFrameOutTypes.Any(x => x.Count > 0):
+                    entity.ModifiedDate = DateTime.Now;
                     repositoryManager.MasterFrameOuts.UpdateMasterFrameOut(entity);
                     break;
                 case > 0:

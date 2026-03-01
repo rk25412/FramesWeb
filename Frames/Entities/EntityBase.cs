@@ -8,5 +8,5 @@ public class EntityBase
 
     [Required] public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-    [Required] public DateTime UpdatedDate { get; set; } = DateTime.Now;
+    [Required] public DateTime ModifiedDate { get; set; } = DateTime.Now;
 }

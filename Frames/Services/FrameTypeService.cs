@@ -32,14 +32,16 @@ public class FrameTypeService(IRepositoryManager repositoryManager) : IFrameType
 
     public async Task UpdateFrameType(FrameTypeDto frameTypeDto)
     {
-        repositoryManager.FrameTypes.UpdateFrameType(frameTypeDto.ToEntity());
+        var frameTypeEntity = frameTypeDto.ToEntity();
+        frameTypeEntity.ModifiedDate = DateTime.Now;
+        repositoryManager.FrameTypes.UpdateFrameType(frameTypeEntity);
         await repositoryManager.SaveAsync();
         repositoryManager.Detach();
     }
 
     public async Task RemoveFrameType(int frameTypeId)
     {
-        repositoryManager.FrameTypes.RemoveFrameType(new() { Id = frameTypeId });
+        repositoryManager.FrameTypes.RemoveFrameType(new FrameType { Id = frameTypeId });
         await repositoryManager.SaveAsync();
         repositoryManager.Detach();
     }

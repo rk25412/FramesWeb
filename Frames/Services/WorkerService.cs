@@ -15,12 +15,7 @@ public class WorkerService(IRepositoryManager repoManager) : IWorkerService
     public async Task<WorkerDto> GetWorkerById(int workerId)
     {
         var workerEntity = await repoManager.Workers.GetWorkerById(workerId, false);
-        if (workerEntity == null)
-        {
-            throw new Exception($"Worker Id {workerId} not found");
-        }
-
-        return workerEntity.ToDto();
+        return workerEntity == null ? throw new Exception($"Worker Id {workerId} not found") : workerEntity.ToDto();
     }
 
     public async Task CreateWorker(WorkerDto newWorker)
@@ -33,7 +28,9 @@ public class WorkerService(IRepositoryManager repoManager) : IWorkerService
 
     public async Task UpdateWorker(WorkerDto worker)
     {
-        repoManager.Workers.UpdateWorker(worker.ToEntity());
+        var entity = worker.ToEntity();
+        entity.ModifiedDate = DateTime.Now;
+        repoManager.Workers.UpdateWorker(entity);
         await repoManager.SaveAsync();
         repoManager.Detach();
     }
