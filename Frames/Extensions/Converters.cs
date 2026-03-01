@@ -45,7 +45,7 @@ public static class Converters
             Date = DateOnly.FromDateTime(frameIn.First().DateTime)
         };
         result.InItems.AddRange(frameIn.Select(x => new FrameInTimeAndCount()
-            { Id = x.Id, Time = TimeOnly.FromDateTime(x.DateTime), Count = x.FrameCount }).OrderBy(x => x.Time));
+            { Id = x.Id, Time = TimeOnly.FromDateTime(x.DateTime), Count = x.FrameCount }).OrderByDescending(x => x.Time));
         return result;
     }
 
@@ -90,7 +90,7 @@ public static class Converters
         {
             Date = DateOnly.FromDateTime(frameOuts.First().DateTime)
         };
-        foreach (var frameOut in frameOuts.OrderBy(x => x.DateTime))
+        foreach (var frameOut in frameOuts.OrderByDescending(x => x.DateTime))
         {
             FrameOutTimeDto timeDto = new()
             {
@@ -151,10 +151,10 @@ public static class Converters
             Month = entity.Month,
             Year = entity.Year,
             LastMonth = entity.Summary!.LastMonth,
-            Paid = entity.Paid.OrderBy(x => x.Date).Select(x => new BillingPaidDto(x.Date, x.Amount)).ToList(),
+            Paid = entity.Paid.OrderByDescending(x => x.Date).Select(x => new BillingPaidDto(x.Date, x.Amount)).ToList(),
             BillingItems = entity.BillingItems.Select(x =>
                 new BillingItemDto(x.ItemName!, x.Rate,
-                    x.BillingItemDetails.OrderBy(y => y.Date).Select(y =>
+                    x.BillingItemDetails.OrderByDescending(y => y.Date).Select(y =>
                         new BillingItemDetailDto(y.Date, y.Count)).ToList())).ToList()
         };
 }
