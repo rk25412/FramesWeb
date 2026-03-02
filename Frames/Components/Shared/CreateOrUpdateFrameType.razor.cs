@@ -2,7 +2,7 @@ namespace Frames.Components.Shared;
 
 public partial class CreateOrUpdateFrameType
 {
-    [Parameter] public int FrameTypeId { get; set; }
+    [Parameter] public long FrameTypeId { get; set; }
 
     private FrameTypeDto? _newFrameType;
     private readonly List<string> _frameNames = [];

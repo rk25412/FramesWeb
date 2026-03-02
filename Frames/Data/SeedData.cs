@@ -68,7 +68,7 @@ public static class SeedData
         appDbContext.SaveChanges();
         appDbContext.ChangeTracker.Clear();
 
-        var workersFromDb = appDbContext.Workers.AsNoTracking().ToList();
+        // var workersFromDb = appDbContext.Workers.AsNoTracking().ToList();
         var frameTypesFromDb = appDbContext.FrameTypes.AsNoTracking().ToList();
 
         if (!appDbContext.MasterFrameOuts.Any())

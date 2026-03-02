@@ -29,7 +29,6 @@ public class WorkerService(IRepositoryManager repoManager) : IWorkerService
     public async Task UpdateWorker(WorkerDto worker)
     {
         var entity = worker.ToEntity();
-        entity.ModifiedDate = DateTime.Now;
         repoManager.Workers.UpdateWorker(entity);
         await repoManager.SaveAsync();
         repoManager.Detach();

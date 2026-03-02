@@ -6,6 +6,7 @@ public interface IRepositoryManager
     IWorkerRepository Workers { get; }
     IMasterFrameInRepository MasterFrameIns { get; }
     IMasterFrameOutRepository MasterFrameOuts { get; }
+    IMasterFrameOutTypeRepository MasterFrameOutTypes { get; }
     IPaymentsRepository Payments { get; }
     IBillingRepository Billing { get; }
     void Detach();

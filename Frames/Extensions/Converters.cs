@@ -2,176 +2,213 @@ namespace Frames.Extensions;
 
 public static class Converters
 {
-    public static FrameType ToEntity(this FrameTypeDto dto)
-        => new FrameType()
-        {
-            Id = dto.Id,
-            Name = dto.Name!,
-            MasterFrameRate = dto.MasterRate ?? 0m,
-            WorkerFrameRate = dto.WorkerRate ?? 0m
-        };
-
-    public static FrameTypeDto ToDto(this FrameType frameType)
-        => new FrameTypeDto()
-        {
-            Id = frameType.Id,
-            Name = frameType.Name,
-            MasterRate = frameType.MasterFrameRate,
-            WorkerRate = frameType.WorkerFrameRate
-        };
-
-    public static Worker ToEntity(this WorkerDto dto)
-        => new Worker()
-        {
-            Id = dto.Id,
-            Name = dto.Name!
-        };
-
-    public static WorkerDto ToDto(this Worker worker)
-        => new WorkerDto()
-        {
-            Id = worker.Id,
-            Name = worker.Name
-        };
-
-    public static List<MasterFrameIn> ToEntity(this FrameInDto dto)
+    extension(FrameTypeDto dto)
     {
-        List<MasterFrameIn> result = [];
-        result.AddRange(
-            dto.InItems.Select(x => 
-                new MasterFrameIn()
-                {
-                    Id = x.Id,
-                    FrameCount = x.Count,
-                    DateTime = new DateTime(dto.Date, x.Time)
-                }));
-        return result;
-    }
-
-    public static FrameInDto ToDto(this List<MasterFrameIn> frameIn)
-    {
-        FrameInDto result = new()
-        {
-            Date = DateOnly.FromDateTime(frameIn.First().DateTime)
-        };
-        result.InItems.AddRange(
-            frameIn.Select(x => 
-                new FrameInTimeAndCount()
-                {
-                    Id = x.Id,
-                    Time = TimeOnly.FromDateTime(x.DateTime),
-                    Count = x.FrameCount
-                }).OrderBy(x => x.Time)
-            );
-        return result;
-    }
-
-    public static List<MasterFrameOut> ToEntity(this FrameOutDto dto)
-    {
-        List<MasterFrameOut> result = [];
-
-        foreach (var timeDto in dto.FrameOutTimeDtos)
-        {
-            MasterFrameOut masterFrameOut = new()
+        public FrameType ToEntity()
+            => new FrameType()
             {
-                Id = timeDto.Id,
-                DateTime = new DateTime(dto.Date, timeDto.Time),
-                MasterFrameOutTypes = []
+                Id = dto.Id,
+                Name = dto.Name!,
+                MasterFrameRate = dto.MasterRate ?? 0m,
+                WorkerFrameRate = dto.WorkerRate ?? 0m
             };
+    }
 
-            foreach (var typeDto in timeDto.FrameOutTypes)
+    extension(FrameType frameType)
+    {
+        public FrameTypeDto ToDto()
+            => new FrameTypeDto()
             {
-                if (typeDto is { Count: <= 0, Id: 0 })
-                    continue;
+                Id = frameType.Id,
+                Name = frameType.Name,
+                MasterRate = frameType.MasterFrameRate,
+                WorkerRate = frameType.WorkerFrameRate
+            };
+    }
 
-                MasterFrameOutType type = new()
+    extension(WorkerDto dto)
+    {
+        public Worker ToEntity()
+            => new Worker()
+            {
+                Id = dto.Id,
+                Name = dto.Name!
+            };
+    }
+
+    extension(Worker worker)
+    {
+        public WorkerDto ToDto()
+            => new WorkerDto()
+            {
+                Id = worker.Id,
+                Name = worker.Name
+            };
+    }
+
+    extension(FrameInDto dto)
+    {
+        public List<MasterFrameIn> ToEntity()
+        {
+            List<MasterFrameIn> result = [];
+            result.AddRange(
+                dto.InItems.Select(x =>
+                    new MasterFrameIn()
+                    {
+                        Id = x.Id,
+                        FrameCount = x.Count,
+                        DateTime = new DateTime(dto.Date, x.Time)
+                    }));
+            return result;
+        }
+    }
+
+    extension(List<MasterFrameIn> frameIn)
+    {
+        public FrameInDto ToDto()
+        {
+            FrameInDto result = new()
+            {
+                Date = DateOnly.FromDateTime(frameIn.First().DateTime)
+            };
+            result.InItems.AddRange(
+                frameIn.Select(x =>
+                    new FrameInTimeAndCount()
+                    {
+                        Id = x.Id,
+                        Time = TimeOnly.FromDateTime(x.DateTime),
+                        Count = x.FrameCount
+                    }).OrderBy(x => x.Time)
+            );
+            return result;
+        }
+    }
+
+    extension(FrameOutDto dto)
+    {
+        public List<MasterFrameOut> ToEntity()
+        {
+            List<MasterFrameOut> result = [];
+
+            foreach (var timeDto in dto.FrameOutTimeDtos)
+            {
+                MasterFrameOut masterFrameOut = new()
                 {
-                    Id = typeDto.Id,
-                    Count = typeDto.Count,
-                    FrameRate = typeDto.FrameRate,
-                    FrameTypeId = typeDto.FrameTypeId
+                    Id = timeDto.Id,
+                    DateTime = new DateTime(dto.Date, timeDto.Time),
+                    MasterFrameOutTypes = []
                 };
 
-                masterFrameOut.MasterFrameOutTypes.Add(type);
+                foreach (var typeDto in timeDto.FrameOutTypes)
+                {
+                    if (typeDto is { Count: <= 0, Id: 0 })
+                        continue;
+
+                    MasterFrameOutType type = new()
+                    {
+                        Id = typeDto.Id,
+                        Count = typeDto.Count,
+                        FrameRate = typeDto.FrameRate,
+                        FrameTypeId = typeDto.FrameTypeId,
+                        MasterFrameOutId = masterFrameOut.Id
+                    };
+
+                    masterFrameOut.MasterFrameOutTypes.Add(type);
+                }
+
+                result.Add(masterFrameOut);
             }
 
-            result.Add(masterFrameOut);
+            return result;
         }
-
-        return result;
     }
 
-    public static FrameOutDto ToDto(this List<MasterFrameOut> frameOuts)
+    extension(List<MasterFrameOut> frameOuts)
     {
-        FrameOutDto result = new()
+        public FrameOutDto ToDto()
         {
-            Date = DateOnly.FromDateTime(frameOuts.First().DateTime)
-        };
-        foreach (var frameOut in frameOuts.OrderBy(x => x.DateTime))
-        {
-            FrameOutTimeDto timeDto = new()
+            FrameOutDto result = new()
             {
-                Id = frameOut.Id,
-                Time = TimeOnly.FromDateTime(frameOut.DateTime)
+                Date = DateOnly.FromDateTime(frameOuts.First().DateTime)
             };
-
-            timeDto.FrameOutTypes.AddRange(frameOut.MasterFrameOutTypes
-                .Select(x => new FrameOutTypeDto()
+            foreach (var frameOut in frameOuts.OrderBy(x => x.DateTime))
+            {
+                FrameOutTimeDto timeDto = new()
                 {
-                    Id = x.Id,
-                    Count = x.Count,
-                    FrameTypeId = x.FrameType?.Id ?? 0,
-                    FrameType = x.FrameType?.ToDto(),
-                    FrameName = x.FrameType?.Name ?? "",
-                    FrameRate = x.FrameRate
-                }));
+                    Id = frameOut.Id,
+                    Time = TimeOnly.FromDateTime(frameOut.DateTime)
+                };
 
-            result.FrameOutTimeDtos.Add(timeDto);
+                timeDto.FrameOutTypes.AddRange(frameOut.MasterFrameOutTypes
+                    .Select(x => new FrameOutTypeDto()
+                    {
+                        Id = x.Id,
+                        Count = x.Count,
+                        FrameTypeId = x.FrameType?.Id ?? 0,
+                        FrameType = x.FrameType?.ToDto(),
+                        FrameName = x.FrameType?.Name ?? "",
+                        FrameRate = x.FrameRate
+                    }));
+
+                result.FrameOutTimeDtos.Add(timeDto);
+            }
+
+            return result;
         }
-
-        return result;
     }
 
-    public static PaymentDto ToDto(this Payments payment)
-        => new PaymentDto()
-        {
-            Id = payment.Id,
-            Amount = payment.Amount,
-            Date = payment.Date,
-        };
+    extension(Payments payment)
+    {
+        public PaymentDto ToDto()
+            => new PaymentDto()
+            {
+                Id = payment.Id,
+                Amount = payment.Amount,
+                Date = payment.Date,
+            };
+    }
 
-    public static Payments ToEntity(this PaymentDto dto)
-        => new Payments()
-        {
-            Id = dto.Id,
-            Amount = dto.Amount,
-            Date = dto.Date
-        };
+    extension(PaymentDto dto)
+    {
+        public Payments ToEntity()
+            => new Payments()
+            {
+                Id = dto.Id,
+                Amount = dto.Amount,
+                Date = dto.Date
+            };
+    }
 
-    public static BillingSummaryDto ToBillingSummaryDto(this Billing entity)
-        => new BillingSummaryDto()
-        {
-            Id = entity.Id,
-            Month = entity.Month,
-            Year = entity.Year,
-            Total = entity.Summary?.Total ?? 0m,
-            LastMonth = entity.Summary?.LastMonth ?? 0m,
-            TotalPaid = entity.Summary?.TotalPaid ?? 0m,
-            Items = entity.BillingItems.ToDictionary(x => x.ItemName!,
-                x => (x.Rate, x.BillingItemDetails.Sum(y => y.Count)))
-        };
+    extension(Billing entity)
+    {
+        public BillingSummaryDto ToBillingSummaryDto()
+            => new BillingSummaryDto()
+            {
+                Id = entity.Id,
+                Month = entity.Month,
+                Year = entity.Year,
+                Total = entity.Summary?.Total ?? 0m,
+                LastMonth = entity.Summary?.LastMonth ?? 0m,
+                TotalPaid = entity.Summary?.TotalPaid ?? 0m,
+                Items = entity.BillingItems.ToDictionary(x => x.ItemName!,
+                    x => (x.Rate, x.BillingItemDetails.Sum(y => y.Count)))
+            };
+    }
 
-    public static BillingDto ToDto(this Billing entity)
-        => new BillingDto()
-        {
-            Id = entity.Id,
-            Month = entity.Month,
-            Year = entity.Year,
-            LastMonth = entity.Summary!.LastMonth,
-            Paid = entity.Paid.OrderBy(x => x.Date).Select(x => new BillingPaidDto(x.Date, x.Amount)).ToList(),
-            BillingItems = entity.BillingItems.Select(x =>
-                new BillingItemDto(x.ItemName!, x.Rate,
-                    x.BillingItemDetails.OrderBy(y => y.Date).Select(y =>
-                        new BillingItemDetailDto(y.Date, y.Count)).ToList())).ToList()
-        };
+    extension(Billing entity)
+    {
+        public BillingDto ToDto()
+            => new BillingDto()
+            {
+                Id = entity.Id,
+                Month = entity.Month,
+                Year = entity.Year,
+                LastMonth = entity.Summary!.LastMonth,
+                Paid = entity.Paid.OrderBy(x => x.Date).Select(x => new BillingPaidDto(x.Date, x.Amount)).ToList(),
+                BillingItems = entity.BillingItems.Select(x =>
+                    new BillingItemDto(x.ItemName!, x.Rate,
+                        x.BillingItemDetails.OrderBy(y => y.Date).Select(y =>
+                            new BillingItemDetailDto(y.Date, y.Count)).ToList())).ToList()
+            };
+    }
 }
