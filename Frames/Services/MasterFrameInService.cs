@@ -46,7 +46,7 @@ public class MasterFrameInService(IRepositoryManager repositoryManager) : IMaste
         repositoryManager.Detach();
     }
 
-    public async Task RemoveMasterFrameIn(List<int> ids)
+    public async Task RemoveMasterFrameIn(List<long> ids)
     {
         ids.ForEach(x => repositoryManager.MasterFrameIns.RemoveMasterFrameIn(new() { Id = x }));
         await repositoryManager.SaveAsync();

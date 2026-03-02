@@ -4,7 +4,7 @@ public interface IWorkerRepository
 {
     Task<List<Worker>> GetAllWorkers(bool trackChanges);
     Task<List<string>> GetAllWorkerNames();
-    Task<Worker?> GetWorkerById(int id, bool trackChanges);
+    Task<Worker?> GetWorkerById(long id, bool trackChanges);
     void CreateWorker(Worker worker);
     void UpdateWorker(Worker worker);
     void RemoveWorker(Worker worker);

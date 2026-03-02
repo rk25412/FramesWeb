@@ -49,9 +49,9 @@ public class MasterFrameOutService(IRepositoryManager repositoryManager) : IMast
         repositoryManager.Detach();
     }
 
-    public async Task RemoveFrameOuts(List<int> ids)
+    public async Task RemoveFrameOuts(List<long> ids)
     {
-        ids.ForEach(id => repositoryManager.MasterFrameOuts.RemoveMasterFramesOut(new() { Id = id }));
+        ids.ForEach(id => repositoryManager.MasterFrameOuts.RemoveMasterFramesOut(new MasterFrameOut { Id = id }));
         await repositoryManager.SaveAsync();
         repositoryManager.Detach();
     }

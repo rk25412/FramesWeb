@@ -9,7 +9,7 @@ public class PaymentsService(IRepositoryManager repositoryManager) : IPaymentsSe
         return dto;
     }
 
-    public async Task<PaymentDto> GetPayment(int paymentId)
+    public async Task<PaymentDto> GetPayment(long paymentId)
     {
         var payment = await repositoryManager.Payments.GetPayment(paymentId);
         if (payment is null)
@@ -35,7 +35,7 @@ public class PaymentsService(IRepositoryManager repositoryManager) : IPaymentsSe
         repositoryManager.Detach();
     }
 
-    public async Task RemovePayment(int paymentId)
+    public async Task RemovePayment(long paymentId)
     {
         repositoryManager.Payments.DeletePayment(paymentId);
         await repositoryManager.SaveAsync();

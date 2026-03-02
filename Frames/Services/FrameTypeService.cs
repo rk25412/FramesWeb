@@ -12,7 +12,7 @@ public class FrameTypeService(IRepositoryManager repositoryManager) : IFrameType
     public async Task<List<string>> GetFrameTypeNames()
         => await repositoryManager.FrameTypes.GetFrameTypeNames();
 
-    public async Task<FrameTypeDto> GetFrameTypeById(int frameTypeId)
+    public async Task<FrameTypeDto> GetFrameTypeById(long frameTypeId)
     {
         var frameType = await repositoryManager.FrameTypes.GetFrameTypeById(frameTypeId, false);
         if (frameType is null)
@@ -39,7 +39,7 @@ public class FrameTypeService(IRepositoryManager repositoryManager) : IFrameType
         repositoryManager.Detach();
     }
 
-    public async Task RemoveFrameType(int frameTypeId)
+    public async Task RemoveFrameType(long frameTypeId)
     {
         repositoryManager.FrameTypes.RemoveFrameType(new FrameType { Id = frameTypeId });
         await repositoryManager.SaveAsync();

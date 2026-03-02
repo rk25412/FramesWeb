@@ -10,7 +10,7 @@ public class WorkerRepository(AppDbContext dbContext) : RepositoryBase<Worker>(d
     public async Task<List<string>> GetAllWorkerNames()
         => await FindAll(false).Select(x => x.Name).ToListAsync();
 
-    public async Task<Worker?> GetWorkerById(int id, bool trackChanges)
+    public async Task<Worker?> GetWorkerById(long id, bool trackChanges)
         => await FindByCondition(x => x.Id == id, trackChanges).SingleOrDefaultAsync();
 
     public void CreateWorker(Worker worker) => Create(worker);

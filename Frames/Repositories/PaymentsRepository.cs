@@ -10,7 +10,7 @@ public class PaymentsRepository(AppDbContext dbContext)
             .OrderByDescending(x => x.Date)
             .ToListAsync();
 
-    public async Task<Payments?> GetPayment(int paymentId)
+    public async Task<Payments?> GetPayment(long paymentId)
         => await FindByCondition(x => x.Id == paymentId, false).SingleOrDefaultAsync();
 
     public async Task<Payments?> GetPayment(DateOnly date)
@@ -18,5 +18,5 @@ public class PaymentsRepository(AppDbContext dbContext)
 
     public void CreatePayment(Payments payment) => Create(payment);
     public void UpdatePayment(Payments payment) => Update(payment);
-    public void DeletePayment(int paymentId) => Delete(new Payments { Id = paymentId });
+    public void DeletePayment(long paymentId) => Delete(new Payments { Id = paymentId });
 }

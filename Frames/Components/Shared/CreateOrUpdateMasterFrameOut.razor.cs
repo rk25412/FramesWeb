@@ -7,7 +7,7 @@ public partial class CreateOrUpdateMasterFrameOut : ComponentBase
     private readonly List<FrameTypeDto> _frameTypes = [];
     private FrameOutDto _frameOutDto = new();
     private RadzenDataGrid<FrameOutTimeDto>? _lineItemsGrid;
-    private readonly List<int> _itemsToDelete = [];
+    private readonly List<long> _itemsToDelete = [];
 
     protected override async Task OnInitializedAsync()
     {

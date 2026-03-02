@@ -6,7 +6,7 @@ public partial class CreateOrUpdateMasterFrameIn : ComponentBase
 
     private FrameInDto _frameInDto = new();
     private RadzenDataGrid<FrameInTimeAndCount>? _lineItemsGrid;
-    private readonly List<int> _itemsToDelete = [];
+    private readonly List<long> _itemsToDelete = [];
 
     protected override async Task OnInitializedAsync()
     {

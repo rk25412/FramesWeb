@@ -27,6 +27,7 @@ public partial class Payments : ComponentBase
         _payments.Clear();
         var payments = await ServiceManager.PaymentsService.GetPayments(_selectedMonth, _selectedYear);
         _payments.AddRange(payments);
+        StateHasChanged();
         _grid0?.Reload();
         UtilityService.ToggleLoader();
     }

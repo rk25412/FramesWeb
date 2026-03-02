@@ -4,8 +4,8 @@ public interface IWorkerService
 {
     Task<List<WorkerDto>> GetWorkers();
     Task<List<string>> GetWorkerNames();
-    Task<WorkerDto> GetWorkerById(int workerId);
+    Task<WorkerDto> GetWorkerById(long workerId);
     Task CreateWorker(WorkerDto newWorker);
     Task UpdateWorker(WorkerDto worker);
-    Task RemoveWorker(int workerId);
+    Task RemoveWorker(long workerId);
 }

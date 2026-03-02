@@ -17,6 +17,7 @@ public partial class Workers
         _workers.Clear();
         var workers = await ServiceManager.WorkerService.GetWorkers();
         _workers.AddRange(workers);
+        StateHasChanged();
         _workersGrid?.Reload();
         UtilityService.ToggleLoader();
     }

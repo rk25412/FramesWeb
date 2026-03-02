@@ -12,7 +12,7 @@ public class WorkerService(IRepositoryManager repoManager) : IWorkerService
     public async Task<List<string>> GetWorkerNames()
         => await repoManager.Workers.GetAllWorkerNames();
 
-    public async Task<WorkerDto> GetWorkerById(int workerId)
+    public async Task<WorkerDto> GetWorkerById(long workerId)
     {
         var workerEntity = await repoManager.Workers.GetWorkerById(workerId, false);
         return workerEntity == null ? throw new Exception($"Worker Id {workerId} not found") : workerEntity.ToDto();
@@ -35,7 +35,7 @@ public class WorkerService(IRepositoryManager repoManager) : IWorkerService
         repoManager.Detach();
     }
 
-    public async Task RemoveWorker(int workerId)
+    public async Task RemoveWorker(long workerId)
     {
         repoManager.Workers.RemoveWorker(new Worker { Id = workerId });
         await repoManager.SaveAsync();

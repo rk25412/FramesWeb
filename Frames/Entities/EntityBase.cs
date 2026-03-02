@@ -4,7 +4,7 @@ namespace Frames.Entities;
 
 public class EntityBase
 {
-    [Key] public int Id { get; set; }
+    [Key] public long Id { get; set; }
 
     [Required] public DateTime CreatedDate { get; set; } = DateTime.Now;
 

@@ -6,7 +6,7 @@ public class BillingItemDetail : EntityBase
 {
     public DateOnly Date { get; set; }
     public int Count { get; set; }
-    public int BillingItemId { get; set; }
+    public long BillingItemId { get; set; }
 
     [ForeignKey(nameof(BillingItemId))]
     public BillingItem? BillingItem { get; set; }

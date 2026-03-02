@@ -29,6 +29,7 @@ public partial class MasterFrameIn
         var data = await ServiceManager.MasterFrameInService.GetMasterFrameIns(_selectedMonth, _selectedYear);
         _frameInlist.AddRange(data);
         _maxDataColCount = _frameInlist.Count > 0 ? _frameInlist.Max(x => x.ItemsCount) : 0;
+        StateHasChanged();
         _grid0?.Reload();
         UtilityService.ToggleLoader();
     }

@@ -5,14 +5,18 @@ public static class Converters
     public static FrameType ToEntity(this FrameTypeDto dto)
         => new FrameType()
         {
-            Id = dto.Id, Name = dto.Name!, MasterFrameRate = dto.MasterRate ?? 0m,
+            Id = dto.Id,
+            Name = dto.Name!,
+            MasterFrameRate = dto.MasterRate ?? 0m,
             WorkerFrameRate = dto.WorkerRate ?? 0m
         };
 
     public static FrameTypeDto ToDto(this FrameType frameType)
         => new FrameTypeDto()
         {
-            Id = frameType.Id, Name = frameType.Name, MasterRate = frameType.MasterFrameRate,
+            Id = frameType.Id,
+            Name = frameType.Name,
+            MasterRate = frameType.MasterFrameRate,
             WorkerRate = frameType.WorkerFrameRate
         };
 
@@ -33,8 +37,14 @@ public static class Converters
     public static List<MasterFrameIn> ToEntity(this FrameInDto dto)
     {
         List<MasterFrameIn> result = [];
-        result.AddRange(dto.InItems.Select(x => new MasterFrameIn()
-            { Id = x.Id, FrameCount = x.Count, DateTime = new DateTime(dto.Date, x.Time) }));
+        result.AddRange(
+            dto.InItems.Select(x => 
+                new MasterFrameIn()
+                {
+                    Id = x.Id,
+                    FrameCount = x.Count,
+                    DateTime = new DateTime(dto.Date, x.Time)
+                }));
         return result;
     }
 
@@ -44,8 +54,15 @@ public static class Converters
         {
             Date = DateOnly.FromDateTime(frameIn.First().DateTime)
         };
-        result.InItems.AddRange(frameIn.Select(x => new FrameInTimeAndCount()
-            { Id = x.Id, Time = TimeOnly.FromDateTime(x.DateTime), Count = x.FrameCount }).OrderBy(x => x.Time));
+        result.InItems.AddRange(
+            frameIn.Select(x => 
+                new FrameInTimeAndCount()
+                {
+                    Id = x.Id,
+                    Time = TimeOnly.FromDateTime(x.DateTime),
+                    Count = x.FrameCount
+                }).OrderBy(x => x.Time)
+            );
         return result;
     }
 

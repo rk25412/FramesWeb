@@ -6,7 +6,7 @@ public class BillingItem : EntityBase
 {
     public string? ItemName { get; set; }
     public decimal Rate { get; set; }
-    public int BillingId { get; set; }
+    public long BillingId { get; set; }
 
     [ForeignKey(nameof(BillingId))]
     public Billing? Billing { get; set; }

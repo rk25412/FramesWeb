@@ -17,6 +17,7 @@ public partial class FrameTypes
         _frameTypesList.Clear();
         var framesList = await ServiceManager.FrameTypeService.GetFrameTypes();
         _frameTypesList.AddRange(framesList);
+        StateHasChanged();
         _frameTypeGrid?.Reload();
         UtilityService.ToggleLoader();
     }
