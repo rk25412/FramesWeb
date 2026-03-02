@@ -6,17 +6,17 @@ public partial class BillingPage : ComponentBase
     private readonly List<DropdownDto<int>> _yearDropdown = [];
     private int _selectedMonth;
     private int _selectedYear;
-    
+
     private BillingSummaryDto? _billingSummaryDto;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         _monthDropdown.AddRange(Utilities.GetDdlDataForMonths());
         _yearDropdown.AddRange(Utilities.GetDdlDataForYears());
         _selectedMonth = DateTime.Now.Month;
         _selectedYear = DateTime.Now.Year;
 
-        await GetBillingSummary();
+        InvokeAsync(async () => await GetBillingSummary());
     }
 
     private async Task GetBillingSummary()
@@ -33,6 +33,7 @@ public partial class BillingPage : ComponentBase
         StateHasChanged();
         await Task.Delay(1);
         await ServiceManager.BillingService.CalculateBilling(_selectedMonth, _selectedYear);
+        await GetBillingSummary();
         UtilityService.ToggleLoader();
     }
 
@@ -41,18 +42,5 @@ public partial class BillingPage : ComponentBase
     private void OpenBill()
     {
         NavigationManager.NavigateTo($"/show-bill/{_billingSummaryDto!.Month}/{_billingSummaryDto!.Year}");
-        //
-        //
-        // await DialogService.OpenAsync<ShowBill>("Billing",
-        //     new Dictionary<string, object>()
-        //     {
-        //         ["Month"] = _billingSummaryDto!.Month,
-        //         ["Year"] = _billingSummaryDto!.Year,
-        //     },
-        //     new DialogOptions()
-        //     {
-        //         Width = "min(800px, 90%)",
-        //         Height = "auto"
-        //     });
     }
 }

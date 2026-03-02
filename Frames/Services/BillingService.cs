@@ -17,6 +17,8 @@ public class BillingService(IRepositoryManager repositoryManager) : IBillingServ
     public async Task CalculateBilling(int month, int year)
     {
         var frameOuts = await repositoryManager.MasterFrameOuts.GetMasterFrameOuts(month, year, false);
+        if (frameOuts.Count <= 0)
+            return;
         Billing billing = new()
         {
             Month = month,
