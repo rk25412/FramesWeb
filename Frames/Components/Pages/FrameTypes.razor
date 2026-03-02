@@ -1,12 +1,12 @@
 @page "/frame-types"
 <PageTitle>Frame Types</PageTitle>
 
-<h4>
+<h4 class="d-flex justify-content-@(_frameTypesList.Count > 0 ? "between" : "start") align-items-center">
     Frame Types
     @if (_frameTypesList.Count > 0)
     {
         <RadzenButton Text="Add Frame Type"
-                      class="float-end"
+                      class="@(_frameTypesList.Count > 0 ? "" : "")"
                       Click="@OnAddFrameTypeClick"/>
     }
 </h4>

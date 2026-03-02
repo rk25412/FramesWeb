@@ -1,8 +1,8 @@
 @page "/workers"
 <PageTitle>Workers</PageTitle>
 
-<h4>
-    Workers
+<h4 class="d-flex justify-content-@(_workers.Count > 0 ? "between" : "start") align-items-center">
+    <span>Workers</span>
     @if (_workers.Count > 0)
     {
         <RadzenButton Text="Add Frame Type"

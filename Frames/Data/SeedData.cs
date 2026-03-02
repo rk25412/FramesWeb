@@ -108,6 +108,17 @@ public static class SeedData
             appDbContext.MasterFrameOuts.AddRange(masterFrameOuts);
         }
 
+        // if (!appDbContext.Payments.Any())
+        // {
+        //     List<Payments> payments = [];
+        //     
+        //     var randNo = random.Next(1, 6);
+        //     
+        //     
+        //     
+        //     appDbContext.Payments.AddRange(payments);
+        // }
+
         appDbContext.SaveChanges();
         appDbContext.ChangeTracker.Clear();
     }

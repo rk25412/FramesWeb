@@ -23,17 +23,15 @@ public partial class BillingPage : ComponentBase
     {
         UtilityService.ToggleLoader();
         await Task.Delay(1);
-
         _billingSummaryDto = await ServiceManager.BillingService.GetBillingSummary(_selectedMonth, _selectedYear);
-
         UtilityService.ToggleLoader();
     }
 
     private async Task CalculateBilling()
     {
         UtilityService.ToggleLoader();
+        StateHasChanged();
         await Task.Delay(1);
-        
         await ServiceManager.BillingService.CalculateBilling(_selectedMonth, _selectedYear);
         UtilityService.ToggleLoader();
     }
