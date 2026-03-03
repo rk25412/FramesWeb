@@ -1,0 +1,25 @@
+@if (ChildContent is not null)
+{
+    <div class="accordion"
+         id="@_id">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#@(_id)_collpase"
+                        aria-expanded="true"
+                        aria-controls="@(_id)_collpase">
+                    @HeaderTitle
+                </button>
+            </h2>
+            <div id="@(_id)_collpase"
+                 class="accordion-collapse collapse show"
+                 data-bs-parent="#@_id">
+                <div class="accordion-body">
+                    @ChildContent
+                </div>
+            </div>
+        </div>
+    </div>
+}

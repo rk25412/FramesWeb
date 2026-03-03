@@ -40,6 +40,23 @@
 else
 {
     <div class="mt-5">
+        <div class="mb-3">
+            <PageSummary HeaderTitle="This Month So Far">
+                <div class="row">
+                    @foreach (var (key, (count, amt)) in _summarySoFar)
+                    {
+                        <div class="col-lg-3 col-md-4 col-6 mt-1 text-center">
+                            <span>@key</span>
+                            <br/>
+                            <b>@count</b>
+                            <br />
+                            <b>@amt</b>
+                        </div>
+                    }
+                </div>
+            </PageSummary>
+        </div>
+
         <RadzenDataGrid @ref="@_grid0"
                         AllowFiltering="@false"
                         AllowSorting="@true"
@@ -82,7 +99,7 @@ else
                 {
                     <RadzenDataGridColumn Title="@($"Round {item + 1}")"
                                           TextAlign="@TextAlign.Center"
-                                          Sortable="@true">
+                                          Sortable="@false">
                         <Template Context="data">
                             @if (data is FrameOutDto dto)
                             {

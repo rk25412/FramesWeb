@@ -8,6 +8,7 @@ public partial class Payments : ComponentBase
     private RadzenDataGrid<PaymentDto>? _grid0;
     private int _selectedMonth;
     private int _selectedYear;
+    private decimal TotalPayment => _payments.Sum(p => p.Amount);
 
     protected override async Task OnInitializedAsync()
     {

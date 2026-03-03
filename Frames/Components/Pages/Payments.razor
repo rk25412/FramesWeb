@@ -41,6 +41,20 @@
 else
 {
     <div class="mt-5">
+        <div class="mb-3">
+            <PageSummary HeaderTitle="This Month So Far">
+                <div class="row">
+                    <div class="col-6 text-end">
+                        <strong>Total:</strong>
+                    </div>
+                    <div class="col-6 text-start">
+                        <strong>
+                            @TotalPayment
+                        </strong>
+                    </div>
+                </div>
+            </PageSummary>
+        </div>
         <RadzenDataGrid @ref="@_grid0"
                         AllowFiltering="@false"
                         AllowSorting="@true"
