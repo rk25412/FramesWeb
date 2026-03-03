@@ -45,8 +45,8 @@ else
             <RadzenStack class="mt-2">
                 <div class="row">
                     <div class="col-md-6 col-12 mt-2">
-                        <table class="table table-bordered border-1">
-                            <tr>
+                        <table class="table border-1">
+                            <tr class="border-bottom">
                                 <th class="text-md-center">
                                     Item
                                 </th>
@@ -77,6 +77,16 @@ else
                                     </th>
                                 </tr>
                             }
+                            <tr class="border-top">
+                                <th class="text-center">
+                                    @($"{new DateTime(_billingSummaryDto.Year, _billingSummaryDto.Month, 1):MMM}") Total
+                                </th>
+                                <th colspan="3">
+                                    <div class="d-flex justify-content-end p-0 fs-4">
+                                        @(_billingSummaryDto.Items.Sum(x => x.Value.Item1 * x.Value.Item2))
+                                    </div>
+                                </th>
+                            </tr>
                         </table>
                     </div>
                     <div class="col-md-6 col-12 mt-2 px-4">
@@ -120,7 +130,7 @@ else
                         <div class="row fs-4">
                             <div class="col-6">
                                 <strong>
-                                    @($"{new DateTime(_billingSummaryDto.Year, _billingSummaryDto.Month, 1):MMM}") Total
+                                    Grand Total
                                 </strong>
                             </div>
                             <div class="col-6 text-end">

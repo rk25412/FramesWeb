@@ -54,11 +54,15 @@ public class BillingService(IRepositoryManager repositoryManager) : IBillingServ
         billing.Paid.AddRange(payments.Select(payment => new Paid()
             { Date = payment.Date, Amount = payment.Amount, PaymentId = payment.Id }));
 
+        var lastMonthSummary = month is 1
+            ? await GetBillingSummary(12, year - 1)
+            : await GetBillingSummary(month - 1, year);
+
         billing.Summary = new BillingSummary
         {
             Total = billing.BillingItems.Select(x => x.BillingItemDetails.Sum(y => y.Count) * x.Rate).Sum(),
             TotalPaid = billing.Paid.Sum(x => x.Amount),
-            LastMonth = 0
+            LastMonth = lastMonthSummary?.GrandTotal ?? 0
         };
 
         repositoryManager.Billing.CreateBilling(billing);

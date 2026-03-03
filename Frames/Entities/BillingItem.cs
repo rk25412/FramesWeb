@@ -14,4 +14,11 @@ public class BillingItem : EntityBase
     public Billing? Billing { get; set; }
 
     public List<BillingItemDetail> BillingItemDetails { get; set; } = [];
+
+    public int GetTotalItemCountByDate(DateOnly date)
+    {
+        var forDate = BillingItemDetails.Where(x => x.Date == date);
+        var total = forDate.Sum(x => x.Count);
+        return total;
+    }
 }
