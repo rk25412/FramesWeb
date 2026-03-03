@@ -3,20 +3,20 @@ using Microsoft.EntityFrameworkCore;
 namespace Frames.Repositories;
 
 public class PaymentsRepository(AppDbContext dbContext)
-    : RepositoryBase<Payments>(dbContext), IPaymentsRepository
+    : RepositoryBase<Payment>(dbContext), IPaymentsRepository
 {
-    public async Task<List<Payments>> GetPayments(int month, int year)
+    public async Task<List<Payment>> GetPayments(int month, int year)
         => await FindByCondition(x => x.Date.Month == month && x.Date.Year == year, false)
             .OrderByDescending(x => x.Date)
             .ToListAsync();
 
-    public async Task<Payments?> GetPayment(long paymentId)
+    public async Task<Payment?> GetPayment(long paymentId)
         => await FindByCondition(x => x.Id == paymentId, false).SingleOrDefaultAsync();
 
-    public async Task<Payments?> GetPayment(DateOnly date)
+    public async Task<Payment?> GetPayment(DateOnly date)
         => await FindByCondition(x => x.Date == date, false).SingleOrDefaultAsync();
 
-    public void CreatePayment(Payments payment) => Create(payment);
-    public void UpdatePayment(Payments payment) => Update(payment);
-    public void DeletePayment(long paymentId) => Delete(new Payments { Id = paymentId });
+    public void CreatePayment(Payment payment) => Create(payment);
+    public void UpdatePayment(Payment payment) => Update(payment);
+    public void DeletePayment(long paymentId) => Delete(new Payment { Id = paymentId });
 }

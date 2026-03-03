@@ -2,10 +2,10 @@ namespace Frames.Contracts.Repositories;
 
 public interface IPaymentsRepository
 {
-    Task<List<Payments>> GetPayments(int month, int year);
-    Task<Payments?> GetPayment(long paymentId);
-    Task<Payments?> GetPayment(DateOnly date);
-    void CreatePayment(Payments payment);
-    void UpdatePayment(Payments payment);
+    Task<List<Payment>> GetPayments(int month, int year);
+    Task<Payment?> GetPayment(long paymentId);
+    Task<Payment?> GetPayment(DateOnly date);
+    void CreatePayment(Payment payment);
+    void UpdatePayment(Payment payment);
     void DeletePayment(long paymentId);
 }

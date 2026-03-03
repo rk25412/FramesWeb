@@ -157,7 +157,7 @@ public static class Converters
         }
     }
 
-    extension(Payments payment)
+    extension(Payment payment)
     {
         public PaymentDto ToDto()
             => new PaymentDto()
@@ -170,8 +170,8 @@ public static class Converters
 
     extension(PaymentDto dto)
     {
-        public Payments ToEntity()
-            => new Payments()
+        public Payment ToEntity()
+            => new Payment()
             {
                 Id = dto.Id,
                 Amount = dto.Amount,

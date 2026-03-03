@@ -47,7 +47,7 @@ else
                     <div class="col-md-6 col-12 mt-2">
                         <table class="table table-bordered border-1">
                             <tr>
-                                <th class="text-center">
+                                <th class="text-md-center">
                                     Item
                                 </th>
                                 <th class="text-center">
@@ -63,7 +63,7 @@ else
                             @foreach (var item in _billingSummaryDto.Items)
                             {
                                 <tr>
-                                    <td class="text-center">
+                                    <td class="text-md-center">
                                         @item.Key
                                     </td>
                                     <td class="text-center">
@@ -79,7 +79,7 @@ else
                             }
                         </table>
                     </div>
-                    <div class="col-md-6 col-12 mt-2">
+                    <div class="col-md-6 col-12 mt-2 px-4">
                         <div class="row">
                             <div
                                 class="col-6">
@@ -117,7 +117,7 @@ else
                             </div>
                         </div>
                         <hr class="m-0"/>
-                        <div class="row">
+                        <div class="row fs-4">
                             <div class="col-6">
                                 <strong>
                                     @($"{new DateTime(_billingSummaryDto.Year, _billingSummaryDto.Month, 1):MMM}") Total
