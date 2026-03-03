@@ -4,8 +4,8 @@ namespace Frames.Entities;
 
 public class MasterFrameOutType : EntityBase
 {
-    public int MasterFrameOutId { get; set; }
-    public int FrameTypeId { get; set; }
+    public long MasterFrameOutId { get; set; }
+    public long FrameTypeId { get; set; }
     public decimal FrameRate { get; set; }
     public int Count { get; set; }
     [ForeignKey(nameof(FrameTypeId))] public FrameType? FrameType { get; set; }

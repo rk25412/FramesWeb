@@ -3,6 +3,7 @@ using System;
 using Frames.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Frames.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260302140255_updatedIdFromIntToLong")]
+    partial class updatedIdFromIntToLong
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.3");
@@ -53,7 +56,6 @@ namespace Frames.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ItemName")
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("ModifiedDate")
@@ -146,7 +148,6 @@ namespace Frames.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("WorkerFrameRate")
@@ -301,7 +302,6 @@ namespace Frames.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

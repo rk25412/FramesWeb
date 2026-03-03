@@ -24,9 +24,13 @@ public class MasterFrameInService(IRepositoryManager repositoryManager) : IMaste
         foreach (var item in entities)
         {
             if (item.Id is 0)
+            {
                 repositoryManager.MasterFrameIns.CreateMasterFrameIn(item);
+            }
             else
+            {
                 repositoryManager.MasterFrameIns.UpdateMasterFrameIn(item);
+            }
         }
 
         await repositoryManager.SaveAsync();
@@ -41,9 +45,9 @@ public class MasterFrameInService(IRepositoryManager repositoryManager) : IMaste
         repositoryManager.Detach();
     }
 
-    public async Task RemoveMasterFrameIn(List<int> ids)
+    public async Task RemoveMasterFrameIn(List<long> ids)
     {
-        ids.ForEach(x => repositoryManager.MasterFrameIns.RemoveMasterFrameIn(new() { Id = x }));
+        ids.ForEach(x => repositoryManager.MasterFrameIns.RemoveMasterFrameIn(new MasterFrameIn { Id = x }));
         await repositoryManager.SaveAsync();
         repositoryManager.Detach();
     }

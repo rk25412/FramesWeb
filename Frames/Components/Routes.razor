@@ -23,6 +23,7 @@
     private void ToggleLoader()
     {
         _isLoading = !_isLoading;
+        TriggerStateChange();
     }
 
     public void TriggerStateChange() => InvokeAsync(StateHasChanged);

@@ -2,7 +2,7 @@ namespace Frames.Models;
 
 public class BillingSummaryDto
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
     public int Month { get; set; }
     public int Year { get; set; }
     public decimal Total { get; set; }

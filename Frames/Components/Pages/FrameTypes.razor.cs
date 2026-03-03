@@ -17,6 +17,7 @@ public partial class FrameTypes
         _frameTypesList.Clear();
         var framesList = await ServiceManager.FrameTypeService.GetFrameTypes();
         _frameTypesList.AddRange(framesList);
+        StateHasChanged();
         _frameTypeGrid?.Reload();
         UtilityService.ToggleLoader();
     }
@@ -39,7 +40,7 @@ public partial class FrameTypes
     {
         await DialogService.OpenAsync<CreateOrUpdateFrameType>(
             "Edit Frame Type",
-            new Dictionary<string, object>()
+            new Dictionary<string, object?>()
             {
                 ["FrameTypeId"] = frameType.Id
             },

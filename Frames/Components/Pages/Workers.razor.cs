@@ -17,6 +17,7 @@ public partial class Workers
         _workers.Clear();
         var workers = await ServiceManager.WorkerService.GetWorkers();
         _workers.AddRange(workers);
+        StateHasChanged();
         _workersGrid?.Reload();
         UtilityService.ToggleLoader();
     }
@@ -39,7 +40,7 @@ public partial class Workers
     {
         await DialogService.OpenAsync<CreateOrEditWorker>(
             "Edit Worker",
-            new Dictionary<string, object>()
+            new Dictionary<string, object?>()
             {
                 ["WorkerId"] = workerDto.Id
             },

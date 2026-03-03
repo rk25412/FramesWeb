@@ -10,7 +10,7 @@ public class FrameInDto
 
 public class FrameInTimeAndCount
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
     public TimeOnly Time { get; set; }
     public int Count { get; set; }
 }

@@ -10,7 +10,7 @@ public class FrameOutDto
 
 public class FrameOutTimeDto
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
     public TimeOnly Time { get; set; }
     public List<FrameOutTypeDto> FrameOutTypes { get; set; } = [];
     public int TotalCount => FrameOutTypes.Sum(x => x.Count);
@@ -19,8 +19,8 @@ public class FrameOutTimeDto
 
 public class FrameOutTypeDto
 {
-    public int Id { get; set; }
-    public int FrameTypeId { get; set; }
+    public long Id { get; set; }
+    public long FrameTypeId { get; set; }
     public string? FrameName { get; set; }
     public int Count { get; set; }
     public decimal FrameRate { get; set; }

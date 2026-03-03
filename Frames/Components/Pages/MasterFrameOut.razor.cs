@@ -28,6 +28,7 @@ public partial class MasterFrameOut : ComponentBase
         var frameOutData = await ServiceManager.MasterFrameOutService.GetFrameOuts(_selectedMonth, _selectedYear);
         _frameOutList.AddRange(frameOutData);
         _maxDataColCount = _frameOutList.Count > 0 ? _frameOutList.Max(x => x.ItemsCount) : 0;
+        StateHasChanged();
         _grid0?.Reload();
         UtilityService.ToggleLoader();
     }

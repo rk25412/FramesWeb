@@ -3,6 +3,7 @@ using System;
 using Frames.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,16 +11,18 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Frames.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260301193422_changedUpdatedDateToModifiedDate")]
+    partial class changedUpdatedDateToModifiedDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.3");
 
             modelBuilder.Entity("Frames.Entities.Billing", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -42,18 +45,17 @@ namespace Frames.Migrations
 
             modelBuilder.Entity("Frames.Entities.BillingItem", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("BillingId")
+                    b.Property<int>("BillingId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ItemName")
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("ModifiedDate")
@@ -71,11 +73,11 @@ namespace Frames.Migrations
 
             modelBuilder.Entity("Frames.Entities.BillingItemDetail", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("BillingItemId")
+                    b.Property<int>("BillingItemId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Count")
@@ -99,11 +101,11 @@ namespace Frames.Migrations
 
             modelBuilder.Entity("Frames.Entities.BillingSummary", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("BillingId")
+                    b.Property<int>("BillingId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedDate")
@@ -131,7 +133,7 @@ namespace Frames.Migrations
 
             modelBuilder.Entity("Frames.Entities.FrameType", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -146,7 +148,6 @@ namespace Frames.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("WorkerFrameRate")
@@ -159,7 +160,7 @@ namespace Frames.Migrations
 
             modelBuilder.Entity("Frames.Entities.MasterFrameIn", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -182,7 +183,7 @@ namespace Frames.Migrations
 
             modelBuilder.Entity("Frames.Entities.MasterFrameOut", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -202,7 +203,7 @@ namespace Frames.Migrations
 
             modelBuilder.Entity("Frames.Entities.MasterFrameOutType", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -215,10 +216,10 @@ namespace Frames.Migrations
                     b.Property<decimal>("FrameRate")
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("FrameTypeId")
+                    b.Property<int>("FrameTypeId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("MasterFrameOutId")
+                    b.Property<int>("MasterFrameOutId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("ModifiedDate")
@@ -235,14 +236,14 @@ namespace Frames.Migrations
 
             modelBuilder.Entity("Frames.Entities.Paid", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("BillingId")
+                    b.Property<int>("BillingId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedDate")
@@ -254,7 +255,7 @@ namespace Frames.Migrations
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("PaymentId")
+                    b.Property<int>("PaymentId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -266,7 +267,7 @@ namespace Frames.Migrations
 
             modelBuilder.Entity("Frames.Entities.Payments", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -289,7 +290,7 @@ namespace Frames.Migrations
 
             modelBuilder.Entity("Frames.Entities.Worker", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -301,7 +302,6 @@ namespace Frames.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -311,7 +311,7 @@ namespace Frames.Migrations
 
             modelBuilder.Entity("Frames.Entities.WorkerFrameIn", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -327,7 +327,7 @@ namespace Frames.Migrations
                     b.Property<int>("NoOfFrames")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("WorkerId")
+                    b.Property<int>("WorkerId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -339,7 +339,7 @@ namespace Frames.Migrations
 
             modelBuilder.Entity("Frames.Entities.WorkerFrameOut", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -352,7 +352,7 @@ namespace Frames.Migrations
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("WorkerId")
+                    b.Property<int>("WorkerId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -364,7 +364,7 @@ namespace Frames.Migrations
 
             modelBuilder.Entity("Frames.Entities.WorkerFrameOutType", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -374,13 +374,13 @@ namespace Frames.Migrations
                     b.Property<int>("FrameCount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("FrameOutId")
+                    b.Property<int>("FrameOutId")
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("FrameRate")
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("FrameTypeId")
+                    b.Property<int>("FrameTypeId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("ModifiedDate")

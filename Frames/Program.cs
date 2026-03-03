@@ -27,4 +27,9 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
+if (app.Environment.IsDevelopment())
+{
+    SeedData.EnsurePopulated(app);
+}
+
 app.Run();

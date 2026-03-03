@@ -6,5 +6,5 @@ public interface IMasterFrameInService
     Task<FrameInDto> GetMasterFrameIn(DateOnly date);
     Task CreateOrUpdateMasterFrameIn(FrameInDto frameInDto);
     Task RemoveMasterFrameIn(DateOnly date);
-    Task RemoveMasterFrameIn(List<int> ids);
+    Task RemoveMasterFrameIn(List<long> ids);
 }

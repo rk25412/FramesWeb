@@ -11,7 +11,7 @@ public class FrameTypeRepository(AppDbContext dbContext)
     public async Task<List<string>> GetFrameTypeNames()
         => await FindAll(false).Select(x => x.Name).ToListAsync();
 
-    public async Task<FrameType?> GetFrameTypeById(int id, bool trackChanges)
+    public async Task<FrameType?> GetFrameTypeById(long id, bool trackChanges)
         => await FindByCondition(x => x.Id == id, trackChanges).SingleOrDefaultAsync();
 
     public void CreateNewFrameType(FrameType frameType) => Create(frameType);

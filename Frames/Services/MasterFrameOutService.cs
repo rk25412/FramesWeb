@@ -29,7 +29,24 @@ public class MasterFrameOutService(IRepositoryManager repositoryManager) : IMast
                     repositoryManager.MasterFrameOuts.CreateMasterFrameOut(entity);
                     break;
                 case > 0 when entity.MasterFrameOutTypes.Any(x => x.Count > 0):
+                    var frameOutTypes = entity.MasterFrameOutTypes.ToList();
+                    entity.MasterFrameOutTypes = [];
                     repositoryManager.MasterFrameOuts.UpdateMasterFrameOut(entity);
+                    foreach (var frameOutType in frameOutTypes)
+                    {
+                        switch (frameOutType.Id)
+                        {
+                            case > 0 when frameOutType.Count <= 0:
+                                repositoryManager.MasterFrameOutTypes.DeleteFrameOutType(frameOutType);
+                                break;
+                            case > 0 when frameOutType.Count > 0:
+                                repositoryManager.MasterFrameOutTypes.UpdateFrameOutType(frameOutType);
+                                break;
+                            case 0:
+                                repositoryManager.MasterFrameOutTypes.CreateFrameOutType(frameOutType);
+                                break;
+                        }
+                    }
                     break;
                 case > 0:
                     repositoryManager.MasterFrameOuts.RemoveMasterFramesOut(entity);
@@ -48,9 +65,9 @@ public class MasterFrameOutService(IRepositoryManager repositoryManager) : IMast
         repositoryManager.Detach();
     }
 
-    public async Task RemoveFrameOuts(List<int> ids)
+    public async Task RemoveFrameOuts(List<long> ids)
     {
-        ids.ForEach(id => repositoryManager.MasterFrameOuts.RemoveMasterFramesOut(new() { Id = id }));
+        ids.ForEach(id => repositoryManager.MasterFrameOuts.RemoveMasterFramesOut(new MasterFrameOut { Id = id }));
         await repositoryManager.SaveAsync();
         repositoryManager.Detach();
     }

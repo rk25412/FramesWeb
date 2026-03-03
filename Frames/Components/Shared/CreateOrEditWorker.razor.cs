@@ -2,7 +2,7 @@ namespace Frames.Components.Shared;
 
 public partial class CreateOrEditWorker
 {
-    [Parameter] public int WorkerId { get; set; }
+    [Parameter] public long WorkerId { get; set; }
 
     private WorkerDto? _workerDto;
     private readonly List<string> _workerNames = [];

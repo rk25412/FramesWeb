@@ -11,16 +11,14 @@ public class BillingService(IRepositoryManager repositoryManager) : IBillingServ
     public async Task<BillingDto> GetBillingData(int month, int year)
     {
         var billing = await repositoryManager.Billing.GetBillingData(month, year);
-        if (billing is null)
-        {
-            throw new Exception("Billing Data not found");
-        }
-        return billing.ToDto();
+        return billing is null ? throw new Exception("Billing Data not found") : billing.ToDto();
     }
 
     public async Task CalculateBilling(int month, int year)
     {
         var frameOuts = await repositoryManager.MasterFrameOuts.GetMasterFrameOuts(month, year, false);
+        if (frameOuts.Count <= 0)
+            return;
         Billing billing = new()
         {
             Month = month,
