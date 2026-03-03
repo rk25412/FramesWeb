@@ -10,6 +10,8 @@ public partial class MasterFrameOut : ComponentBase
     private RadzenDataGrid<FrameOutDto>? _grid0;
     private int _maxDataColCount;
 
+    private readonly Dictionary<string, (int, decimal)> _summarySoFar = [];
+
     protected override async Task OnInitializedAsync()
     {
         _monthDropdown.AddRange(Utilities.GetDdlDataForMonths());
@@ -28,9 +30,35 @@ public partial class MasterFrameOut : ComponentBase
         var frameOutData = await ServiceManager.MasterFrameOutService.GetFrameOuts(_selectedMonth, _selectedYear);
         _frameOutList.AddRange(frameOutData);
         _maxDataColCount = _frameOutList.Count > 0 ? _frameOutList.Max(x => x.ItemsCount) : 0;
+        GenerateSummary();
         StateHasChanged();
         _grid0?.Reload();
         UtilityService.ToggleLoader();
+    }
+
+    private void GenerateSummary()
+    {
+        _summarySoFar.Clear();
+        foreach (var frameOut in _frameOutList)
+        {
+            foreach (var frameOutTimeDto in frameOut.FrameOutTimeDtos)
+            {
+                foreach (var frameType in frameOutTimeDto.FrameOutTypes)
+                {
+                    string key = frameType.FrameName!;
+                    if (_summarySoFar.TryGetValue(key, out var val))
+                    {
+                        int count = val.Item1 + frameType.Count;
+                        decimal amt = val.Item2 + frameType.TotalAmount;
+                        _summarySoFar[key] = (count, amt);
+                    }
+                    else
+                    {
+                        _summarySoFar[key] = (frameType.Count, frameType.TotalAmount);
+                    }
+                }
+            }
+        }
     }
 
     private async Task MonthYearDropdownChanged() => await LoadGridData();

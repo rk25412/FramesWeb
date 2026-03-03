@@ -25,4 +25,6 @@ public class FrameOutTypeDto
     public int Count { get; set; }
     public decimal FrameRate { get; set; }
     public FrameTypeDto? FrameType { get; set; }
+    
+    public decimal TotalAmount => Count * FrameRate;
 }

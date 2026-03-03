@@ -10,6 +10,8 @@ public partial class MasterFrameIn
     private RadzenDataGrid<FrameInDto>? _grid0;
     private int _maxDataColCount;
 
+    private int TotalFrameCount => _frameInlist.Sum(x => x.TotalCount);
+
     protected override async Task OnInitializedAsync()
     {
         _monthDropdown.AddRange(Utilities.GetDdlDataForMonths());
