@@ -7,14 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="itext7.bouncy-castle-adapter" Version="9.5.0" />
-      <PackageReference Include="itext7.pdfhtml" Version="6.3.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.3">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Radzen.Blazor" Version="9.0.6" />
+      <PackageReference Include="Radzen.Blazor" Version="9.0.7" />
+      <PackageReference Include="Select.HtmlToPdf.NetCore" Version="25.2.0" />
     </ItemGroup>
 
 </Project>

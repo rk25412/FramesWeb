@@ -8,6 +8,9 @@ public class BillingSummaryDto
     public decimal Total { get; set; }
     public decimal TotalPaid { get; set; }
     public decimal LastMonth { get; set; }
-    public decimal GrandTotal => LastMonth - TotalPaid + Total;
+
+    public decimal LeftFromLastMonth => LastMonth - TotalPaid;
+    public decimal GrandTotal => LeftFromLastMonth + Total;
+    
     public Dictionary<string, (decimal, int)> Items { get; set; } = [];
 }
