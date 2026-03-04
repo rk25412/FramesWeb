@@ -7,11 +7,24 @@ public class BillingRepository(AppDbContext dbContext)
 {
     public async Task<Billing?> GetBillingData(int month, int year)
         => await FindByCondition(x => x.Month == month && x.Year == year, false)
-            .Include(x => x.Summary)
-            .Include(x => x.Paid)
-            .Include(x => x.BillingItems)
-            .ThenInclude(x => x.BillingItemDetails)
-            .SingleOrDefaultAsync();
+            .Select(b => new Billing()
+            {
+                Month = b.Month,
+                Year = b.Year,
+                BillingItems = b.BillingItems.Select(bi => new BillingItem
+                {
+                    ItemName = bi.ItemName,
+                    Rate = bi.Rate,
+                    BillingId = bi.BillingId,
+                    BillingItemDetails = bi.BillingItemDetails.Select(bid => new BillingItemDetail()
+                    {
+                        Date = bid.Date,
+                        Count = bid.Count,
+                        BillingItemId = bid.BillingItemId,
+                    }).ToList()
+                }).ToList(),
+                Summary = b.Summary,
+            }).FirstOrDefaultAsync();
 
     public void CreateBilling(Billing billing) => Create(billing);
 }

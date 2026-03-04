@@ -1,7 +1,35 @@
 @page "/show-bill/{year:int}/{month:int}"
 @layout EmptyLayout
 
-@if (_isLoaded)
+@if (_billingDto is not null)
 {
-    
+    <div class="container">
+        <div class="text-center fs-1 fw-bold">
+            <span>@($"{new DateTime(_billingDto.Year, _billingDto.Month, 1):MMMM}")</span>
+            <span>@Year</span>
+        </div>
+        <div class="d-flex justify-content-around gap-3">
+            <div>
+                @foreach (var billingItem in _billingDto.BillingItems)
+                {
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>@billingItem.Name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var oneDayItem in billingItem.BillingItemDictionary)
+                        {
+                            <tr>
+                                <td>@oneDayItem.Key</td>
+                                <td>@oneDayItem.Value</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
 }
