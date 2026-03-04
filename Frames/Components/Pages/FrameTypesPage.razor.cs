@@ -1,6 +1,6 @@
 namespace Frames.Components.Pages;
 
-public partial class FrameTypes
+public partial class FrameTypesPage
 {
     private readonly List<FrameTypeDto> _frameTypesList = [];
     private RadzenDataGrid<FrameTypeDto>? _frameTypeGrid;

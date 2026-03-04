@@ -1,6 +1,6 @@
 namespace Frames.Components.Pages;
 
-public partial class MasterFrameIn
+public partial class MasterFrameInPage
 {
     private readonly List<FrameInDto> _frameInlist = [];
     private readonly List<DropdownDto<int>> _monthDropdown = [];

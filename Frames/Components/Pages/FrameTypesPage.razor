@@ -6,7 +6,6 @@
     @if (_frameTypesList.Count > 0)
     {
         <RadzenButton Text="Add Frame Type"
-                      class="@(_frameTypesList.Count > 0 ? "" : "")"
                       Click="@OnAddFrameTypeClick"/>
     }
 </h4>
@@ -37,9 +36,11 @@ else
                                       TextAlign="@TextAlign.Center"/>
                 <RadzenDataGridColumn Property="@nameof(FrameTypeDto.MasterRate)"
                                       Title="Master Rate"
+                                      FormatString="{0:C2}"
                                       TextAlign="@TextAlign.Center"/>
                 <RadzenDataGridColumn Property="@nameof(FrameTypeDto.WorkerRate)"
                                       Title="Worker Rate"
+                                      FormatString="{0:C2}"
                                       TextAlign="@TextAlign.Center"/>
                 <RadzenDataGridColumn Title="Action"
                                       TextAlign="@TextAlign.Center"

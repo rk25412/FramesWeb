@@ -1,6 +1,6 @@
 namespace Frames.Components.Pages;
 
-public partial class MasterFrameOut : ComponentBase
+public partial class MasterFrameOutPage : ComponentBase
 {
     private readonly List<DropdownDto<int>> _monthDropdown = [];
     private readonly List<DropdownDto<int>> _yearDropdown = [];

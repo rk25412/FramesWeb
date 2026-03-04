@@ -70,10 +70,10 @@ else
                                         @item.Value.Item2
                                     </td>
                                     <td class="text-center">
-                                        @item.Value.Item1
+                                        @item.Value.Item1.ToString("C2")
                                     </td>
                                     <th class="text-end">
-                                        @(item.Value.Item1 * item.Value.Item2)
+                                        @((item.Value.Item1 * item.Value.Item2).ToString("C2"))
                                     </th>
                                 </tr>
                             }
@@ -83,7 +83,7 @@ else
                                 </th>
                                 <th colspan="3">
                                     <div class="d-flex justify-content-end p-0 fs-4">
-                                        @(_billingSummaryDto.Items.Sum(x => x.Value.Item1 * x.Value.Item2))
+                                        @((_billingSummaryDto.Items.Sum(x => x.Value.Item1 * x.Value.Item2)).ToString("C2"))
                                     </div>
                                 </th>
                             </tr>
@@ -96,7 +96,7 @@ else
                                 @($"{new DateTime(_billingSummaryDto.Year, _billingSummaryDto.Month, 1).AddMonths(-1):MMM}")
                             </div>
                             <div class="col-6 text-end">
-                                @_billingSummaryDto.LastMonth
+                                @_billingSummaryDto.LastMonth.ToString("C2")
                             </div>
                         </div>
                         <div class="row">
@@ -104,7 +104,7 @@ else
                                 Paid
                             </div>
                             <div class="col-6 text-end">
-                                @_billingSummaryDto.TotalPaid
+                                - @_billingSummaryDto.TotalPaid.ToString("C2")
                             </div>
                         </div>
                         <hr class="m-0"/>
@@ -114,7 +114,7 @@ else
                             </div>
                             <div
                                 class="col-6 text-end">
-                                @(_billingSummaryDto.LastMonth - _billingSummaryDto.TotalPaid)
+                                @_billingSummaryDto.LeftFromLastMonth.ToString("C2")
                             </div>
                         </div>
                         <div class="row">
@@ -123,7 +123,7 @@ else
                                 @($"{new DateTime(_billingSummaryDto.Year, _billingSummaryDto.Month, 1):MMM}")
                             </div>
                             <div class="col-6 text-end">
-                                @_billingSummaryDto.Total
+                                + @_billingSummaryDto.Total.ToString("C2")
                             </div>
                         </div>
                         <hr class="m-0"/>
@@ -135,7 +135,7 @@ else
                             </div>
                             <div class="col-6 text-end">
                                 <strong>
-                                    @_billingSummaryDto.Total
+                                    @_billingSummaryDto.GrandTotal.ToString("C2")
                                 </strong>
                             </div>
                         </div>

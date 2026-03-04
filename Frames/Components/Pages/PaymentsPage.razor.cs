@@ -1,6 +1,6 @@
 namespace Frames.Components.Pages;
 
-public partial class Payments : ComponentBase
+public partial class PaymentsPage : ComponentBase
 {
     private readonly List<PaymentDto> _payments = [];
     private readonly List<DropdownDto<int>> _monthDropdown = [];
