@@ -9,6 +9,9 @@ public partial class ShowBillPage
 
     private BillingDto? _billingDto;
     
+    
+    private bool _isLoaded = false;
+
     protected override void OnInitialized()
     {
         if ((Month is < 1 or > 12) || (Year > 2020 && Year < DateTime.Now.Year))

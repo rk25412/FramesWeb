@@ -41,6 +41,6 @@ public partial class BillingPage : ComponentBase
 
     private void OpenBill()
     {
-        NavigationManager.NavigateTo($"/show-bill/{_billingSummaryDto!.Year}/{_billingSummaryDto!.Month}");
+        NavigationManager.NavigateTo($"show-bill/{_billingSummaryDto!.Month}/{_billingSummaryDto!.Year}");
     }
 }
