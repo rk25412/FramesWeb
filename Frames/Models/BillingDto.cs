@@ -23,6 +23,8 @@ public record BillingItemDto(string Name, decimal Rate, List<BillingItemDetailDt
     public decimal TotalCount => BillingItems.Sum(x => x.Count);
     public decimal TotalAmt => Rate * TotalCount;
     public FrozenDictionary<DateOnly, int> BillingItemDictionary =>
-        BillingItems.ToFrozenDictionary(x => x.Date, x => x.Count);
+        BillingItems
+            .GroupBy(x => x.Date)
+            .ToFrozenDictionary(x => x.Key, x => x.Sum(y => y.Count));
 }
 public record BillingItemDetailDto(DateOnly Date, int Count);

@@ -6,6 +6,9 @@ public partial class ShowBillPage
 {
     [Parameter] public int Month { get; set; }
     [Parameter] public int Year { get; set; }
+
+    private BillingDto? _billingDto;
+    
     
     private bool _isLoaded = false;
 
@@ -22,14 +25,10 @@ public partial class ShowBillPage
 
     private async Task LoadBill()
     {
-        _isLoaded = false;
-        
         UtilityService.ToggleLoader();
-        
-        
-        
+        await Task.Delay(1);
+        _billingDto = await ServiceManager.BillingService.GetBillingData(Month, Year);
+        await InvokeAsync(StateHasChanged);
         UtilityService.ToggleLoader();
-        
-        _isLoaded = true;
     }
 }
